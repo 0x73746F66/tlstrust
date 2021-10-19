@@ -1,0 +1,8 @@
+.venv/
+.vscode/
+.lh/
+dist/
+src/tlstrust.egg-info/
+.pypirc
+**/__pycache__/
+.coverage
