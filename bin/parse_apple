@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+import json
+from datetime import datetime
+
+DATE_FMT = '%H:%M:%S %d %b %Y'
+LOCAL_JSON = '.data/legacy_apple.json'
+"""
+Generated from: https://support.apple.com/en-gb/HT212773
+Using: https://www.convertjson.com/html-table-to-json.htm
+Last Updated: 2021-10-20
+"""
+
+if __name__ == '__main__':
+    fingerprints = set()
+    handle = Path(LOCAL_JSON)
+    if not handle.is_file():
+        print(f"file {LOCAL_JSON} doesn't exist")
+        exit(1)
+    data = json.loads(handle.read_bytes())
+    for item in data:
+        fingerprint = item.get('Fingerprint (SHA-256)')
+        if not fingerprint:
+            continue
+        if datetime.utcnow() > datetime.strptime(item.get('Expires'), DATE_FMT):
+            continue
+        fingerprints.add(fingerprint)
+    print(list(fingerprints))

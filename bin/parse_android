@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+import hashlib
+from pathlib import Path
+from OpenSSL.crypto import FILETYPE_PEM, load_certificate, FILETYPE_ASN1, dump_certificate
+from datetime import datetime
+import requests
+from contextlib import closing
+import tarfile
+
+REMOTE_TARBALL = 'https://android.googlesource.com/platform/system/ca-certificates/+archive/master/files.tar.gz'
+STORE_PATH = '.data/android'
+"""
+Generated from: https://android.googlesource.com/platform/system/ca-certificates/+/master/files/
+Last Updated: 2021-10-20
+"""
+
+if __name__ == '__main__':
+    with closing(requests.get(REMOTE_TARBALL, stream=True, allow_redirects=True)) as r:
+        file = tarfile.open(fileobj=r.raw, mode="r|gz")
+        file.extractall(path=STORE_PATH)
+
+    fingerprints = set()
+    handle = Path(STORE_PATH)
+    if not handle.is_dir():
+        print(f"directory {STORE_PATH} doesn't exist")
+        exit(1)
+    for path in handle.glob('*.0'):
+        cert = load_certificate(FILETYPE_PEM, path.read_bytes())
+        now = datetime.utcnow()
+        try:
+            not_before = cert.to_cryptography().not_valid_before
+            not_after = cert.to_cryptography().not_valid_after
+        except ValueError:
+            continue
+        if now < not_before or now > not_after:
+            continue
+        der = dump_certificate(FILETYPE_ASN1, cert)
+        fingerprints.add(hashlib.sha1(der).hexdigest().upper())
+    print(list(fingerprints))

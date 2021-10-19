@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="0.0.1",
+    version="0.1.0",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -21,9 +21,9 @@ from pathlib import Path
 from OpenSSL.crypto import FILETYPE_ASN1
 from tlstrust import TrustStore
 
-der = Path(os.path.join(os.path.dirname(__file__), "cert.der")).read_bytes()
-trust_store = TrustStore()
-print(trust_store.is_trusted(FILETYPE_ASN1, der))
+der = Path(os.path.join(os.path.dirname(__file__), "cacert.der")).read_bytes()
+trust_store = TrustStore(FILETYPE_ASN1, der)
+print(trust_store.is_trusted())
 ```
 
 ## [Change Log](https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/z.change-log.md)
@@ -37,6 +37,7 @@ print(trust_store.is_trusted(FILETYPE_ASN1, der))
     },
     classifiers=[
         "Operating System :: OS Independent",
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     ],
@@ -49,6 +50,6 @@ print(trust_store.is_trusted(FILETYPE_ASN1, der))
     ],
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    python_requires=">=3.9",
+    python_requires=">=3.8",
     options={"bdist_wheel": {"universal": "1"}},
 )

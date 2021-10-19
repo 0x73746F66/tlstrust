@@ -6,3 +6,5 @@ src/tlstrust.egg-info/
 .pypirc
 **/__pycache__/
 .coverage
+.data/
+.pytest_cache/
