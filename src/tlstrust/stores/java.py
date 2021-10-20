@@ -1,3 +1,3 @@
-__module__ = 'tlstrust.java'
+__module__ = 'tlstrust.stores.java'
 # Not yet implemented
 SHA1_FINGERPRINTS = []

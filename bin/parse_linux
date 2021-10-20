@@ -18,9 +18,9 @@ if __name__ == '__main__':
     if not handle.is_dir():
         print(f"directory {STORE_PATH} doesn't exist")
         exit(1)
+    now = datetime.utcnow()
     for path in handle.glob('*.pem'):
         cert = load_certificate(FILETYPE_PEM, path.read_bytes())
-        now = datetime.utcnow()
         try:
             not_before = cert.to_cryptography().not_valid_before
             not_after = cert.to_cryptography().not_valid_after

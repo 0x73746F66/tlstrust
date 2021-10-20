@@ -69,3 +69,13 @@ def test_context_browsers():
     assert isinstance(ts.is_trusted(context.BROWSER_YANDEX_BROWSER), bool)
     assert isinstance(ts.is_trusted(context.BROWSER_VIVALDI), bool)
     assert isinstance(ts.is_trusted(context.BROWSER_TOR_BROWSER), bool)
+
+def test_context_python():
+    ts = TrustStore(FILETYPE_PEM, pem)
+    assert isinstance(ts.is_trusted(context.PYTHON_WINDOWS_SERVER), bool)
+    assert isinstance(ts.is_trusted(context.PYTHON_LINUX_SERVER), bool)
+    assert isinstance(ts.is_trusted(context.PYTHON_MACOS_SERVER), bool)
+    assert isinstance(ts.is_trusted(context.PYTHON_CERTIFI), bool)
+    assert isinstance(ts.is_trusted(context.PYTHON_URLLIB), bool)
+    assert isinstance(ts.is_trusted(context.PYTHON_REQUESTS), bool)
+    assert isinstance(ts.is_trusted(context.PYTHON_DJANGO), bool)

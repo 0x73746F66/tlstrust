@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
+
+from pathlib import Path
+from OpenSSL.crypto import X509, FILETYPE_PEM, load_certificate, dump_certificate
+from datetime import datetime
 """
-Generated from: https://android.googlesource.com/platform/system/ca-certificates/+/master/files/
 Last Updated: 2021-10-20
 """
-import hashlib
-from pathlib import Path
-from OpenSSL.crypto import FILETYPE_PEM, X509, load_certificate, FILETYPE_ASN1, dump_certificate
-from datetime import datetime
-import requests
-from contextlib import closing
-import tarfile
-
-REMOTE_TARBALL = 'https://android.googlesource.com/platform/system/ca-certificates/+archive/master/files.tar.gz'
-STORE_PATH = '.data/android'
+STORE_PATH = '.venv/lib/python3.9/site-packages/certifi/cacert.pem'
+BEGIN = '-----BEGIN CERTIFICATE-----'
+END = '-----END CERTIFICATE-----'
+FINGERPRINT_REF = '# SHA1 Fingerprint: '
 PREFIX = 'fingerprint_'
 
 def get_module_fingerprints(file_content :str) -> list[str]:
@@ -37,18 +34,33 @@ def save_reference_certificate(fingerprint :str, cert :X509):
             f.write(f'{PREFIX}{fingerprint} = """{pem.decode("utf8")}"""\n')
 
 if __name__ == '__main__':
-    with closing(requests.get(REMOTE_TARBALL, stream=True, allow_redirects=True)) as r:
-        file = tarfile.open(fileobj=r.raw, mode="r|gz")
-        file.extractall(path=STORE_PATH)
-
-    fingerprints = set()
     handle = Path(STORE_PATH)
-    if not handle.is_dir():
-        print(f"directory {STORE_PATH} doesn't exist")
+    if not handle.is_file():
+        print(f"file {STORE_PATH} doesn't exist")
         exit(1)
+    lookup = {}
+    current_key = None
+    pem_lines = ''
+    for line in handle.read_text().splitlines():
+        if current_key is None and line.startswith(FINGERPRINT_REF):
+            current_key = line.replace(FINGERPRINT_REF, '').replace(':', '').upper()
+            continue
+        if current_key is not None and not pem_lines and line.startswith(BEGIN):
+            pem_lines += BEGIN + '\n'
+            continue
+        if current_key is not None and pem_lines and line.startswith(END):
+            pem_lines += END
+            lookup[current_key] = pem_lines
+            current_key = None
+            pem_lines = ''
+            continue
+        if current_key is not None and pem_lines:
+            pem_lines += line + '\n'
+
     now = datetime.utcnow()
-    for path in handle.glob('*.0'):
-        cert = load_certificate(FILETYPE_PEM, path.read_bytes())
+    fingerprints = set()
+    for fingerprint, pem in lookup.items():
+        cert = load_certificate(FILETYPE_PEM, pem)
         try:
             not_before = cert.to_cryptography().not_valid_before
             not_after = cert.to_cryptography().not_valid_after
@@ -56,8 +68,7 @@ if __name__ == '__main__':
             continue
         if now < not_before or now > not_after:
             continue
-        der = dump_certificate(FILETYPE_ASN1, cert)
-        fingerprint = hashlib.sha1(der).hexdigest().upper()
         save_reference_certificate(fingerprint, cert)
         fingerprints.add(fingerprint)
+
     print(list(fingerprints))

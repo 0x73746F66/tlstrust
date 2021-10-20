@@ -39,10 +39,15 @@ def test_pem_format():
     ts = TrustStore(FILETYPE_PEM, pem)
     assert isinstance(ts.is_trusted(), bool)
 
-def test_is_trusted_bad_context():
+def test_is_trusted_context_type():
     ts = TrustStore(FILETYPE_PEM, pem)
     with pytest.raises(TypeError):
-        assert isinstance(ts.is_trusted('apple'), bool)
+        ts.is_trusted('apple')
+
+def test_is_trusted_bad_context():
+    ts = TrustStore(FILETYPE_PEM, pem)
+    with pytest.raises(AttributeError):
+        ts.is_trusted(99999)
 
 def test_result():
     ts = TrustStore(FILETYPE_PEM, pem)
@@ -51,3 +56,4 @@ def test_result():
     assert ts.trusted_by_ccadb()
     assert ts.trusted_by_java()
     assert ts.trusted_by_linux()
+    assert ts.trusted_by_certifi()

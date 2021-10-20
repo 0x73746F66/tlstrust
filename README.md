@@ -11,10 +11,12 @@ import os
 from pathlib import Path
 from OpenSSL.crypto import FILETYPE_ASN1
 from tlstrust import TrustStore
+from tlstrust.context import PLATFORM_APPLE
 
 der = Path(os.path.join(os.path.dirname(__file__), "cert.der")).read_bytes()
-trust_store = TrustStore()
-print(trust_store.is_trusted(FILETYPE_ASN1, der))
+trust_store = TrustStore(FILETYPE_ASN1, der)
+assert trust_store.is_trusted()
+assert trust_store.is_trusted(PLATFORM_APPLE)
 ```
 
 ## [Change Log](https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/z.change-log.md)
@@ -99,3 +101,41 @@ The [iOS Trust Store](https://support.apple.com/en-gb/HT204132) contained truste
 [Coming into effect December 1, 2021](https://www.apple.com/certificateauthority/ca_program.html) Apple will also use Common CA Certificate Database (CCADB) which will be enforced and used solely from April 1, 2022.
 
 For this reason `tlstrust` will derive it's result from evaluations of trust for Safari evaluations using the Common CA Certificate Database (CCADB).
+
+# Programming Language Trust (Microservice architecture and APIs)
+
+Starting with Python
+
+## Python native `http.client`
+
+There are no Root CA Certificates that are trusted by default, it relies on `ssl.SSLContext` (or `ssl.create_default_context`) to be provided to the `HTTPSConnection` when TLS verification is used.
+
+Therefore the methodology would be via [`SSLContext.load_default_certs()`](https://docs.python.org/3/library/ssl.html#ssl.SSLContext.load_default_certs) which `tlstrust` also needs to be asked which server Python is running on. Therefore native Python can be checked using:
+
+## Python package `certifi`
+
+Many Python packages (like `pyOpenSSL` that `tlstrust` uses) leverage a package called `certifi` for a consistent root trust evaluation across platforms.
+
+While `certifi` is commonly believed to make the Mozilla Root CA Trust Store available to python, which it does, but `certifi` is it's own Root CA Trust Store because they further curate the Certificates to explicitly not trust any weak Certificates - and unfortunately suffers from being out-of-sync with updates to the Mozilla Root CA Trust Store.
+
+
+## Python package `urllib`
+
+Many Python popular packages (like `requests` where `certifi` originated) leverage a package called `urllib` for as common http client, and add a better developer experience on top.
+
+While `urllib` is commonly believed to do it's own Root CA Trust Store checking, it actually uses `certifi` so `tlstrust` will alias `context.PYTHON_URLLIB` to `context.PYTHON_CERTIFI` until such a time this changes.
+
+
+## Python package `requests`
+
+The most popular package in python is `requests`.
+
+Under `requests` is `urllib` for making HTTP clients, which in turn uses `certifi` for its Root CA Trust Store checking, So `tlstrust` will alias `context.PYTHON_REQUESTS` to `context.PYTHON_URLLIB` until such a time this changes.
+
+
+## Python framework `django`
+
+The most popular framework in python is `django`.
+
+Similiar to `requests`; Under `django` is `urllib` for making HTTP clients, which in turn uses `certifi` for its Root CA Trust Store checking, So `tlstrust` will alias `context.PYTHON_DJANGO` to `context.PYTHON_URLLIB` until such a time this changes.
+

@@ -1,10 +1,11 @@
 import hashlib
 from OpenSSL.crypto import FILETYPE_ASN1, X509, FILETYPE_PEM, dump_certificate, load_certificate
-from tlstrust.apple import SHA256_FINGERPRINTS as APPLE_FINGERPRINTS
-from tlstrust.android import SHA1_FINGERPRINTS as ANDROID_FINGERPRINTS
-from tlstrust.ccadb import SHA1_FINGERPRINTS as CCADB_FINGERPRINTS
-from tlstrust.java import SHA1_FINGERPRINTS as JAVA_FINGERPRINTS
-from tlstrust.linux import SHA1_FINGERPRINTS as LINUX_FINGERPRINTS
+from tlstrust.stores.apple import SHA256_FINGERPRINTS as APPLE_FINGERPRINTS
+from tlstrust.stores.android import SHA1_FINGERPRINTS as ANDROID_FINGERPRINTS
+from tlstrust.stores.ccadb import SHA1_FINGERPRINTS as CCADB_FINGERPRINTS
+# from tlstrust.stores.java import SHA1_FINGERPRINTS as JAVA_FINGERPRINTS
+from tlstrust.stores.linux import SHA1_FINGERPRINTS as LINUX_FINGERPRINTS
+from tlstrust.stores.certifi import SHA1_FINGERPRINTS as CERTIFI_FINGERPRINTS
 
 __module__ = 'tlstrust'
 
@@ -18,6 +19,7 @@ class TrustStore:
     apple :bool
     android :bool
     linux :bool
+    certifi :bool
 
     def __init__(self, filetype :int, cacert :bytes) -> bool:
         super().__init__()
@@ -38,14 +40,9 @@ class TrustStore:
     def is_trusted(self, context :int = None) -> bool:
         if context is not None and not isinstance(context, int):
             raise TypeError(f'context type {type(context)} not supported, expected int')
-
-        if context in {None,0,1,2,3,4}:
-            context in {None,0} and self.trusted_by_ccadb()
-            context in {None,1} and self.trusted_by_apple()
-            context in {None,2} and self.trusted_by_java()
-            context in {None,3} and self.trusted_by_android()
-            context in {None,4} and self.trusted_by_linux()
-
+        if context not in {None,0,1,2,3,4,101}:
+            raise AttributeError('context provided is invalid')
+        self._is_trusted(context)
         if context == 0:
             return self.ccadb
         if context == 1:
@@ -56,8 +53,18 @@ class TrustStore:
             return self.android
         if context == 4:
             return self.linux
+        if context == 101:
+            return self.certifi
 
-        return all([self.ccadb, self.apple, self.android, self.linux])
+        return all([self.ccadb, self.apple, self.android, self.linux, self.certifi])
+
+    def _is_trusted(self, context):
+        context in {None,0} and self.trusted_by_ccadb()
+        context in {None,1} and self.trusted_by_apple()
+        context in {None,2} and self.trusted_by_java()
+        context in {None,3} and self.trusted_by_android()
+        context in {None,4} and self.trusted_by_linux()
+        context in {None,101} and self.trusted_by_certifi()
 
     def trusted_by_ccadb(self) -> bool:
         self.ccadb = self.fingerprint_sha1 in CCADB_FINGERPRINTS
@@ -68,7 +75,7 @@ class TrustStore:
         return self.apple
 
     def trusted_by_java(self) -> bool:
-        self.java = True
+        self.java = True #TODO self.fingerprint_sha1 in JAVA_FINGERPRINTS
         return self.java
 
     def trusted_by_android(self) -> bool:
@@ -78,3 +85,7 @@ class TrustStore:
     def trusted_by_linux(self) -> bool:
         self.linux = self.fingerprint_sha1 in LINUX_FINGERPRINTS
         return self.linux
+
+    def trusted_by_certifi(self) -> bool:
+        self.certifi = self.fingerprint_sha1 in CERTIFI_FINGERPRINTS
+        return self.certifi
