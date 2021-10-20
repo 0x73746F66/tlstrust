@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.2.1 Oct 20th 2021
+
+- Automatically switch off Apple legacy support on April 1 2022
+- Support added for Java
+
 ## 0.2.0 Oct 20th 2021
 
 - Documentation completed and up-to-date

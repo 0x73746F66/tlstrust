@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-cp /etc/ssl/certs/*.pem .data/
-sudo chown 1000:1000 .data
+keytool -list -keystore /etc/ssl/certs/java/cacerts
+yes "" | sudo keytool -keystore /etc/ssl/certs/java/cacerts -exportcert -rfc -alias debian:ac_raiz_fnmt-rcm.pem -file .data/java/ac_raiz_fnmt-rcm.pem
 Last Updated: 2021-10-20
 """
 import hashlib
 from pathlib import Path
-from OpenSSL.crypto import X509, FILETYPE_PEM, load_certificate, FILETYPE_ASN1, dump_certificate
+from OpenSSL.crypto import FILETYPE_ASN1, X509, FILETYPE_PEM, load_certificate, dump_certificate
 from datetime import datetime
 
-STORE_PATH = '.data/linux'
+STORE_PATH = '.data/java'
 PREFIX = 'fingerprint_'
 
 def get_module_fingerprints(file_content :str) -> list[str]:
@@ -34,12 +34,13 @@ def save_reference_certificate(fingerprint :str, cert :X509):
             f.write(f'{PREFIX}{fingerprint} = """{pem.decode("utf8")}"""\n')
 
 if __name__ == '__main__':
-    fingerprints = set()
     handle = Path(STORE_PATH)
     if not handle.is_dir():
         print(f"directory {STORE_PATH} doesn't exist")
         exit(1)
+
     now = datetime.utcnow()
+    fingerprints = set()
     for path in handle.glob('*.pem'):
         cert = load_certificate(FILETYPE_PEM, path.read_bytes())
         try:
@@ -53,4 +54,5 @@ if __name__ == '__main__':
         fingerprint = hashlib.sha1(der).hexdigest().upper()
         save_reference_certificate(fingerprint, cert)
         fingerprints.add(fingerprint)
+
     print(list(fingerprints))
