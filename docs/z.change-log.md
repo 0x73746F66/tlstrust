@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.0 Oct 20th 2021
+
+- code generators now sort lists alphabetically
+- Now supports common name of the CA Certificate Subject for verification, typically used with TLS clients verifying a server in mTLS mode
+- Simplified the api; create teh class with cert bytes or a common name, then check the properties for each store or just check `is_trusted` property
+
 ## 0.3.0 Oct 20th 2021
 
 - bug fix for stores module

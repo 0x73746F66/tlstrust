@@ -15,8 +15,8 @@ from tlstrust.context import PLATFORM_APPLE
 
 der = Path(os.path.join(os.path.dirname(__file__), "cert.der")).read_bytes()
 trust_store = TrustStore(FILETYPE_ASN1, der)
-assert trust_store.is_trusted()
-assert trust_store.is_trusted(PLATFORM_APPLE)
+assert trust_store.check()
+assert trust_store.check(PLATFORM_APPLE)
 ```
 
 ## [Change Log](https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/z.change-log.md)
