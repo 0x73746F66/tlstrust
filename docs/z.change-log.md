@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.2 Oct 22th 2021
+
+- Added more positive and negative testing unit test cases
+- Removed redundant common name lists from code generators
+- Added UNTRUSTED lists to code generators to short circuit complex lookups
+
 ## 1.0.1 Oct 22th 2021
 
 - drop fingerprint lookups for all code generators

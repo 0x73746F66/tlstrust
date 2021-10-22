@@ -16,7 +16,7 @@ check: ## check build
 	python3 setup.py check
 
 test: ## run unit tests with coverage
-	coverage run -m pytest --nf
+	coverage run -m pytest --nf -s
 	coverage report -m
 
 generate-files: ## generates trust store files
