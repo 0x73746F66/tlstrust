@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="1.0.0",
+    version="1.0.1",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",

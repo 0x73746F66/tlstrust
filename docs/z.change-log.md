@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.0.0 Oct 22th 2021
+## 1.0.1 Oct 22th 2021
 
 - drop fingerprint lookups for all code generators
 - all code generators except Apple legacy will index the PEM file

@@ -41,19 +41,19 @@ class TrustStore:
             self.ca_common_name = self._certificate.get_issuer().commonName
         if isinstance(ca_common_name, str):
             self.ca_common_name = ca_common_name
-            if ca_common_name in CCADB_PEM_FILES:
+            if ca_common_name in CCADB_PEM_FILES.keys():
                 self._certificate = self.get_certificate_from_store(context.SOURCE_CCADB)
                 logger.info('Retrieved Certificate from CCADB')
-            elif ca_common_name in ANDROID_PEM_FILES:
+            elif ca_common_name in ANDROID_PEM_FILES.keys():
                 self._certificate = self.get_certificate_from_store(context.SOURCE_ANDROID)
                 logger.info('Retrieved Certificate from Android')
-            elif ca_common_name in JAVA_PEM_FILES:
+            elif ca_common_name in JAVA_PEM_FILES.keys():
                 self._certificate = self.get_certificate_from_store(context.SOURCE_JAVA)
                 logger.info('Retrieved Certificate from Java')
-            elif ca_common_name in LINUX_PEM_FILES:
+            elif ca_common_name in LINUX_PEM_FILES.keys():
                 self._certificate = self.get_certificate_from_store(context.SOURCE_LINUX)
                 logger.info('Retrieved Certificate from Linux')
-            elif ca_common_name in CERTIFI_PEM_FILES:
+            elif ca_common_name in CERTIFI_PEM_FILES.keys():
                 self._certificate = self.get_certificate_from_store(context.SOURCE_CERTIFI)
                 logger.info('Retrieved Certificate from Certifi')
 
@@ -100,20 +100,20 @@ class TrustStore:
             logger.warning(DeprecationWarning(DEPRECATION_MESSAGE), exc_info=True)
 
         if context_type == context.SOURCE_CCADB:
-            return self.ca_common_name in CCADB_PEM_FILES
+            return self.ca_common_name in CCADB_PEM_FILES.keys()
         if context_type == context.SOURCE_JAVA:
-            return self.ca_common_name in JAVA_PEM_FILES
+            return self.ca_common_name in JAVA_PEM_FILES.keys()
         if context_type == context.SOURCE_APPLE:
             logger.warning(DeprecationWarning(DEPRECATION_MESSAGE), exc_info=True)
             for data in REFERENCE_DATA:
                 if self.ca_common_name == data.get('Certificate name'):
                     return True
         if context_type == context.SOURCE_ANDROID:
-            return self.ca_common_name in ANDROID_PEM_FILES
+            return self.ca_common_name in ANDROID_PEM_FILES.keys()
         if context_type == context.SOURCE_LINUX:
-            return self.ca_common_name in LINUX_PEM_FILES
+            return self.ca_common_name in LINUX_PEM_FILES.keys()
         if context_type == context.SOURCE_CERTIFI:
-            return self.ca_common_name in CERTIFI_PEM_FILES
+            return self.ca_common_name in CERTIFI_PEM_FILES.keys()
         return False
 
     def expired_in_store(self, context_type :int) -> bool:
@@ -141,15 +141,15 @@ class TrustStore:
         if context_type == context.SOURCE_APPLE:
             raise NotImplementedError('Legacy Apple does not support this method and will end April 1, 2022')
         certificate = None
-        if context_type == context.SOURCE_CCADB and self.ca_common_name in CCADB_PEM_FILES:
+        if context_type == context.SOURCE_CCADB and self.ca_common_name in CCADB_PEM_FILES.keys():
             certificate = load_certificate(FILETYPE_PEM, CCADB_PEM_FILES[self.ca_common_name].encode())
-        if context_type == context.SOURCE_ANDROID and self.ca_common_name in ANDROID_PEM_FILES:
+        if context_type == context.SOURCE_ANDROID and self.ca_common_name in ANDROID_PEM_FILES.keys():
             certificate = load_certificate(FILETYPE_PEM, ANDROID_PEM_FILES[self.ca_common_name].encode())
-        if context_type == context.SOURCE_JAVA and self.ca_common_name in JAVA_PEM_FILES:
+        if context_type == context.SOURCE_JAVA and self.ca_common_name in JAVA_PEM_FILES.keys():
             certificate = load_certificate(FILETYPE_PEM, JAVA_PEM_FILES[self.ca_common_name].encode())
-        if context_type == context.SOURCE_LINUX and self.ca_common_name in LINUX_PEM_FILES:
+        if context_type == context.SOURCE_LINUX and self.ca_common_name in LINUX_PEM_FILES.keys():
             certificate = load_certificate(FILETYPE_PEM, LINUX_PEM_FILES[self.ca_common_name].encode())
-        if context_type == context.SOURCE_CERTIFI and self.ca_common_name in CERTIFI_PEM_FILES:
+        if context_type == context.SOURCE_CERTIFI and self.ca_common_name in CERTIFI_PEM_FILES.keys():
             certificate = load_certificate(FILETYPE_PEM, CERTIFI_PEM_FILES[self.ca_common_name].encode())
         return certificate
 
