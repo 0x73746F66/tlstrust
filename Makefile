@@ -19,7 +19,15 @@ test: ## run unit tests with coverage
 	coverage run -m pytest --nf
 	coverage report -m
 
-build: check test ## build wheel file
+generate-files: ## generates trust store files
+	bin/parse_android
+	bin/parse_apple
+	bin/parse_ccadb
+	bin/parse_certifi
+	bin/parse_java
+	bin/parse_linux
+
+build: generate-files check test ## build wheel file
 	rm -f dist/*
 	python3 -m build
 
