@@ -1,3 +1,4 @@
+INVALID_CONTEXT = 'context_type provided is invalid'
 SOURCE_CCADB = 0
 SOURCE_JAVA = 1
 SOURCE_APPLE = 2
