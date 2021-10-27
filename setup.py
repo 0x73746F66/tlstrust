@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="1.0.2",
+    version="1.1.1",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -105,8 +105,8 @@ assert trust_store.check_trust(PYTHON_DJANGO)
     },
     classifiers=[
         "Operating System :: OS Independent",
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     ],
     include_package_data=True,
@@ -118,6 +118,6 @@ assert trust_store.check_trust(PYTHON_DJANGO)
     ],
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    python_requires=">=3.8",
+    python_requires=">=3.9",
     options={"bdist_wheel": {"universal": "1"}},
 )

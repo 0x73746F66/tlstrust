@@ -2,52 +2,53 @@ from OpenSSL.crypto import FILETYPE_PEM
 from tlstrust import TrustStore
 from tlstrust import context
 
-pem = b"""
------BEGIN CERTIFICATE-----
-MIIBtjCCAVugAwIBAgITBmyf1XSXNmY/Owua2eiedgPySjAKBggqhkjOPQQDAjA5
-MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6b24g
-Um9vdCBDQSAzMB4XDTE1MDUyNjAwMDAwMFoXDTQwMDUyNjAwMDAwMFowOTELMAkG
-A1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJvb3Qg
-Q0EgMzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABCmXp8ZBf8ANm+gBG1bG8lKl
-ui2yEujSLtf6ycXYqm0fc4E7O5hrOXwzpcVOho6AF2hiRVd9RFgdszflZwjrZt6j
-QjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGGMB0GA1UdDgQWBBSr
-ttvXBp43rDCGB5Fwx5zEGbF4wDAKBggqhkjOPQQDAgNJADBGAiEA4IWSoxe3jfkr
-BqWTrBqYaGFy+uGh0PsceGCmQ5nFuMQCIQCcAu/xlJyzlvnrxir4tiz+OpAUFteM
-YyRIHN8wfdVoOw==
------END CERTIFICATE-----"""
+ca_common_name = 'DigiCert Global Root G3'
 
 def test_setup():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts, TrustStore)
     assert isinstance(ts.is_trusted, bool)
 
 def test_context_ccadb():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts.check_trust(context.SOURCE_CCADB), bool)
     assert isinstance(ts.ccadb, bool)
 
 def test_context_apple():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts.check_trust(context.SOURCE_APPLE), bool)
     assert isinstance(ts.apple, bool)
 
 def test_context_android():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts.check_trust(context.SOURCE_ANDROID), bool)
     assert isinstance(ts.android, bool)
+    assert isinstance(ts.android_latest, bool)
+    assert isinstance(ts.check_trust(context.PLATFORM_ANDROID7), bool)
+    assert isinstance(ts.android7, bool)
+    assert isinstance(ts.check_trust(context.PLATFORM_ANDROID8), bool)
+    assert isinstance(ts.android8, bool)
+    assert isinstance(ts.check_trust(context.PLATFORM_ANDROID9), bool)
+    assert isinstance(ts.android9, bool)
+    assert isinstance(ts.check_trust(context.PLATFORM_ANDROID10), bool)
+    assert isinstance(ts.android10, bool)
+    assert isinstance(ts.check_trust(context.PLATFORM_ANDROID11), bool)
+    assert isinstance(ts.android11, bool)
+    assert isinstance(ts.check_trust(context.PLATFORM_ANDROID12), bool)
+    assert isinstance(ts.android12, bool)
 
 def test_context_linux():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts.check_trust(context.SOURCE_LINUX), bool)
     assert isinstance(ts.linux, bool)
 
 def test_context_java():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts.check_trust(context.SOURCE_JAVA), bool)
     assert isinstance(ts.java, bool)
 
 def test_context_platforms():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts.check_trust(context.PLATFORM_ANDROID), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_LINUX), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_JAVA), bool)
@@ -55,7 +56,7 @@ def test_context_platforms():
     assert isinstance(ts.check_trust(context.PLATFORM_APPLE), bool)
 
 def test_context_browsers():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts.check_trust(context.BROWSER_AMAZON_SILK), bool)
     assert isinstance(ts.check_trust(context.BROWSER_BRAVE), bool)
     assert isinstance(ts.check_trust(context.BROWSER_CHROMIUM), bool)
@@ -70,7 +71,7 @@ def test_context_browsers():
     assert isinstance(ts.check_trust(context.BROWSER_TOR_BROWSER), bool)
 
 def test_context_python():
-    ts = TrustStore(FILETYPE_PEM, pem)
+    ts = TrustStore(ca_common_name=ca_common_name)
     assert isinstance(ts.check_trust(context.PYTHON_WINDOWS_SERVER), bool)
     assert isinstance(ts.check_trust(context.PYTHON_LINUX_SERVER), bool)
     assert isinstance(ts.check_trust(context.PYTHON_MACOS_SERVER), bool)

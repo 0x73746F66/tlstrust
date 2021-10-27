@@ -1,12 +1,27 @@
 # Change Log
 
-## 1.0.2 Oct 22th 2021
+## 1.1.1 Oct 23rd
+
+- stores are now generated with `__description__` and `__version__`
+- Renamed Android store `tlstrust.stores.android` to `tlstrust.stores.android_latest` and now represents the latest android build (unlikely on any devices)
+- Added additional Android stores; version 7, 8, 9, 10, 11, 12
+
+Note: `TrustStore.android` still covers all Android versions as it did in previous releases, though now it is more accurately actually covering all Android versions with the inclusion of version specific stores
+
+## 1.1.0 Oct 23rd
+
+- Removed intermediate ca cert from `TrustStore` initial args (was used to derive issuer Root CA, nothing more)
+- Added optional `authority_key_identifier` to `TrustStore` initial args
+- Require `ca_common_name` for `TrustStore` initial args. Note: `ca_common_name` is used for cert lookup
+- Added `match_certificate` using `authority_key_identifier` (fallback to only `ca_common_name` if AKI is missing)
+
+## 1.0.2 Oct 23rd 2021
 
 - Added more positive and negative testing unit test cases
 - Removed redundant common name lists from code generators
 - Added UNTRUSTED lists to code generators to short circuit complex lookups
 
-## 1.0.1 Oct 22th 2021
+## 1.0.1 Oct 22nd 2021
 
 - drop fingerprint lookups for all code generators
 - all code generators except Apple legacy will index the PEM file
@@ -17,7 +32,7 @@
 - `TrustStore` will now derive a certificate from one of the stores using a supplied Issuer Subject Common Name
 - Added an example for use with the requests library
 
-## 0.4.0 Oct 21th 2021
+## 0.4.0 Oct 21st 2021
 
 - code generators now sort lists alphabetically
 - Now supports common name of the CA Certificate Subject for verification, typically used with TLS clients verifying a server in mTLS mode

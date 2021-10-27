@@ -27,7 +27,7 @@ generate-files: ## generates trust store files
 	bin/parse_java
 	bin/parse_linux
 
-build: generate-files check test ## build wheel file
+build: generate-files check ## build wheel file
 	rm -f dist/*
 	python3 -m build
 
