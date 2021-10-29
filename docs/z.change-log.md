@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.0.0 Oct 29th
+
+- Purge `ca_common_name` entirely
+- Purge Apple entirely (use 1.x.x for Apple support while it remains available by Apple until April 1, 2022)
+- rename `authority_key_identifier` to `key_identifier`
+- Use `key_identifier` for Root CA Certificate matching, SKI is authoritative and `ca_common_name` may be false positive match or false negative missing (when the Intermediate in the chain references the Root CA as an issuer but the issuer subject has no CN property)
+
 ## 1.1.1 Oct 23rd
 
 - stores are now generated with `__description__` and `__version__`

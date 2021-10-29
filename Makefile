@@ -21,7 +21,6 @@ test: ## run unit tests with coverage
 
 generate-files: ## generates trust store files
 	bin/parse_android
-	bin/parse_apple
 	bin/parse_ccadb
 	bin/parse_certifi
 	bin/parse_java

@@ -4,14 +4,21 @@ pip instal certifi
 """
 from os.path import basename
 import json
+from binascii import hexlify
 from pathlib import Path
-from OpenSSL.crypto import X509, FILETYPE_PEM, load_certificate, dump_certificate
+from OpenSSL.crypto import FILETYPE_PEM, load_certificate
 from datetime import datetime
+from cryptography.x509 import Certificate, extensions
 
 STORE_PATH = '.venv/lib/python3.9/site-packages/certifi/cacert.pem'
 BEGIN = '-----BEGIN CERTIFICATE-----'
 END = '-----END CERTIFICATE-----'
 FINGERPRINT_REF = '# SHA1 Fingerprint: '
+
+def get_ski(cert :Certificate) -> str:
+    for ext in cert.extensions:
+        if isinstance(ext.value, extensions.SubjectKeyIdentifier):
+            return hexlify(ext.value.digest).decode('utf-8')
 
 if __name__ == '__main__':
     handle = Path(STORE_PATH)
@@ -39,21 +46,23 @@ if __name__ == '__main__':
 
     now = datetime.utcnow()
     lookup = {}
-    untrusted = set()
+    untrusted_ski = set()
     for fingerprint, pem in certs.items():
         cert = load_certificate(FILETYPE_PEM, pem)
-        ca_common_name = cert.get_issuer().commonName
-        if ca_common_name:
-            lookup[ca_common_name] = pem
         try:
+            ca_ski = get_ski(cert.to_cryptography())
+            if ca_ski:
+                lookup[ca_ski] = pem
             not_before = cert.to_cryptography().not_valid_before
             not_after = cert.to_cryptography().not_valid_after
         except ValueError:
-            untrusted.add(ca_common_name)
+            if ca_ski:
+                untrusted_ski.add(ca_ski)
+            continue
         if now < not_before or now > not_after:
-            untrusted.add(ca_common_name)
+            untrusted_ski.add(ca_ski)
 
-    untrusted = sorted(list(filter(None, untrusted)))
+    untrusted_ski = sorted(list(filter(None, untrusted_ski)))
     store_path = Path('src/tlstrust/stores/certifi.py')
     store_path.write_text(f'''"""
 Do not modify by hand
@@ -64,6 +73,6 @@ __module__ = 'tlstrust.stores.certifi'
 __version__ = 'certifi==2021.10.8'
 __description__ = 'Various libraries that use certifi may include various versions, but should keep certifi updated with each new release'
 
-UNTRUSTED = {json.dumps(untrusted, indent=4, ensure_ascii=False)}
+UNTRUSTED = {json.dumps(untrusted_ski, indent=4, ensure_ascii=False)}
 PEM_FILES = {json.dumps(lookup, sort_keys=True, indent=4, ensure_ascii=False)}
 ''')

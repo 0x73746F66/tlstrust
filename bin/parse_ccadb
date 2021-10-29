@@ -4,6 +4,7 @@ Generated from: https://www.ccadb.org/resources
 """
 from os.path import basename
 import json
+from binascii import hexlify
 from pathlib import Path
 from OpenSSL.crypto import FILETYPE_PEM, load_certificate
 import requests
@@ -11,12 +12,18 @@ from contextlib import closing
 import csv
 from io import StringIO
 from datetime import datetime
+from cryptography.x509 import Certificate, extensions
 
 DATE_FMT = '%Y.%m.%d'
 REMOTE_CSV = 'https://ccadb-public.secure.force.com/mozilla/IncludedRootsDistrustTLSSSLPEMCSV?TrustBitsInclude=Websites'
 
+def get_ski(cert :Certificate) -> str:
+    for ext in cert.extensions:
+        if isinstance(ext.value, extensions.SubjectKeyIdentifier):
+            return hexlify(ext.value.digest).decode('utf-8')
+
 if __name__ == '__main__':
-    untrusted = set()
+    untrusted_ski = set()
     lookup = {}
     with closing(requests.get(REMOTE_CSV, stream=True, allow_redirects=True)) as r:
         buff = StringIO(r.text)
@@ -28,26 +35,27 @@ if __name__ == '__main__':
             pem = pem.replace("'-",'-').replace("-'",'-')
             try:
                 cert = load_certificate(FILETYPE_PEM, pem.replace("'-",'-').replace("-'",'-'))
+                ca_ski = get_ski(cert.to_cryptography())
+                if ca_ski:
+                    lookup[ca_ski] = pem
             except Exception:
-                print(pem)
-                exit(0)
-            ca_common_name = cert.get_issuer().commonName
-            if ca_common_name:
-                lookup[ca_common_name] = pem
+                if ca_ski:
+                    untrusted_ski.add(ca_ski)
+                continue
             distrust_after = item.get('Distrust for TLS After Date')
             if distrust_after:
                 distrust_after_date = datetime.strptime(distrust_after, DATE_FMT)
                 if now > distrust_after_date:
-                    untrusted.add(ca_common_name)
+                    untrusted_ski.add(ca_ski)
             try:
                 not_before = cert.to_cryptography().not_valid_before
                 not_after = cert.to_cryptography().not_valid_after
             except ValueError:
-                untrusted.add(ca_common_name)
+                untrusted_ski.add(ca_ski)
             if now < not_before or now > not_after:
-                untrusted.add(ca_common_name)
+                untrusted_ski.add(ca_ski)
 
-    untrusted = sorted(list(filter(None, untrusted)))
+    untrusted_ski = sorted(list(filter(None, untrusted_ski)))
     store_path = Path('src/tlstrust/stores/ccadb.py')
     store_path.write_text(f'''"""
 Do not modify by hand
@@ -58,6 +66,6 @@ __module__ = 'tlstrust.stores.ccadb'
 __version__ = '{datetime.utcnow().strftime('%Y.%m.%d')}'
 __description__ = 'The version is the date last generated from ccadb.org, it is not versioned and updates are available in an unspecified "timely fashion" as changes are submitted by issuers'
 
-UNTRUSTED = {json.dumps(untrusted, indent=4, ensure_ascii=False)}
+UNTRUSTED = {json.dumps(untrusted_ski, indent=4, ensure_ascii=False)}
 PEM_FILES = {json.dumps(lookup, sort_keys=True, indent=4, ensure_ascii=False)}
 ''')

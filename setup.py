@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="1.1.1",
+    version="2.0.0",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -31,7 +31,6 @@ print(trust_store.check_trust())
 ```py
 all_trusted = trust_store.check_trust()
 assert all_trusted is True
-assert trust_store.apple # Until December 1st 2021
 assert trust_store.android
 assert trust_store.linux
 assert trust_store.ccadb # Windows, Mozilla, and Apple (from December 1st 2021)
@@ -50,12 +49,11 @@ assert trust_store.get_certificate_from_store(PLATFORM_WINDOWS)
 assert trust_store.check_trust(PLATFORM_WINDOWS)
 ```
 
-## Other Platform
+## Other Platforms
 
 ```py
 from tlstrust.context import PLATFORM_ANDROID
 from tlstrust.context import PLATFORM_JAVA
-from tlstrust.context import PLATFORM_APPLE
 from tlstrust.context import PLATFORM_LINUX
 ```
 

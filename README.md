@@ -11,12 +11,12 @@ import os
 from pathlib import Path
 from OpenSSL.crypto import FILETYPE_ASN1
 from tlstrust import TrustStore
-from tlstrust.context import PLATFORM_APPLE
+from tlstrust.context import PLATFORM_JAVA
 
 der = Path(os.path.join(os.path.dirname(__file__), "cert.der")).read_bytes()
 trust_store = TrustStore(FILETYPE_ASN1, der)
 assert trust_store.check_trust()
-assert trust_store.check_trust(PLATFORM_APPLE)
+assert trust_store.check_trust(PLATFORM_JAVA)
 ```
 
 ## [Change Log](https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/z.change-log.md)

@@ -3,28 +3,34 @@ from OpenSSL.crypto import X509
 from tlstrust import TrustStore
 from tlstrust import context
 
-good_ca_common_name = 'DigiCert Global Root G3'
-bad_ca_common_name = 'DST Root CA X3'
+good_ski = 'b3db48a4f9a1c5d8ae3641cc1163696229bc4bc6'
+bad_ski = 'c4a7b1a47b2c71fadbe14b9075ffc41560858910'
 
-def test_cert_properties():
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
-    assert isinstance(ts, TrustStore)
-    assert isinstance(ts.subject_key_identifier, str)
-    ts = TrustStore(ca_common_name=good_ca_common_name)
-    assert isinstance(ts, TrustStore)
-    assert isinstance(ts.subject_key_identifier, str)
+def test_properties():
+    def _test(aki):
+        ts = TrustStore(authority_key_identifier=aki)
+        assert isinstance(ts, TrustStore)
+        assert isinstance(ts.key_identifier, str)
+        assert isinstance(ts.ski_match, bool)
+        assert ts.key_identifier == aki
+        return ts
+    
+    _test(bad_ski)
+    ts = _test(good_ski)
+    assert ts.key_identifier == good_ski
+    assert ts.ski_match
+
 
 def test_cert_exists():
     def _test(ts :TrustStore):
         assert ts.exists(context_type=context.SOURCE_CCADB)
-        assert ts.exists(context_type=context.SOURCE_APPLE)
         assert ts.exists(context_type=context.SOURCE_ANDROID)
         assert ts.exists(context_type=context.SOURCE_JAVA)
         assert ts.exists(context_type=context.SOURCE_CERTIFI)
-    ts = TrustStore(ca_common_name=good_ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     _test(ts)
     assert ts.exists(context_type=context.SOURCE_LINUX)
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
+    ts = TrustStore(authority_key_identifier=bad_ski)
     _test(ts)
     assert ts.exists(context_type=context.SOURCE_LINUX) is False
 
@@ -35,13 +41,11 @@ def test_cert_retrieval():
         assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_ANDROID), X509)
         assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_JAVA), X509)
         assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_CERTIFI), X509)
-        with pytest.raises(NotImplementedError):
-            ts.get_certificate_from_store(context_type=context.SOURCE_APPLE)
 
-    ts = TrustStore(ca_common_name=good_ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     _test(ts)
     assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_LINUX), X509)
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
+    ts = TrustStore(authority_key_identifier=bad_ski)
     _test(ts)
     with pytest.raises(FileExistsError):
         ts.get_certificate_from_store(context_type=context.SOURCE_LINUX)
@@ -52,31 +56,13 @@ def test_expired_in_store():
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_ANDROID), bool)
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_JAVA), bool)
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_CERTIFI), bool)
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
+    ts = TrustStore(authority_key_identifier=bad_ski)
     _test(ts)
     with pytest.raises(FileExistsError):
-        ts.expired_in_store(context_type=context.SOURCE_APPLE)
         ts.expired_in_store(context_type=context.SOURCE_LINUX)
-    ts = TrustStore(ca_common_name=good_ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     _test(ts)
-    assert isinstance(ts.expired_in_store(context_type=context.SOURCE_APPLE), bool)
     assert isinstance(ts.expired_in_store(context_type=context.SOURCE_LINUX), bool)
-
-def test_cert_retrieval_apple():
-    ts = TrustStore(ca_common_name=good_ca_common_name)
-    with pytest.raises(NotImplementedError):
-        ts.get_certificate_from_store(context_type=context.SOURCE_APPLE)
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
-    with pytest.raises(NotImplementedError):
-        ts.get_certificate_from_store(context_type=context.SOURCE_APPLE)
-
-def test_cn_property():
-    def _test(ca_common_name):
-        result = TrustStore(ca_common_name=ca_common_name)
-        assert isinstance(result, TrustStore)
-        assert isinstance(result.ca_common_name, str)
-    _test(bad_ca_common_name)
-    _test(good_ca_common_name)
 
 def test_no_args():
     with pytest.raises(TypeError):
@@ -86,47 +72,32 @@ def test_no_none_args():
     with pytest.raises(TypeError):
         TrustStore(None, None)
 
-def test_ca_common_name_type():
-    with pytest.raises(TypeError):
-        TrustStore(ca_common_name=False)
-
-def test_authority_key_identifier_type():
+def test_key_identifier_type():
     with pytest.raises(TypeError):
         TrustStore(authority_key_identifier=False)
 
 def test_pem_format():
-    ts = TrustStore(ca_common_name=good_ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(), bool)
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
+    ts = TrustStore(authority_key_identifier=bad_ski)
     assert isinstance(ts.check_trust(), bool)
-
-def test_check_context_type():
-    ts = TrustStore(ca_common_name=good_ca_common_name)
-    with pytest.raises(TypeError):
-        ts.check_trust('apple')
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
-    with pytest.raises(TypeError):
-        ts.check_trust('apple')
-
 def test_check_bad_context():
-    ts = TrustStore(ca_common_name=good_ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     with pytest.raises(AttributeError):
         ts.check_trust(99999)
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
+    ts = TrustStore(authority_key_identifier=bad_ski)
     with pytest.raises(AttributeError):
         ts.check_trust(99999)
 
 def test_result():
-    ts = TrustStore(ca_common_name=good_ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert ts.ccadb
-    assert ts.apple
     assert ts.android
     assert ts.java
     assert ts.linux
     assert ts.certifi
-    ts = TrustStore(ca_common_name=bad_ca_common_name)
+    ts = TrustStore(authority_key_identifier=bad_ski)
     assert ts.ccadb is False
-    assert ts.apple is False
     assert ts.android is False
     assert ts.java is False
     assert ts.linux is False

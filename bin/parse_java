@@ -6,11 +6,18 @@ Last Updated: 2021-10-20
 """
 from os.path import basename
 import json
+from binascii import hexlify
 from pathlib import Path
 from OpenSSL.crypto import FILETYPE_PEM, load_certificate
 from datetime import datetime
+from cryptography.x509 import Certificate, extensions
 
 STORE_PATH = '.data/java'
+
+def get_ski(cert :Certificate) -> str:
+    for ext in cert.extensions:
+        if isinstance(ext.value, extensions.SubjectKeyIdentifier):
+            return hexlify(ext.value.digest).decode('utf-8')
 
 if __name__ == '__main__':
     handle = Path(STORE_PATH)
@@ -20,22 +27,24 @@ if __name__ == '__main__':
 
     now = datetime.utcnow()
     lookup = {}
-    untrusted = set()
+    untrusted_ski = set()
     for path in handle.glob('*.pem'):
         pem = path.read_bytes()
         cert = load_certificate(FILETYPE_PEM, pem)
-        ca_common_name = cert.get_issuer().commonName
-        if ca_common_name:
-            lookup[ca_common_name] = pem.decode()
         try:
+            ca_ski = get_ski(cert.to_cryptography())
+            if ca_ski:
+                lookup[ca_ski] = pem.decode()
             not_before = cert.to_cryptography().not_valid_before
             not_after = cert.to_cryptography().not_valid_after
         except ValueError:
-            untrusted.add(ca_common_name)
+            if ca_ski:
+                untrusted_ski.add(ca_ski)
+            continue
         if now < not_before or now > not_after:
-            untrusted.add(ca_common_name)
+            untrusted_ski.add(ca_ski)
 
-    untrusted = sorted(list(filter(None, untrusted)))
+    untrusted_ski = sorted(list(filter(None, untrusted_ski)))
     store_path = Path('src/tlstrust/stores/java.py')
     store_path.write_text(f'''"""
 Do not modify by hand
@@ -46,6 +55,6 @@ __module__ = 'tlstrust.stores.java'
 __version__ = 'openjdk version "15.0.3" 2021-04-20'
 __description__ = 'Various servers will use different versions, an updated Debian-based server should include the latest Java JDK distrubted by Debian'
 
-UNTRUSTED = {json.dumps(untrusted, indent=4, ensure_ascii=False)}
+UNTRUSTED = {json.dumps(untrusted_ski, indent=4, ensure_ascii=False)}
 PEM_FILES = {json.dumps(lookup, sort_keys=True, indent=4, ensure_ascii=False)}
 ''')

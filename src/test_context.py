@@ -2,25 +2,20 @@ from OpenSSL.crypto import FILETYPE_PEM
 from tlstrust import TrustStore
 from tlstrust import context
 
-ca_common_name = 'DigiCert Global Root G3'
+good_ski = 'b3db48a4f9a1c5d8ae3641cc1163696229bc4bc6'
 
 def test_setup():
-    ts = TrustStore(ca_common_name=ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts, TrustStore)
     assert isinstance(ts.is_trusted, bool)
 
 def test_context_ccadb():
-    ts = TrustStore(ca_common_name=ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.SOURCE_CCADB), bool)
     assert isinstance(ts.ccadb, bool)
 
-def test_context_apple():
-    ts = TrustStore(ca_common_name=ca_common_name)
-    assert isinstance(ts.check_trust(context.SOURCE_APPLE), bool)
-    assert isinstance(ts.apple, bool)
-
 def test_context_android():
-    ts = TrustStore(ca_common_name=ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.SOURCE_ANDROID), bool)
     assert isinstance(ts.android, bool)
     assert isinstance(ts.android_latest, bool)
@@ -38,25 +33,24 @@ def test_context_android():
     assert isinstance(ts.android12, bool)
 
 def test_context_linux():
-    ts = TrustStore(ca_common_name=ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.SOURCE_LINUX), bool)
     assert isinstance(ts.linux, bool)
 
 def test_context_java():
-    ts = TrustStore(ca_common_name=ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.SOURCE_JAVA), bool)
     assert isinstance(ts.java, bool)
 
 def test_context_platforms():
-    ts = TrustStore(ca_common_name=ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.PLATFORM_ANDROID), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_LINUX), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_JAVA), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_WINDOWS), bool)
-    assert isinstance(ts.check_trust(context.PLATFORM_APPLE), bool)
 
 def test_context_browsers():
-    ts = TrustStore(ca_common_name=ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.BROWSER_AMAZON_SILK), bool)
     assert isinstance(ts.check_trust(context.BROWSER_BRAVE), bool)
     assert isinstance(ts.check_trust(context.BROWSER_CHROMIUM), bool)
@@ -71,7 +65,7 @@ def test_context_browsers():
     assert isinstance(ts.check_trust(context.BROWSER_TOR_BROWSER), bool)
 
 def test_context_python():
-    ts = TrustStore(ca_common_name=ca_common_name)
+    ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.PYTHON_WINDOWS_SERVER), bool)
     assert isinstance(ts.check_trust(context.PYTHON_LINUX_SERVER), bool)
     assert isinstance(ts.check_trust(context.PYTHON_MACOS_SERVER), bool)
