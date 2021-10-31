@@ -4,6 +4,11 @@ from binascii import hexlify
 from OpenSSL.crypto import FILETYPE_ASN1, X509, FILETYPE_PEM, load_certificate
 from cryptography.x509.extensions import SubjectKeyIdentifier
 from tlstrust import context
+from tlstrust.stores.android_2_2 import UNTRUSTED as ANDROID2_2_UNTRUSTED, PEM_FILES as ANDROID2_2_PEM_FILES
+from tlstrust.stores.android_2_3 import UNTRUSTED as ANDROID2_3_UNTRUSTED, PEM_FILES as ANDROID2_3_PEM_FILES
+from tlstrust.stores.android_3 import UNTRUSTED as ANDROID3_UNTRUSTED, PEM_FILES as ANDROID3_PEM_FILES
+from tlstrust.stores.android_4_4 import UNTRUSTED as ANDROID4_4_UNTRUSTED, PEM_FILES as ANDROID4_4_PEM_FILES
+from tlstrust.stores.android_4 import UNTRUSTED as ANDROID4_UNTRUSTED, PEM_FILES as ANDROID4_PEM_FILES
 from tlstrust.stores.android_7 import UNTRUSTED as ANDROID7_UNTRUSTED, PEM_FILES as ANDROID7_PEM_FILES
 from tlstrust.stores.android_8 import UNTRUSTED as ANDROID8_UNTRUSTED, PEM_FILES as ANDROID8_PEM_FILES
 from tlstrust.stores.android_9 import UNTRUSTED as ANDROID9_UNTRUSTED, PEM_FILES as ANDROID9_PEM_FILES
@@ -33,7 +38,7 @@ class TrustStore:
         # used for Root CA matching, SKI is authoritative
         self.key_identifier = authority_key_identifier
         self.ski_match = False
-        for ctx in [context.SOURCE_CCADB, context.SOURCE_CERTIFI, context.SOURCE_ANDROID, context.SOURCE_JAVA, context.SOURCE_LINUX, context.PLATFORM_ANDROID12, context.PLATFORM_ANDROID11, context.PLATFORM_ANDROID10, context.PLATFORM_ANDROID9, context.PLATFORM_ANDROID8, context.PLATFORM_ANDROID7]:
+        for ctx in [context.SOURCE_CCADB, context.SOURCE_CERTIFI, context.SOURCE_ANDROID, context.SOURCE_JAVA, context.SOURCE_LINUX, context.PLATFORM_ANDROID12, context.PLATFORM_ANDROID11, context.PLATFORM_ANDROID10, context.PLATFORM_ANDROID9, context.PLATFORM_ANDROID8, context.PLATFORM_ANDROID7, context.PLATFORM_ANDROID4_4, context.PLATFORM_ANDROID4, context.PLATFORM_ANDROID3, context.PLATFORM_ANDROID2_3, context.PLATFORM_ANDROID2_2]:
             if self.exists(context_type=ctx):
                 break
 
@@ -58,8 +63,8 @@ class TrustStore:
 
     @property
     def android(self) -> bool:
-        untrusted = list(set(ANDROID_UNTRUSTED + ANDROID7_UNTRUSTED + ANDROID8_UNTRUSTED + ANDROID9_UNTRUSTED + ANDROID10_UNTRUSTED + ANDROID11_UNTRUSTED + ANDROID12_UNTRUSTED))
-        files = ANDROID_PEM_FILES | ANDROID7_PEM_FILES | ANDROID8_PEM_FILES | ANDROID9_PEM_FILES | ANDROID10_PEM_FILES | ANDROID11_PEM_FILES | ANDROID12_PEM_FILES
+        untrusted = list(set(ANDROID_UNTRUSTED + ANDROID2_2_UNTRUSTED + ANDROID2_3_UNTRUSTED + ANDROID3_UNTRUSTED + ANDROID4_UNTRUSTED + ANDROID4_4_UNTRUSTED + ANDROID7_UNTRUSTED + ANDROID8_UNTRUSTED + ANDROID9_UNTRUSTED + ANDROID10_UNTRUSTED + ANDROID11_UNTRUSTED + ANDROID12_UNTRUSTED))
+        files = ANDROID_PEM_FILES | ANDROID2_2_PEM_FILES | ANDROID2_3_PEM_FILES | ANDROID3_PEM_FILES | ANDROID4_PEM_FILES | ANDROID4_4_PEM_FILES | ANDROID7_PEM_FILES | ANDROID8_PEM_FILES | ANDROID9_PEM_FILES | ANDROID10_PEM_FILES | ANDROID11_PEM_FILES | ANDROID12_PEM_FILES
         return self.key_identifier not in untrusted and self.key_identifier in set(files.keys())
 
     @property
@@ -91,6 +96,26 @@ class TrustStore:
         return self.key_identifier not in ANDROID7_UNTRUSTED and self.key_identifier in ANDROID7_PEM_FILES.keys()
 
     @property
+    def android4_4(self) -> bool:
+        return self.key_identifier not in ANDROID4_4_UNTRUSTED and self.key_identifier in ANDROID4_4_PEM_FILES.keys()
+
+    @property
+    def android4(self) -> bool:
+        return self.key_identifier not in ANDROID4_UNTRUSTED and self.key_identifier in ANDROID4_PEM_FILES.keys()
+
+    @property
+    def android3(self) -> bool:
+        return self.key_identifier not in ANDROID3_UNTRUSTED and self.key_identifier in ANDROID3_PEM_FILES.keys()
+
+    @property
+    def android2_3(self) -> bool:
+        return self.key_identifier not in ANDROID2_3_UNTRUSTED and self.key_identifier in ANDROID2_3_PEM_FILES.keys()
+
+    @property
+    def android2_2(self) -> bool:
+        return self.key_identifier not in ANDROID2_2_UNTRUSTED and self.key_identifier in ANDROID2_2_PEM_FILES.keys()
+
+    @property
     def linux(self) -> bool:
         return self.key_identifier not in LINUX_UNTRUSTED and self.key_identifier in LINUX_PEM_FILES.keys()
 
@@ -104,7 +129,7 @@ class TrustStore:
 
     @staticmethod
     def valid_context_type(context_type :int) -> bool:
-        return context_type in {None,context.SOURCE_CCADB,context.SOURCE_JAVA,context.SOURCE_ANDROID,context.SOURCE_LINUX,context.SOURCE_CERTIFI,context.PLATFORM_ANDROID12,context.PLATFORM_ANDROID11,context.PLATFORM_ANDROID10,context.PLATFORM_ANDROID9,context.PLATFORM_ANDROID8,context.PLATFORM_ANDROID7}
+        return context_type in {None,context.SOURCE_CCADB,context.SOURCE_JAVA,context.SOURCE_ANDROID,context.SOURCE_LINUX,context.SOURCE_CERTIFI,context.PLATFORM_ANDROID12,context.PLATFORM_ANDROID11,context.PLATFORM_ANDROID10,context.PLATFORM_ANDROID9,context.PLATFORM_ANDROID8,context.PLATFORM_ANDROID7,context.PLATFORM_ANDROID4_4,context.PLATFORM_ANDROID4,context.PLATFORM_ANDROID3,context.PLATFORM_ANDROID2_3,context.PLATFORM_ANDROID2_2}
 
     def exists(self, context_type :int) -> bool:
         if not TrustStore.valid_context_type(context_type):
@@ -132,6 +157,16 @@ class TrustStore:
             return self.match_certificate(self.get_certificate_from_store(context.PLATFORM_ANDROID8))
         if context_type == context.PLATFORM_ANDROID7 and self.key_identifier in ANDROID7_PEM_FILES.keys():
             return self.match_certificate(self.get_certificate_from_store(context.PLATFORM_ANDROID7))
+        if context_type == context.PLATFORM_ANDROID4_4 and self.key_identifier in ANDROID4_4_PEM_FILES.keys():
+            return self.match_certificate(self.get_certificate_from_store(context.PLATFORM_ANDROID7))
+        if context_type == context.PLATFORM_ANDROID4 and self.key_identifier in ANDROID4_PEM_FILES.keys():
+            return self.match_certificate(self.get_certificate_from_store(context.PLATFORM_ANDROID7))
+        if context_type == context.PLATFORM_ANDROID3 and self.key_identifier in ANDROID3_PEM_FILES.keys():
+            return self.match_certificate(self.get_certificate_from_store(context.PLATFORM_ANDROID7))
+        if context_type == context.PLATFORM_ANDROID2_3 and self.key_identifier in ANDROID2_3_PEM_FILES.keys():
+            return self.match_certificate(self.get_certificate_from_store(context.PLATFORM_ANDROID7))
+        if context_type == context.PLATFORM_ANDROID2_2 and self.key_identifier in ANDROID2_2_PEM_FILES.keys():
+            return self.match_certificate(self.get_certificate_from_store(context.PLATFORM_ANDROID7))
         return False
 
     def expired_in_store(self, context_type :int) -> bool:
@@ -156,6 +191,16 @@ class TrustStore:
                 certificate = load_certificate(FILETYPE_PEM, LINUX_PEM_FILES[self.key_identifier].encode())
             if context_type == context.SOURCE_CERTIFI:
                 certificate = load_certificate(FILETYPE_PEM, CERTIFI_PEM_FILES[self.key_identifier].encode())
+            if context_type == context.PLATFORM_ANDROID2_2:
+                certificate = load_certificate(FILETYPE_PEM, ANDROID2_2_PEM_FILES[self.key_identifier].encode())
+            if context_type == context.PLATFORM_ANDROID2_3:
+                certificate = load_certificate(FILETYPE_PEM, ANDROID2_3_PEM_FILES[self.key_identifier].encode())
+            if context_type == context.PLATFORM_ANDROID3:
+                certificate = load_certificate(FILETYPE_PEM, ANDROID3_PEM_FILES[self.key_identifier].encode())
+            if context_type == context.PLATFORM_ANDROID4:
+                certificate = load_certificate(FILETYPE_PEM, ANDROID4_PEM_FILES[self.key_identifier].encode())
+            if context_type == context.PLATFORM_ANDROID4_4:
+                certificate = load_certificate(FILETYPE_PEM, ANDROID4_4_PEM_FILES[self.key_identifier].encode())
             if context_type == context.PLATFORM_ANDROID7:
                 certificate = load_certificate(FILETYPE_PEM, ANDROID7_PEM_FILES[self.key_identifier].encode())
             if context_type == context.PLATFORM_ANDROID8:
@@ -200,6 +245,16 @@ class TrustStore:
             return self.android8
         if context_type == context.PLATFORM_ANDROID7:
             return self.android7
+        if context_type == context.PLATFORM_ANDROID4_4:
+            return self.android4_4
+        if context_type == context.PLATFORM_ANDROID4:
+            return self.android4
+        if context_type == context.PLATFORM_ANDROID3:
+            return self.android3
+        if context_type == context.PLATFORM_ANDROID2_3:
+            return self.android2_3
+        if context_type == context.PLATFORM_ANDROID2_2:
+            return self.android2_2
         if context_type == context.SOURCE_LINUX:
             return self.linux
         if context_type == context.SOURCE_CERTIFI:
