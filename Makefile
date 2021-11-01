@@ -15,7 +15,7 @@ install: build ## Install the package
 check: ## check build
 	python3 setup.py check
 
-test: ## run unit tests with coverage
+test: generate-files ## run unit tests with coverage
 	coverage run -m pytest --nf -s
 	coverage report -m
 
@@ -26,7 +26,7 @@ generate-files: ## generates trust store files
 	bin/parse_java
 	bin/parse_linux
 
-build: generate-files check ## build wheel file
+build: check ## build wheel file
 	rm -f dist/*
 	python3 -m build
 

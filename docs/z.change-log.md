@@ -1,13 +1,22 @@
 # Change Log
 
-## 2.0.0 Oct 29th
+## 2.0.1 Nov 1th 2021
+
+- Added further Android versions
+  - Android 4.4 (KitKat) 2013
+  - Android 4 (Ice Cream Sandwich) 2011
+  - Android 3 (Honeycomb) 2011
+  - Android 2.3 (Gingerbread) 2010
+  - Android 2.2 (Froyo) 2010
+
+## 2.0.0 Oct 29th 2021
 
 - Purge `ca_common_name` entirely
 - Purge Apple entirely (use 1.x.x for Apple support while it remains available by Apple until April 1, 2022)
 - rename `authority_key_identifier` to `key_identifier`
 - Use `key_identifier` for Root CA Certificate matching, SKI is authoritative and `ca_common_name` may be false positive match or false negative missing (when the Intermediate in the chain references the Root CA as an issuer but the issuer subject has no CN property)
 
-## 1.1.1 Oct 23rd
+## 1.1.1 Oct 23rd 2021
 
 - stores are now generated with `__description__` and `__version__`
 - Renamed Android store `tlstrust.stores.android` to `tlstrust.stores.android_latest` and now represents the latest android build (unlikely on any devices)
@@ -15,7 +24,7 @@
 
 Note: `TrustStore.android` still covers all Android versions as it did in previous releases, though now it is more accurately actually covering all Android versions with the inclusion of version specific stores
 
-## 1.1.0 Oct 23rd
+## 1.1.0 Oct 23rd 2021
 
 - Removed intermediate ca cert from `TrustStore` initial args (was used to derive issuer Root CA, nothing more)
 - Added optional `authority_key_identifier` to `TrustStore` initial args

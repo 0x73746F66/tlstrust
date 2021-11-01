@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="2.0.0",
+    version="2.0.1",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -38,15 +38,17 @@ assert trust_store.java
 assert trust_store.certifi
 ```
 
-## Windows only
+## Basic usage
+
+Using CCADB for demonstration purposes (includes Apple, Microsoft, and Mozilla)
 
 ```py
-from tlstrust.context import PLATFORM_WINDOWS
+from tlstrust.context import SOURCE_CCADB
 
-assert trust_store.exists(PLATFORM_WINDOWS)
-assert trust_store.expired_in_store(PLATFORM_WINDOWS)
-assert trust_store.get_certificate_from_store(PLATFORM_WINDOWS)
-assert trust_store.check_trust(PLATFORM_WINDOWS)
+assert trust_store.exists(SOURCE_CCADB)
+assert trust_store.expired_in_store(SOURCE_CCADB)
+assert trust_store.get_certificate_from_store(SOURCE_CCADB)
+assert trust_store.check_trust(SOURCE_CCADB)
 ```
 
 ## Other Platforms
@@ -55,6 +57,27 @@ assert trust_store.check_trust(PLATFORM_WINDOWS)
 from tlstrust.context import PLATFORM_ANDROID
 from tlstrust.context import PLATFORM_JAVA
 from tlstrust.context import PLATFORM_LINUX
+from tlstrust.context import PLATFORM_APPLE
+```
+
+## Apple (before CCADB)
+
+Apple (legacy) Trust Store support exists in earlier versions of `tlstrust`, it was removed in version `2.0.0` so installing prior versions will allow you to access this functionality.
+
+## Android versions
+
+```py
+from tlstrust.context import PLATFORM_ANDROID2_2
+from tlstrust.context import PLATFORM_ANDROID2_3
+from tlstrust.context import PLATFORM_ANDROID3
+from tlstrust.context import PLATFORM_ANDROID4
+from tlstrust.context import PLATFORM_ANDROID4_4
+from tlstrust.context import PLATFORM_ANDROID7
+from tlstrust.context import PLATFORM_ANDROID8
+from tlstrust.context import PLATFORM_ANDROID9
+from tlstrust.context import PLATFORM_ANDROID10
+from tlstrust.context import PLATFORM_ANDROID11
+from tlstrust.context import PLATFORM_ANDROID12
 ```
 
 # Browser Trust Stores
