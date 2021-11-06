@@ -22,7 +22,7 @@ from tlstrust.stores.linux import UNTRUSTED as LINUX_UNTRUSTED, PEM_FILES as LIN
 from tlstrust.stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI_PEM_FILES
 
 __module__ = 'tlstrust'
-__version__ = '2.0.1'
+__version__ = '2.0.2'
 
 logger = logging.getLogger(__name__)
 DEPRECATION_MESSAGE = 'Apple legacy supports will be removed April 1, 2022'

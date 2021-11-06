@@ -1,6 +1,10 @@
 # Change Log
 
-## 2.0.1 Nov 1th 2021
+## 2.0.2 Nov 6th 2021
+
+- updates to the python certify certs
+
+## 2.0.1 Nov 1st 2021
 
 - Added further Android versions
   - Android 4.4 (KitKat) 2013

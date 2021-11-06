@@ -1,6 +1,7 @@
 .venv/
 .vscode/
 .lh/
+build/
 dist/
 src/tlstrust.egg-info/
 .pypirc
