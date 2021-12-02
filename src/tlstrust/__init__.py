@@ -30,28 +30,21 @@ MISSING_MESSAGE = 'Certificate does not exist'
 
 class TrustStore:
     key_identifier :str
-    ski_match :bool
 
     def __init__(self, authority_key_identifier :str) -> bool:
         if not isinstance(authority_key_identifier, str):
             raise TypeError(f'authority_key_identifier type {type(authority_key_identifier)} not supported, expected str')
         # used for Root CA matching, SKI is authoritative
         self.key_identifier = authority_key_identifier
-        self.ski_match = False
         for ctx in [context.SOURCE_CCADB, context.SOURCE_CERTIFI, context.SOURCE_ANDROID, context.SOURCE_JAVA, context.SOURCE_LINUX, context.PLATFORM_ANDROID12, context.PLATFORM_ANDROID11, context.PLATFORM_ANDROID10, context.PLATFORM_ANDROID9, context.PLATFORM_ANDROID8, context.PLATFORM_ANDROID7, context.PLATFORM_ANDROID4_4, context.PLATFORM_ANDROID4, context.PLATFORM_ANDROID3, context.PLATFORM_ANDROID2_3, context.PLATFORM_ANDROID2_2]:
             if self.exists(context_type=ctx):
                 break
 
     def match_certificate(self, root_ca :X509) -> bool:
-        ski = None
-        for ext in root_ca.to_cryptography().extensions:
-            if isinstance(ext.value, SubjectKeyIdentifier):
-                ski = hexlify(ext.value.key_identifier).decode('utf-8')
-                break
-        if self.key_identifier is None or ski == self.key_identifier:
-            self.ski_match = True
-            return True
-        return False
+        return any(
+            isinstance(ext.value, SubjectKeyIdentifier) and self.key_identifier == hexlify(ext.value.key_identifier).decode('utf-8')
+            for ext in root_ca.to_cryptography().extensions
+        )
 
     @property
     def ccadb(self) -> bool:

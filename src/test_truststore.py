@@ -11,15 +11,12 @@ def test_properties():
         ts = TrustStore(authority_key_identifier=aki)
         assert isinstance(ts, TrustStore)
         assert isinstance(ts.key_identifier, str)
-        assert isinstance(ts.ski_match, bool)
         assert ts.key_identifier == aki
         return ts
-    
+
     _test(bad_ski)
     ts = _test(good_ski)
     assert ts.key_identifier == good_ski
-    assert ts.ski_match
-
 
 def test_cert_exists():
     def _test(ts :TrustStore):
@@ -33,7 +30,6 @@ def test_cert_exists():
     ts = TrustStore(authority_key_identifier=bad_ski)
     _test(ts)
     assert ts.exists(context_type=context.SOURCE_LINUX) is False
-
 
 def test_cert_retrieval():
     def _test(ts :TrustStore):
