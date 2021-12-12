@@ -2,7 +2,7 @@
 
 Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.
 
-## [Documentation](https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/0.index.md)
+## [Documentation](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/0.index.md)
 
 In your app you can:
 
@@ -19,7 +19,7 @@ assert trust_store.check_trust()
 assert trust_store.check_trust(PLATFORM_JAVA)
 ```
 
-## [Change Log](https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/z.change-log.md)
+## [Change Log](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/z.change-log.md)
 
 # Platform Specific evaluations of trust
 

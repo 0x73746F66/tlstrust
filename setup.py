@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="2.0.2",
+    version="2.0.3",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -11,7 +11,7 @@ setup(
 
 Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.
 
-## [Documentation](https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/0.index.md)
+## [Documentation](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/0.index.md)
 
 In your app you can:
 
@@ -115,14 +115,14 @@ assert trust_store.check_trust(PYTHON_REQUESTS)
 assert trust_store.check_trust(PYTHON_DJANGO)
 ```
 
-## [Change Log](https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/z.change-log.md)
+## [Change Log](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/z.change-log.md)
     """,
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/chrislangton/py-tls-trust",
+    url="https://gitlab.com/trivialsec/tlstrust",
     project_urls={
-        "Source": "https://gitlab.com/chrislangton/py-tls-trust",
-        "Documentation": "https://gitlab.com/chrislangton/py-tls-trust/-/blob/main/docs/0.index.md",
-        "Tracker": "https://gitlab.com/chrislangton/py-tls-trust/-/issues",
+        "Source": "https://gitlab.com/trivialsec/tlstrust",
+        "Documentation": "https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/0.index.md",
+        "Tracker": "https://gitlab.com/trivialsec/tlstrust/-/issues",
     },
     classifiers=[
         "Operating System :: OS Independent",

@@ -19,7 +19,12 @@ test: generate-files ## run unit tests with coverage
 	coverage run -m pytest --nf -s
 	coverage report -m
 
+test-only: ## run unit tests with coverage
+	coverage run -m pytest --nf -s
+	coverage report -m
+
 generate-files: ## generates trust store files
+	mkdir -p .data/java .data/linux
 	bin/parse_android
 	bin/parse_ccadb
 	bin/parse_certifi

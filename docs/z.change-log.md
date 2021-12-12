@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.3 Nov 6th 2021
+
+- Java and Linux versions are no longer hard coded
+- Java store extraction now automated
+- Point to the Linux store directly, no extraction necessary
+
 ## 2.0.2 Nov 6th 2021
 
 - updates to the python certify certs

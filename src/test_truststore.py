@@ -5,6 +5,7 @@ from tlstrust import context
 
 good_ski = 'b3db48a4f9a1c5d8ae3641cc1163696229bc4bc6'
 bad_ski = 'c4a7b1a47b2c71fadbe14b9075ffc41560858910'
+missing_ski = 'noop'
 
 def test_properties():
     def _test(aki):
@@ -29,7 +30,8 @@ def test_cert_exists():
     assert ts.exists(context_type=context.SOURCE_LINUX)
     ts = TrustStore(authority_key_identifier=bad_ski)
     _test(ts)
-    assert ts.exists(context_type=context.SOURCE_LINUX) is False
+    assert ts.exists(context_type=context.SOURCE_LINUX) is True
+    assert ts.exists(context_type=context.PLATFORM_ANDROID2_2) is False
 
 def test_cert_retrieval():
     def _test(ts :TrustStore):
@@ -41,8 +43,7 @@ def test_cert_retrieval():
     ts = TrustStore(authority_key_identifier=good_ski)
     _test(ts)
     assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_LINUX), X509)
-    ts = TrustStore(authority_key_identifier=bad_ski)
-    _test(ts)
+    ts = TrustStore(authority_key_identifier=missing_ski)
     with pytest.raises(FileExistsError):
         ts.get_certificate_from_store(context_type=context.SOURCE_LINUX)
 
@@ -52,13 +53,9 @@ def test_expired_in_store():
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_ANDROID), bool)
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_JAVA), bool)
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_CERTIFI), bool)
+        assert isinstance(ts.expired_in_store(context_type=context.SOURCE_LINUX), bool)
     ts = TrustStore(authority_key_identifier=bad_ski)
     _test(ts)
-    with pytest.raises(FileExistsError):
-        ts.expired_in_store(context_type=context.SOURCE_LINUX)
-    ts = TrustStore(authority_key_identifier=good_ski)
-    _test(ts)
-    assert isinstance(ts.expired_in_store(context_type=context.SOURCE_LINUX), bool)
 
 def test_no_args():
     with pytest.raises(TypeError):
