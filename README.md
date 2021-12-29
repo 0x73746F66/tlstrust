@@ -1,5 +1,7 @@
 # tlstrust
 
+[pypi.org/project/tlstrust](https://pypi.org/project/tlstrust/)
+
 Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.
 
 ## [Documentation](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/0.index.md)
