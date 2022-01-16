@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.0.4 Jan 16th 2022
+
+- updated to python 3.10 trust store
+- Ensures Python 3.9 or newer is used
+
 ## 2.0.3 Nov 6th 2021
 
 - Java and Linux versions are no longer hard coded
