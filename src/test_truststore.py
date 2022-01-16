@@ -21,16 +21,18 @@ def test_properties():
 
 def test_cert_exists():
     def _test(ts :TrustStore):
-        assert ts.exists(context_type=context.SOURCE_CCADB)
         assert ts.exists(context_type=context.SOURCE_ANDROID)
-        assert ts.exists(context_type=context.SOURCE_JAVA)
         assert ts.exists(context_type=context.SOURCE_CERTIFI)
     ts = TrustStore(authority_key_identifier=good_ski)
     _test(ts)
+    assert ts.exists(context_type=context.SOURCE_JAVA)
+    assert ts.exists(context_type=context.SOURCE_CCADB)
     assert ts.exists(context_type=context.SOURCE_LINUX)
     ts = TrustStore(authority_key_identifier=bad_ski)
     _test(ts)
-    assert ts.exists(context_type=context.SOURCE_LINUX) is True
+    assert ts.exists(context_type=context.SOURCE_JAVA) is False
+    assert ts.exists(context_type=context.SOURCE_CCADB) is False
+    assert ts.exists(context_type=context.SOURCE_LINUX) is False
     assert ts.exists(context_type=context.PLATFORM_ANDROID2_2) is False
 
 def test_cert_retrieval():
@@ -49,12 +51,15 @@ def test_cert_retrieval():
 
 def test_expired_in_store():
     def _test(ts :TrustStore):
-        assert isinstance(ts.expired_in_store(context_type=context.SOURCE_CCADB), bool)
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_ANDROID), bool)
-        assert isinstance(ts.expired_in_store(context_type=context.SOURCE_JAVA), bool)
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_CERTIFI), bool)
-        assert isinstance(ts.expired_in_store(context_type=context.SOURCE_LINUX), bool)
     ts = TrustStore(authority_key_identifier=bad_ski)
+    with pytest.raises(FileExistsError):
+        ts.expired_in_store(context_type=context.SOURCE_CCADB)
+    with pytest.raises(FileExistsError):
+        ts.expired_in_store(context_type=context.SOURCE_JAVA)
+    with pytest.raises(FileExistsError):
+        ts.expired_in_store(context_type=context.SOURCE_LINUX)
     _test(ts)
 
 def test_no_args():

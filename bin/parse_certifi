@@ -10,7 +10,7 @@ from OpenSSL.crypto import FILETYPE_PEM, load_certificate
 from datetime import datetime
 from cryptography.x509 import Certificate, extensions
 
-STORE_PATH = '.venv/lib/python3/site-packages/certifi/cacert.pem'
+STORE_PATH = '.venv/lib/python3.10/site-packages/certifi/cacert.pem'
 BEGIN = '-----BEGIN CERTIFICATE-----'
 END = '-----END CERTIFICATE-----'
 FINGERPRINT_REF = '# SHA1 Fingerprint: '

@@ -10,7 +10,9 @@ __description__ = 'Various libraries that use certifi may include various versio
 UNTRUSTED = [
     "0a85a9776505987c4081f80f972c38f10aec3ccf",
     "8ff04b7fa82e4524ae4d50fa639a8bdee2dd1bbc",
+    "9be20757671c1ec06a06de59b49a2ddfdc19862e",
     "b599f8afb094f5e320d60aadce4e56a42e6e42ed",
+    "b6087b0d7accac204c8656325ecfab6e852d7057",
     "c4a7b1a47b2c71fadbe14b9075ffc41560858910"
 ]
 PEM_FILES = {

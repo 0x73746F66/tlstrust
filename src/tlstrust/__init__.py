@@ -1,7 +1,8 @@
+
+import sys
 import logging
-from datetime import datetime
 from binascii import hexlify
-from OpenSSL.crypto import FILETYPE_ASN1, X509, FILETYPE_PEM, load_certificate
+from OpenSSL.crypto import X509, FILETYPE_PEM, load_certificate
 from cryptography.x509.extensions import SubjectKeyIdentifier
 from tlstrust import context
 from tlstrust.stores.android_2_2 import UNTRUSTED as ANDROID2_2_UNTRUSTED, PEM_FILES as ANDROID2_2_PEM_FILES
@@ -23,6 +24,8 @@ from tlstrust.stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as
 
 __module__ = 'tlstrust'
 __version__ = '2.0.3'
+
+assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
 logger = logging.getLogger(__name__)
 DEPRECATION_MESSAGE = 'Apple legacy supports will be removed April 1, 2022'

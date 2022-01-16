@@ -6,11 +6,11 @@ help: ## This help.
 
 .DEFAULT_GOAL := help
 
-install-deps: ## setup for development of this project
-	pip install -U --progress-bar off pip setuptools wheel semgrep pylint pytest build twine coverage
+setup: ## setup for development of this project
+	pip install --progress-bar off -U --progress-bar off pip setuptools wheel semgrep pylint pytest build twine coverage
 
 install: build ## Install the package
-	pip install -U --progress-bar off --no-cache-dir --force-reinstall dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
+	pip install --progress-bar off -U --progress-bar off --no-cache-dir --force-reinstall dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
 
 check: ## check build
 	python3 setup.py check
