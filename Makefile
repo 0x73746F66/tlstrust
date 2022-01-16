@@ -36,7 +36,7 @@ build: check ## build wheel file
 	python3 -m build -nx
 
 publish: build ## upload to pypi.org
-	git tag $(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')
+	git tag -f $(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')
 	git push -u origin --tags
 	python3 -m twine upload dist/*
 
