@@ -1,4 +1,3 @@
-import json
 import sys
 import logging
 import argparse
@@ -13,7 +12,6 @@ from rich.console import Console
 from rich.style import Style
 from rich.logging import RichHandler
 from rich.table import Table
-from rich.style import Style
 from rich import box
 from certifi import where
 from OpenSSL import SSL
@@ -21,8 +19,7 @@ from OpenSSL.crypto import X509, FILETYPE_PEM, load_certificate
 from cryptography.x509 import extensions
 from cryptography.x509.base import Certificate
 from . import __version__, TrustStore
-from .context import PLATFORM_ANDROID10, SOURCES, PLATFORMS, BROWSERS, LANGUAGES
-from tlstrust import context
+from .context import SOURCES, PLATFORMS, BROWSERS, LANGUAGES
 
 __module__ = 'tlstrust.cli'
 
@@ -75,15 +72,6 @@ def output(data :dict) -> Table:
         table.add_row(source_name, styled_boolean(is_trusted))
     console.print(table)
     console.print('\n\n')
-
-def make_json(results :list[dict], evaluation_duration_seconds :int) -> str:
-    data = {
-        'generator': f'{__module__} {__version__}',
-        'date': datetime.utcnow().replace(microsecond=0).isoformat(),
-        'evaluation_duration_seconds': evaluation_duration_seconds,
-        'results': []
-    }
-    return json.dumps(data, sort_keys=True, default=str)
 
 def get_key_identifier_hex(cert :Certificate, extention :extensions.Extension, key :str) -> str:
     for ext in cert.extensions:
