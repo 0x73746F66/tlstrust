@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.1.0 Jan 16th 2022
+
+- Added CLI capability to the library
+- `tlstrust.context` provides source context descriptions
+
 ## 2.0.4 Jan 16th 2022
 
 - updated to python 3.10 trust store

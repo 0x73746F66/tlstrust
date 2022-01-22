@@ -13,6 +13,8 @@ from urllib import request
 import requests
 from OpenSSL.crypto import FILETYPE_PEM, load_certificate
 from cryptography.x509 import Certificate, extensions
+from tlstrust import context
+from tlstrust.context import PLATFORMS
 
 GOOGLESOURCE_BASE_URL = 'https://android.googlesource.com/platform/system/ca-certificates'
 CLOUDFLARE_BASE_URL = 'https://raw.githubusercontent.com/cloudflare/cfssl_trust/master/certdata/trusted_roots'
@@ -20,18 +22,18 @@ BASE_PATH = '.data'
 BEGIN = '-----BEGIN CERTIFICATE-----'
 END = '-----END CERTIFICATE-----'
 REMOTES = [
-    {'file': 'android_latest', 'name': 'Android Latest', 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz'},
-    {'file': 'android_12', 'name': 'Android 12 2021', 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android12-release/files.tar.gz'},
-    {'file': 'android_11', 'name': 'Android 11 2020', 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android11-release/files.tar.gz'},
-    {'file': 'android_10', 'name': 'Android 10 (Q) 2019', 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android10-release/files.tar.gz'},
-    {'file': 'android_9', 'name': 'Android 9 (Pie) 2018', 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/pie-release/files.tar.gz'},
-    {'file': 'android_8', 'name': 'Android 8 (Oreo) 2017', 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/oreo-release/files.tar.gz'},
-    {'file': 'android_7', 'name': 'Android 7 (Nougat) 2016', 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/nougat-release/files.tar.gz'},
-    {'file': 'android_4_4', 'name': 'Android 4.4 (KitKat) 2013', 'url': f'{CLOUDFLARE_BASE_URL}/kitkat.pem'},
-    {'file': 'android_4', 'name': 'Android 4 (Ice Cream Sandwich) 2011', 'url': f'{CLOUDFLARE_BASE_URL}/ics.pem'},
-    {'file': 'android_3', 'name': 'Android 3 (Honeycomb) 2011', 'url': f'{CLOUDFLARE_BASE_URL}/honeycomb.pem'},
-    {'file': 'android_2_3', 'name': 'Android 2.3 (Gingerbread) 2010', 'url': f'{CLOUDFLARE_BASE_URL}/gingerbread.pem'},
-    {'file': 'android_2_2', 'name': 'Android 2.2 (Froyo) 2010', 'url': f'{CLOUDFLARE_BASE_URL}/froyo.pem'},
+    {'file': 'android_latest', 'name': PLATFORMS[context.PLATFORM_ANDROID_LATEST], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz'},
+    {'file': 'android_12', 'name': PLATFORMS[context.PLATFORM_ANDROID12], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android12-release/files.tar.gz'},
+    {'file': 'android_11', 'name': PLATFORMS[context.PLATFORM_ANDROID11], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android11-release/files.tar.gz'},
+    {'file': 'android_10', 'name': PLATFORMS[context.PLATFORM_ANDROID10], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android10-release/files.tar.gz'},
+    {'file': 'android_9', 'name': PLATFORMS[context.PLATFORM_ANDROID9], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/pie-release/files.tar.gz'},
+    {'file': 'android_8', 'name': PLATFORMS[context.PLATFORM_ANDROID8], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/oreo-release/files.tar.gz'},
+    {'file': 'android_7', 'name': PLATFORMS[context.PLATFORM_ANDROID7], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/nougat-release/files.tar.gz'},
+    {'file': 'android_4_4', 'name': PLATFORMS[context.PLATFORM_ANDROID4_4], 'url': f'{CLOUDFLARE_BASE_URL}/kitkat.pem'},
+    {'file': 'android_4', 'name': PLATFORMS[context.PLATFORM_ANDROID4], 'url': f'{CLOUDFLARE_BASE_URL}/ics.pem'},
+    {'file': 'android_3', 'name': PLATFORMS[context.PLATFORM_ANDROID3], 'url': f'{CLOUDFLARE_BASE_URL}/honeycomb.pem'},
+    {'file': 'android_2_3', 'name': PLATFORMS[context.PLATFORM_ANDROID2_3], 'url': f'{CLOUDFLARE_BASE_URL}/gingerbread.pem'},
+    {'file': 'android_2_2', 'name': PLATFORMS[context.PLATFORM_ANDROID2_2], 'url': f'{CLOUDFLARE_BASE_URL}/froyo.pem'},
 ]
 
 def get_ski(cert :Certificate) -> str:
