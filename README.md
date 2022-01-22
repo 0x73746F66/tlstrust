@@ -4,7 +4,7 @@
 
 Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.
 
-![apple.com](images/apple.com.jpg)
+![apple.com](docs/images/apple.com.jpg)
 
 ## [Documentation](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/0.index.md)
 
