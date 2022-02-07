@@ -23,7 +23,7 @@ from tlstrust.stores.linux import UNTRUSTED as LINUX_UNTRUSTED, PEM_FILES as LIN
 from tlstrust.stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI_PEM_FILES
 
 __module__ = 'tlstrust'
-__version__ = '2.1.0'
+__version__ = '2.1.1'
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 

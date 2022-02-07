@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.1 Feb 8th 2022
+
+- Ensure `idna` package is installed, for cli usage only
+
 ## 2.1.0 Jan 16th 2022
 
 - Added CLI capability to the library
