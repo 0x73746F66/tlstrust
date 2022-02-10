@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.1.2 Feb 11th 2022
+
+- context module usage clean up
+- added `all_results` property to `TrustStore`
+
 ## 2.1.1 Feb 8th 2022
 
 - Ensure `idna` package is installed, for cli usage only

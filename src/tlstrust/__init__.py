@@ -4,31 +4,31 @@ import logging
 from binascii import hexlify
 from OpenSSL.crypto import X509, FILETYPE_PEM, load_certificate
 from cryptography.x509.extensions import SubjectKeyIdentifier
-from tlstrust import context
-from tlstrust.stores.android_2_2 import UNTRUSTED as ANDROID2_2_UNTRUSTED, PEM_FILES as ANDROID2_2_PEM_FILES
-from tlstrust.stores.android_2_3 import UNTRUSTED as ANDROID2_3_UNTRUSTED, PEM_FILES as ANDROID2_3_PEM_FILES
-from tlstrust.stores.android_3 import UNTRUSTED as ANDROID3_UNTRUSTED, PEM_FILES as ANDROID3_PEM_FILES
-from tlstrust.stores.android_4_4 import UNTRUSTED as ANDROID4_4_UNTRUSTED, PEM_FILES as ANDROID4_4_PEM_FILES
-from tlstrust.stores.android_4 import UNTRUSTED as ANDROID4_UNTRUSTED, PEM_FILES as ANDROID4_PEM_FILES
-from tlstrust.stores.android_7 import UNTRUSTED as ANDROID7_UNTRUSTED, PEM_FILES as ANDROID7_PEM_FILES
-from tlstrust.stores.android_8 import UNTRUSTED as ANDROID8_UNTRUSTED, PEM_FILES as ANDROID8_PEM_FILES
-from tlstrust.stores.android_9 import UNTRUSTED as ANDROID9_UNTRUSTED, PEM_FILES as ANDROID9_PEM_FILES
-from tlstrust.stores.android_10 import UNTRUSTED as ANDROID10_UNTRUSTED, PEM_FILES as ANDROID10_PEM_FILES
-from tlstrust.stores.android_11 import UNTRUSTED as ANDROID11_UNTRUSTED, PEM_FILES as ANDROID11_PEM_FILES
-from tlstrust.stores.android_12 import UNTRUSTED as ANDROID12_UNTRUSTED, PEM_FILES as ANDROID12_PEM_FILES
-from tlstrust.stores.android_latest import UNTRUSTED as ANDROID_UNTRUSTED, PEM_FILES as ANDROID_PEM_FILES
-from tlstrust.stores.ccadb import UNTRUSTED as CCADB_UNTRUSTED, PEM_FILES as CCADB_PEM_FILES
-from tlstrust.stores.java import UNTRUSTED as JAVA_UNTRUSTED, PEM_FILES as JAVA_PEM_FILES
-from tlstrust.stores.linux import UNTRUSTED as LINUX_UNTRUSTED, PEM_FILES as LINUX_PEM_FILES
-from tlstrust.stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI_PEM_FILES
+from . import context
+from .context import SOURCES, PLATFORMS, BROWSERS, LANGUAGES, INVALID_CONTEXT
+from .stores.android_2_2 import UNTRUSTED as ANDROID2_2_UNTRUSTED, PEM_FILES as ANDROID2_2_PEM_FILES
+from .stores.android_2_3 import UNTRUSTED as ANDROID2_3_UNTRUSTED, PEM_FILES as ANDROID2_3_PEM_FILES
+from .stores.android_3 import UNTRUSTED as ANDROID3_UNTRUSTED, PEM_FILES as ANDROID3_PEM_FILES
+from .stores.android_4_4 import UNTRUSTED as ANDROID4_4_UNTRUSTED, PEM_FILES as ANDROID4_4_PEM_FILES
+from .stores.android_4 import UNTRUSTED as ANDROID4_UNTRUSTED, PEM_FILES as ANDROID4_PEM_FILES
+from .stores.android_7 import UNTRUSTED as ANDROID7_UNTRUSTED, PEM_FILES as ANDROID7_PEM_FILES
+from .stores.android_8 import UNTRUSTED as ANDROID8_UNTRUSTED, PEM_FILES as ANDROID8_PEM_FILES
+from .stores.android_9 import UNTRUSTED as ANDROID9_UNTRUSTED, PEM_FILES as ANDROID9_PEM_FILES
+from .stores.android_10 import UNTRUSTED as ANDROID10_UNTRUSTED, PEM_FILES as ANDROID10_PEM_FILES
+from .stores.android_11 import UNTRUSTED as ANDROID11_UNTRUSTED, PEM_FILES as ANDROID11_PEM_FILES
+from .stores.android_12 import UNTRUSTED as ANDROID12_UNTRUSTED, PEM_FILES as ANDROID12_PEM_FILES
+from .stores.android_latest import UNTRUSTED as ANDROID_UNTRUSTED, PEM_FILES as ANDROID_PEM_FILES
+from .stores.ccadb import UNTRUSTED as CCADB_UNTRUSTED, PEM_FILES as CCADB_PEM_FILES
+from .stores.java import UNTRUSTED as JAVA_UNTRUSTED, PEM_FILES as JAVA_PEM_FILES
+from .stores.linux import UNTRUSTED as LINUX_UNTRUSTED, PEM_FILES as LINUX_PEM_FILES
+from .stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI_PEM_FILES
 
 __module__ = 'tlstrust'
-__version__ = '2.1.1'
+__version__ = '2.1.2'
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
 logger = logging.getLogger(__name__)
-DEPRECATION_MESSAGE = 'Apple legacy supports will be removed April 1, 2022'
 MISSING_MESSAGE = 'Certificate does not exist'
 
 class TrustStore:
@@ -39,7 +39,7 @@ class TrustStore:
             raise TypeError(f'authority_key_identifier type {type(authority_key_identifier)} not supported, expected str')
         # used for Root CA matching, SKI is authoritative
         self.key_identifier = authority_key_identifier
-        for ctx in [context.SOURCE_CCADB, context.SOURCE_CERTIFI, context.SOURCE_ANDROID, context.SOURCE_JAVA, context.SOURCE_LINUX, context.PLATFORM_ANDROID12, context.PLATFORM_ANDROID11, context.PLATFORM_ANDROID10, context.PLATFORM_ANDROID9, context.PLATFORM_ANDROID8, context.PLATFORM_ANDROID7, context.PLATFORM_ANDROID4_4, context.PLATFORM_ANDROID4, context.PLATFORM_ANDROID3, context.PLATFORM_ANDROID2_3, context.PLATFORM_ANDROID2_2]:
+        for _, ctx in SOURCES.items():
             if self.exists(context_type=ctx):
                 break
 
@@ -48,6 +48,14 @@ class TrustStore:
             isinstance(ext.value, SubjectKeyIdentifier) and self.key_identifier == hexlify(ext.value.key_identifier).decode('utf-8')
             for ext in root_ca.to_cryptography().extensions
         )
+
+    @property
+    def all_results(self) -> dict:
+        results = {}
+        contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
+        for name, ctx in contexts.items():
+            results[name] = self.check_trust(ctx)
+        return results
 
     @property
     def ccadb(self) -> bool:
@@ -125,11 +133,12 @@ class TrustStore:
 
     @staticmethod
     def valid_context_type(context_type :int) -> bool:
-        return context_type in {None,context.SOURCE_CCADB,context.SOURCE_JAVA,context.SOURCE_ANDROID,context.SOURCE_LINUX,context.SOURCE_CERTIFI,context.PLATFORM_ANDROID12,context.PLATFORM_ANDROID11,context.PLATFORM_ANDROID10,context.PLATFORM_ANDROID9,context.PLATFORM_ANDROID8,context.PLATFORM_ANDROID7,context.PLATFORM_ANDROID4_4,context.PLATFORM_ANDROID4,context.PLATFORM_ANDROID3,context.PLATFORM_ANDROID2_3,context.PLATFORM_ANDROID2_2}
+        contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
+        return context_type is None or context_type in [contexts[x] for x in contexts]
 
     def exists(self, context_type :int) -> bool:
         if not TrustStore.valid_context_type(context_type):
-            raise AttributeError(context.INVALID_CONTEXT)
+            raise AttributeError(INVALID_CONTEXT.format(context_type))
 
         if context_type == context.SOURCE_CCADB and self.key_identifier in CCADB_PEM_FILES.keys():
             return self.match_certificate(self.get_certificate_from_store(context.SOURCE_CCADB))
@@ -167,14 +176,14 @@ class TrustStore:
 
     def expired_in_store(self, context_type :int) -> bool:
         if not TrustStore.valid_context_type(context_type):
-            raise AttributeError(context.INVALID_CONTEXT)
+            raise AttributeError(INVALID_CONTEXT.format(context_type))
         if not self.exists(context_type=context_type):
             raise FileExistsError('Certificate does not exist')
         return self.get_certificate_from_store(context_type=context_type).has_expired()
 
     def get_certificate_from_store(self, context_type :int) -> X509:
         if not TrustStore.valid_context_type(context_type):
-            raise AttributeError(context.INVALID_CONTEXT)
+            raise AttributeError(INVALID_CONTEXT.format(context_type))
         certificate = None
         try:
             if context_type == context.SOURCE_CCADB:
@@ -221,7 +230,7 @@ class TrustStore:
         if context_type is not None and not isinstance(context_type, int):
             raise TypeError(f'context type {type(context_type)} not supported, expected int')
         if not TrustStore.valid_context_type(context_type):
-            raise AttributeError(context.INVALID_CONTEXT)
+            raise AttributeError(INVALID_CONTEXT.format(context_type))
 
         if context_type == context.SOURCE_CCADB:
             return self.ccadb

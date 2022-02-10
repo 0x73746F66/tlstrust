@@ -59,17 +59,15 @@ def output(data :dict) -> Table:
     store :TrustStore = data['trust_store']
     title = f'Root Certificate {data["host"]} ({data["peer_address"]})'
     caption = '\n'.join([
-        f'Issuer: {data["certificate_issuer"]}',
+        f'Issuer: {data["certificate_issuer"]} (SKI {data["issuer_ski"]})',
         date_diff(data["not_valid_after"]),
     ])
     title_style = Style(bold=True, color=CLI_COLOR_OK if store.is_trusted else CLI_COLOR_NOK)
     table = Table(title=title, caption=caption, title_style=title_style, box=box.SIMPLE)
     table.add_column("Root Trust Store", justify="right", style="dark_turquoise", no_wrap=True)
     table.add_column("Result", justify="left", no_wrap=True)
-    contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
-    for source_name, source_context in contexts.items():
-        is_trusted = store.check_trust(source_context)
-        table.add_row(source_name, styled_boolean(is_trusted))
+    for name, is_trusted in store.all_results.items():
+        table.add_row(name, styled_boolean(is_trusted))
     console.print(table)
     console.print('\n\n')
 
@@ -148,6 +146,7 @@ def check(host :str, port :int, use_sni :bool = True, client_pem :str = None):
             'peer_address': peer_address,
             'not_valid_after': root_certificate.to_cryptography().not_valid_after,
             'certificate_issuer': root_certificate.get_issuer().commonName or root_certificate.get_issuer().organizationName,
+            'issuer_ski': authority_key_identifier,
             'trust_store': TrustStore(authority_key_identifier)
         }
 
