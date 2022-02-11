@@ -24,7 +24,7 @@ from .stores.linux import UNTRUSTED as LINUX_UNTRUSTED, PEM_FILES as LINUX_PEM_F
 from .stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI_PEM_FILES
 
 __module__ = 'tlstrust'
-__version__ = '2.1.2'
+__version__ = '2.1.3'
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 

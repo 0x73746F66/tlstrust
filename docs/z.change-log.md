@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.3 Feb 11th 2022
+
+- Added a lookup dictionary for store versions
+
 ## 2.1.2 Feb 11th 2022
 
 - context module usage clean up
