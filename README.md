@@ -1,6 +1,9 @@
 # tlstrust
 
-[pypi.org/project/tlstrust](https://pypi.org/project/tlstrust/)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://pypi.python.org/pypi/tlstrust/)
+[![PyPI download month](https://img.shields.io/pypi/dm/tlstrust.svg)](https://pypi.python.org/pypi/tlstrust/)
+[![PyPi version](https://badgen.net/pypi/v/tlstrust/)](https://pypi.com/project/tlstrust)
+[![PyPI license](https://img.shields.io/pypi/l/tlstrust.svg)](https://pypi.python.org/pypi/tlstrust/)
 
 Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.
 
@@ -142,4 +145,3 @@ Under `requests` is `urllib` for making HTTP clients, which in turn uses `certif
 The most popular framework in python is `django`.
 
 Similiar to `requests`; Under `django` is `urllib` for making HTTP clients, which in turn uses `certifi` for its Root CA Trust Store checking, So `tlstrust` will alias `context.PYTHON_DJANGO` to `context.PYTHON_URLLIB` until such a time this changes.
-
