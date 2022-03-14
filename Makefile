@@ -7,10 +7,12 @@ help: ## This help.
 .DEFAULT_GOAL := help
 
 setup: ## setup for development of this project
-	pip install --progress-bar off -U --progress-bar off pip setuptools wheel semgrep pylint pytest build twine coverage
+	pip install --progress-bar off -U pip 2>/dev/null
+	pip install --progress-bar off -U setuptools wheel semgrep pylint pytest build twine coverage autopep8
+	pip install --progress-bar off -U --no-cache-dir -e .
 
 install: build ## Install the package
-	pip install --progress-bar off -U --progress-bar off --no-cache-dir --force-reinstall dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
+	pip install --progress-bar off -U --no-cache-dir --force-reinstall dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
 
 check: ## check build
 	python3 setup.py check
@@ -30,6 +32,7 @@ generate-files: ## generates trust store files
 	bin/parse_certifi
 	bin/parse_java
 	bin/parse_linux
+	bin/parse_russian
 
 build: check ## build wheel file
 	rm -f dist/*

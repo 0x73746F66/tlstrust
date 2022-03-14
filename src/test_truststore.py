@@ -34,6 +34,7 @@ def test_cert_exists():
     assert ts.exists(context_type=context.SOURCE_CCADB) is False
     assert ts.exists(context_type=context.SOURCE_LINUX) is False
     assert ts.exists(context_type=context.PLATFORM_ANDROID2_2) is False
+    assert ts.exists(context_type=context.SOURCE_RUSSIA) is False
 
 def test_cert_retrieval():
     def _test(ts :TrustStore):
@@ -48,6 +49,8 @@ def test_cert_retrieval():
     ts = TrustStore(authority_key_identifier=missing_ski)
     with pytest.raises(FileExistsError):
         ts.get_certificate_from_store(context_type=context.SOURCE_LINUX)
+    with pytest.raises(FileExistsError):
+        ts.get_certificate_from_store(context_type=context.SOURCE_RUSSIA)
 
 def test_expired_in_store():
     def _test(ts :TrustStore):
@@ -60,6 +63,8 @@ def test_expired_in_store():
         ts.expired_in_store(context_type=context.SOURCE_JAVA)
     with pytest.raises(FileExistsError):
         ts.expired_in_store(context_type=context.SOURCE_LINUX)
+    with pytest.raises(FileExistsError):
+        ts.expired_in_store(context_type=context.SOURCE_RUSSIA)
     _test(ts)
 
 def test_no_args():
@@ -94,9 +99,11 @@ def test_result():
     assert ts.java
     assert ts.linux
     assert ts.certifi
+    assert ts.russia
     ts = TrustStore(authority_key_identifier=bad_ski)
     assert ts.ccadb is False
     assert ts.android is False
     assert ts.java is False
     assert ts.linux is False
     assert ts.certifi is False
+    assert ts.russia is False

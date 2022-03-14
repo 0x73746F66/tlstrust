@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="2.1.3",
+    version="2.1.4",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -14,6 +14,35 @@ Utilities that assist with trust relationship checking of X.509 Certificates for
 ![tlstrust cli](https://gitlab.com/trivialsec/tlstrust/-/raw/main/docs/images/apple.com.jpg)
 
 ## [Documentation](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/0.index.md)
+
+On the command-line:
+
+```sh
+trivialscan --help
+```
+
+produces:
+
+```
+usage: tlstrust [-h] [-H HOST] [-p PORT] [-C CLIENT_PEM] [--disable-sni] [-v] [-vv] [-vvv] [-vvvv] [--version] [targets ...]
+
+positional arguments:
+  targets               All unnamed arguments are hosts (and ports) targets to test. ~$ tlstrust apple.com:443 github.io
+                        localhost:3000
+
+options:
+  -h, --help            show this help message and exit
+  -H HOST, --host HOST  single host to check
+  -p PORT, --port PORT  TLS port of host
+  -C CLIENT_PEM, --client-pem CLIENT_PEM
+                        path to PEM encoded client certificate, url or file path accepted
+  --disable-sni         Do not negotiate SNI using INDA encoded host
+  -v, --errors-only     set logging level to ERROR (default CRITICAL)
+  -vv, --warning        set logging level to WARNING (default CRITICAL)
+  -vvv, --info          set logging level to INFO (default CRITICAL)
+  -vvvv, --debug        set logging level to DEBUG (default CRITICAL)
+  --version
+```
 
 In your app you can:
 

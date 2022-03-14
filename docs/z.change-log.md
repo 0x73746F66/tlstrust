@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.1.4 Mar 14th 2022
+
+- Added a store for the Russian CA bundle mostly for the CA MinTsifry Rossii, with a few others included also
+- The context for Yandex browser now appropriately uses the MinTsifry Rossii store
+
 ## 2.1.3 Feb 11th 2022
 
 - Added a lookup dictionary for store versions

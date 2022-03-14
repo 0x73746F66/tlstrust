@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 Last Updated: 2021-12-12
 """
@@ -16,8 +16,8 @@ STORE_PATH = '/etc/ssl/certs'
 def get_version():
     return subprocess.run(["uname", "-r"], capture_output=True, check=False).stdout.decode().strip()
 
-def get_ski(cert :Certificate) -> str:
-    for ext in cert.extensions:
+def get_ski(cer :Certificate) -> str:
+    for ext in cer.extensions:
         if isinstance(ext.value, extensions.SubjectKeyIdentifier):
             return hexlify(ext.value.digest).decode('utf-8')
 

@@ -22,9 +22,10 @@ from .stores.ccadb import UNTRUSTED as CCADB_UNTRUSTED, PEM_FILES as CCADB_PEM_F
 from .stores.java import UNTRUSTED as JAVA_UNTRUSTED, PEM_FILES as JAVA_PEM_FILES
 from .stores.linux import UNTRUSTED as LINUX_UNTRUSTED, PEM_FILES as LINUX_PEM_FILES
 from .stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI_PEM_FILES
+from .stores.mintsifry_rossii import UNTRUSTED as RUSSIA_UNTRUSTED, PEM_FILES as RUSSIA_PEM_FILES
 
 __module__ = 'tlstrust'
-__version__ = '2.1.3'
+__version__ = '2.1.4'
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
@@ -128,6 +129,10 @@ class TrustStore:
         return self.key_identifier not in CERTIFI_UNTRUSTED and self.key_identifier in CERTIFI_PEM_FILES.keys()
 
     @property
+    def russia(self) -> bool:
+        return self.key_identifier not in RUSSIA_UNTRUSTED and self.key_identifier in RUSSIA_PEM_FILES.keys()
+
+    @property
     def is_trusted(self) -> bool:
         return all([self.ccadb, self.android, self.linux, self.certifi, self.java])
 
@@ -148,6 +153,8 @@ class TrustStore:
             return self.match_certificate(self.get_certificate_from_store(context.SOURCE_ANDROID))
         if context_type == context.SOURCE_LINUX and self.key_identifier in LINUX_PEM_FILES.keys():
             return self.match_certificate(self.get_certificate_from_store(context.SOURCE_LINUX))
+        if context_type == context.SOURCE_RUSSIA and self.key_identifier in RUSSIA_PEM_FILES.keys():
+            return self.match_certificate(self.get_certificate_from_store(context.SOURCE_RUSSIA))
         if context_type == context.SOURCE_CERTIFI and self.key_identifier in CERTIFI_PEM_FILES.keys():
             return self.match_certificate(self.get_certificate_from_store(context.SOURCE_CERTIFI))
         if context_type == context.PLATFORM_ANDROID12 and self.key_identifier in ANDROID12_PEM_FILES.keys():
@@ -194,6 +201,8 @@ class TrustStore:
                 certificate = load_certificate(FILETYPE_PEM, JAVA_PEM_FILES[self.key_identifier].encode())
             if context_type == context.SOURCE_LINUX:
                 certificate = load_certificate(FILETYPE_PEM, LINUX_PEM_FILES[self.key_identifier].encode())
+            if context_type == context.SOURCE_RUSSIA:
+                certificate = load_certificate(FILETYPE_PEM, RUSSIA_PEM_FILES[self.key_identifier].encode())
             if context_type == context.SOURCE_CERTIFI:
                 certificate = load_certificate(FILETYPE_PEM, CERTIFI_PEM_FILES[self.key_identifier].encode())
             if context_type == context.PLATFORM_ANDROID2_2:
