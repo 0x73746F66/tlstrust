@@ -11,7 +11,7 @@ setup(
 
 Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.
 
-![tlstrust cli](https://gitlab.com/trivialsec/tlstrust/-/raw/main/docs/images/apple.com.jpg)
+![tlstrust cli](https://gitlab.com/trivialsec/tlstrust/-/raw/main/docs/images/tlstrust.jpg)
 
 ## [Documentation](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/0.index.md)
 
