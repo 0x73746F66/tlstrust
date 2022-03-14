@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="2.1.4",
+    version="2.2.0",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -18,7 +18,7 @@ Utilities that assist with trust relationship checking of X.509 Certificates for
 On the command-line:
 
 ```sh
-trivialscan --help
+tlstrust --help
 ```
 
 produces:

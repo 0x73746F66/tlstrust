@@ -14,7 +14,7 @@ Utilities that assist with trust relationship checking of X.509 Certificates for
 On the command-line:
 
 ```sh
-trivialscan --help
+tlstrust --help
 ```
 
 produces:
