@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.2.1 Mar 15th 2022
+
+- Added Russian CA store to the `VERSIONS` dictionary
+
 ## 2.2.0 Mar 14th 2022
 
 - Added a store for the Russian CA bundle mostly for the CA MinTsifry Rossii, with a few others included also

@@ -3,6 +3,7 @@ from .ccadb import __version__ as ccadb_ver
 from .linux import __version__ as linux_ver
 from .java import __version__ as java_ver
 from .certifi import __version__ as certifi_ver
+from .mintsifry_rossii import __version__ as russia_ver
 from .android_2_2 import __version__ as android_2_2_ver
 from .android_2_3 import __version__ as android_2_3_ver
 from .android_3 import __version__ as android_3_ver
@@ -24,6 +25,7 @@ VERSIONS = {
     context.SOURCE_ANDROID: android_latest_ver,
     context.SOURCE_LINUX: linux_ver,
     context.SOURCE_CERTIFI: certifi_ver,
+    context.SOURCE_RUSSIA: russia_ver,
     context.PLATFORM_ANDROID2_2: android_2_2_ver,
     context.PLATFORM_ANDROID2_3: android_2_3_ver,
     context.PLATFORM_ANDROID3: android_3_ver,
@@ -35,4 +37,5 @@ VERSIONS = {
     context.PLATFORM_ANDROID10: android_10_ver,
     context.PLATFORM_ANDROID11: android_11_ver,
     context.PLATFORM_ANDROID12: android_12_ver,
+    context.PLATFORM_RUSSIA: russia_ver,
 }
