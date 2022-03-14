@@ -3,7 +3,7 @@ from OpenSSL.crypto import X509
 from tlstrust import TrustStore
 from tlstrust import context
 
-good_ski = 'b3db48a4f9a1c5d8ae3641cc1163696229bc4bc6'
+good_ski = 'bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7'
 bad_ski = 'c4a7b1a47b2c71fadbe14b9075ffc41560858910'
 missing_ski = 'noop'
 
@@ -23,18 +23,12 @@ def test_cert_exists():
     def _test(ts :TrustStore):
         assert ts.exists(context_type=context.SOURCE_ANDROID)
         assert ts.exists(context_type=context.SOURCE_CERTIFI)
+        assert ts.exists(context_type=context.SOURCE_JAVA)
+        assert ts.exists(context_type=context.SOURCE_CCADB)
+        assert ts.exists(context_type=context.SOURCE_LINUX)
+        assert ts.exists(context_type=context.SOURCE_RUSSIA) is False
     ts = TrustStore(authority_key_identifier=good_ski)
     _test(ts)
-    assert ts.exists(context_type=context.SOURCE_JAVA)
-    assert ts.exists(context_type=context.SOURCE_CCADB)
-    assert ts.exists(context_type=context.SOURCE_LINUX)
-    ts = TrustStore(authority_key_identifier=bad_ski)
-    _test(ts)
-    assert ts.exists(context_type=context.SOURCE_JAVA) is False
-    assert ts.exists(context_type=context.SOURCE_CCADB) is False
-    assert ts.exists(context_type=context.SOURCE_LINUX) is False
-    assert ts.exists(context_type=context.PLATFORM_ANDROID2_2) is False
-    assert ts.exists(context_type=context.SOURCE_RUSSIA) is False
 
 def test_cert_retrieval():
     def _test(ts :TrustStore):
@@ -42,13 +36,9 @@ def test_cert_retrieval():
         assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_ANDROID), X509)
         assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_JAVA), X509)
         assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_CERTIFI), X509)
-
+        assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_LINUX), X509)
     ts = TrustStore(authority_key_identifier=good_ski)
     _test(ts)
-    assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_LINUX), X509)
-    ts = TrustStore(authority_key_identifier=missing_ski)
-    with pytest.raises(FileExistsError):
-        ts.get_certificate_from_store(context_type=context.SOURCE_LINUX)
     with pytest.raises(FileExistsError):
         ts.get_certificate_from_store(context_type=context.SOURCE_RUSSIA)
 
@@ -99,7 +89,7 @@ def test_result():
     assert ts.java
     assert ts.linux
     assert ts.certifi
-    assert ts.russia
+    assert ts.russia is False
     ts = TrustStore(authority_key_identifier=bad_ski)
     assert ts.ccadb is False
     assert ts.android is False

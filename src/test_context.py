@@ -2,7 +2,7 @@ from OpenSSL.crypto import FILETYPE_PEM
 from tlstrust import TrustStore
 from tlstrust import context
 
-good_ski = 'b3db48a4f9a1c5d8ae3641cc1163696229bc4bc6'
+good_ski = 'bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7'
 
 def test_setup():
     ts = TrustStore(authority_key_identifier=good_ski)
@@ -52,12 +52,18 @@ def test_context_java():
     assert isinstance(ts.check_trust(context.SOURCE_JAVA), bool)
     assert isinstance(ts.java, bool)
 
+def test_context_russia():
+    ts = TrustStore(authority_key_identifier=good_ski)
+    assert isinstance(ts.check_trust(context.SOURCE_RUSSIA), bool)
+    assert isinstance(ts.russia, bool)
+
 def test_context_platforms():
     ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.PLATFORM_ANDROID), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_LINUX), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_JAVA), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_WINDOWS), bool)
+    assert isinstance(ts.check_trust(context.PLATFORM_RUSSIA), bool)
 
 def test_context_browsers():
     ts = TrustStore(authority_key_identifier=good_ski)
