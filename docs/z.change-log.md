@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.3.0 Apr 9th 2022
+
+- support multiple chains and roots for each server leaf
+
 ## 2.2.1 Mar 15th 2022
 
 - Added Russian CA store to the `VERSIONS` dictionary

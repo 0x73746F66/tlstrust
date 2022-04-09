@@ -45,6 +45,25 @@ PYTHON_CERTIFI = SOURCE_CERTIFI
 PYTHON_URLLIB = PYTHON_CERTIFI
 PYTHON_REQUESTS = PYTHON_URLLIB
 PYTHON_DJANGO = PYTHON_URLLIB
+STORES = {
+    'Common Certificate Authority Database (CCADB)': SOURCE_CCADB,
+    'Java(TM) SE Runtime Environment': SOURCE_JAVA,
+    'Google Trust Services': SOURCE_ANDROID,
+    'Android 2.2 (Froyo) 2010': PLATFORM_ANDROID2_2,
+    'Android 2.3 (Gingerbread) 2010': PLATFORM_ANDROID2_3,
+    'Android 3 (Honeycomb) 2011': PLATFORM_ANDROID3,
+    'Android 4 (Ice Cream Sandwich) 2011': PLATFORM_ANDROID4,
+    'Android 4.4 (KitKat) 2013': PLATFORM_ANDROID4_4,
+    'Android 7 (Nougat) 2016': PLATFORM_ANDROID7,
+    'Android 8 (Oreo) 2017': PLATFORM_ANDROID8,
+    'Android 9 (Pie) 2018': PLATFORM_ANDROID9,
+    'Android 10 (Q) 2019': PLATFORM_ANDROID10,
+    'Android 11 2020': PLATFORM_ANDROID11,
+    'Android 12 2021': PLATFORM_ANDROID12,
+    'Linux (Arch)': SOURCE_LINUX,
+    'Certifi (Python module for Certificate Authority Certificates)': SOURCE_CERTIFI,
+    'MinTsifry Rossii': SOURCE_RUSSIA,
+}
 SOURCES = {
     'Common Certificate Authority Database (CCADB)': SOURCE_CCADB,
     'Java(TM) SE Runtime Environment': SOURCE_JAVA,

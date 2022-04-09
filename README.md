@@ -20,7 +20,7 @@ tlstrust --help
 produces:
 
 ```
-usage: tlstrust [-h] [-H HOST] [-p PORT] [-C CLIENT_PEM] [--disable-sni] [-v] [-vv] [-vvv] [-vvvv] [--version] [targets ...]
+usage: tlstrust [-h] [-C CLIENT_PEM] [--disable-sni] [-v] [-vv] [-vvv] [-vvvv] [--version] [targets ...]
 
 positional arguments:
   targets               All unnamed arguments are hosts (and ports) targets to test. ~$ tlstrust apple.com:443 github.io
@@ -28,8 +28,6 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  -H HOST, --host HOST  single host to check
-  -p PORT, --port PORT  TLS port of host
   -C CLIENT_PEM, --client-pem CLIENT_PEM
                         path to PEM encoded client certificate, url or file path accepted
   --disable-sni         Do not negotiate SNI using INDA encoded host

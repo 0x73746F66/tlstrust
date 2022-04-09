@@ -1,17 +1,20 @@
 import pytest
 from OpenSSL.crypto import X509
-from tlstrust import TrustStore
-from tlstrust import context
+from tlstrust import TrustStore, trust_stores_from_chain
+from tlstrust import context, util
 
+rus_ski = '29bdb1aad5d93b21d8dc4c0efe11e7760b2fc0f6'
 good_ski = 'bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7'
 bad_ski = 'c4a7b1a47b2c71fadbe14b9075ffc41560858910'
 missing_ski = 'noop'
+host = 'ssllabs.com'
 
 def test_properties():
     def _test(aki):
         ts = TrustStore(authority_key_identifier=aki)
         assert isinstance(ts, TrustStore)
         assert isinstance(ts.key_identifier, str)
+        assert isinstance(ts.certificate, X509)
         assert ts.key_identifier == aki
         return ts
 
@@ -26,27 +29,32 @@ def test_cert_exists():
         assert ts.exists(context_type=context.SOURCE_JAVA)
         assert ts.exists(context_type=context.SOURCE_CCADB)
         assert ts.exists(context_type=context.SOURCE_LINUX)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID12)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID11)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID10)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID9)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID8)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID7)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID4_4)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID4)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID3)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID2_3)
+        assert ts.exists(context_type=context.PLATFORM_ANDROID2_2)
         assert ts.exists(context_type=context.SOURCE_RUSSIA) is False
     ts = TrustStore(authority_key_identifier=good_ski)
     _test(ts)
-
-def test_cert_retrieval():
-    def _test(ts :TrustStore):
-        assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_CCADB), X509)
-        assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_ANDROID), X509)
-        assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_JAVA), X509)
-        assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_CERTIFI), X509)
-        assert isinstance(ts.get_certificate_from_store(context_type=context.SOURCE_LINUX), X509)
-    ts = TrustStore(authority_key_identifier=good_ski)
-    _test(ts)
-    with pytest.raises(FileExistsError):
-        ts.get_certificate_from_store(context_type=context.SOURCE_RUSSIA)
+    ts = TrustStore(authority_key_identifier=rus_ski)
+    assert ts.exists(context_type=context.SOURCE_RUSSIA)
+    with pytest.raises(AttributeError):
+        ts.exists(999)
 
 def test_expired_in_store():
     def _test(ts :TrustStore):
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_ANDROID), bool)
         assert isinstance(ts.expired_in_store(context_type=context.SOURCE_CERTIFI), bool)
     ts = TrustStore(authority_key_identifier=bad_ski)
+    with pytest.raises(AttributeError):
+        ts.expired_in_store(999)
     with pytest.raises(FileExistsError):
         ts.expired_in_store(context_type=context.SOURCE_CCADB)
     with pytest.raises(FileExistsError):
@@ -74,6 +82,9 @@ def test_pem_format():
     assert isinstance(ts.check_trust(), bool)
     ts = TrustStore(authority_key_identifier=bad_ski)
     assert isinstance(ts.check_trust(), bool)
+    with pytest.raises(TypeError):
+        ts.check_trust('None')
+
 def test_check_bad_context():
     ts = TrustStore(authority_key_identifier=good_ski)
     with pytest.raises(AttributeError):
@@ -82,8 +93,15 @@ def test_check_bad_context():
     with pytest.raises(AttributeError):
         ts.check_trust(99999)
 
+def test_trust_stores_from_chain():
+    chain, _ = util.get_certificate_chain(host, 443)
+    assert isinstance(trust_stores_from_chain(chain), list)
+    with pytest.raises(util.InvalidChainError):
+        trust_stores_from_chain(chain[1:])
+
 def test_result():
     ts = TrustStore(authority_key_identifier=good_ski)
+    assert isinstance(ts.all_results, dict)
     assert ts.ccadb
     assert ts.android
     assert ts.java
