@@ -24,7 +24,7 @@ from .stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI
 from .stores.mintsifry_rossii import UNTRUSTED as RUSSIA_UNTRUSTED, PEM_FILES as RUSSIA_PEM_FILES
 
 __module__ = 'tlstrust'
-__version__ = '2.3.1'
+__version__ = '2.3.2'
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
