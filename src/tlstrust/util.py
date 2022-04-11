@@ -138,11 +138,19 @@ def get_certificate_from_store(aki, context_type :int) -> X509:
         raise FileExistsError(MISSING_MESSAGE)
     return certificate
 
+def get_cn_or_org(certificate: X509):
+    cn_oid = certificate.to_cryptography().subject.get_attributes_for_oid(x509.OID_COMMON_NAME)
+    if cn_oid:
+        name = cn_oid[0]._value # pylint: disable=protected-access
+    else:
+        name = certificate.to_cryptography().subject.get_attributes_for_oid(x509.OID_ORGANIZATION_NAME)[0]._value # pylint: disable=protected-access
+    return name
+
 def get_leaf(certificates :list[X509]) -> X509:
     new_chain = []
     akis_paris = []
     for cert in certificates:
-        common_name = cert.to_cryptography().subject.get_attributes_for_oid(x509.OID_COMMON_NAME)[0].value.strip()
+        common_name = get_cn_or_org(cert)
         aki = get_key_identifier_hex(cert.to_cryptography(), extention=AuthorityKeyIdentifier, key='key_identifier')
         akis_paris.append((aki, cert))
         if common_name[0:1] == '*' or validators.domain(common_name):
@@ -173,7 +181,7 @@ def build_chains(leaf: X509, certificates: list[X509]) -> dict:
     def next_chain(ski :str, lookup :dict) -> list[dict]:
         chain = []
         for next_cert in lookup.get(ski, []):
-            next_common_name = next_cert.to_cryptography().subject.get_attributes_for_oid(x509.OID_COMMON_NAME)[0].value.strip()
+            next_common_name = get_cn_or_org(next_cert)
             next_ski = get_key_identifier_hex(next_cert.to_cryptography(), extention=SubjectKeyIdentifier, key='digest')
             next_aki = get_key_identifier_hex(next_cert.to_cryptography(
             ), extention=AuthorityKeyIdentifier, key='key_identifier')
@@ -189,7 +197,7 @@ def build_chains(leaf: X509, certificates: list[X509]) -> dict:
     index = 0
     for cert in roots:
         ski = get_key_identifier_hex(cert.to_cryptography(), extention=SubjectKeyIdentifier, key='digest')
-        common_name = cert.to_cryptography().subject.get_attributes_for_oid(x509.OID_COMMON_NAME)[0].value.strip()
+        common_name = get_cn_or_org(cert)
         chains[str(index)] = {
             'certificate': cert,
             'ski': ski,

@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.4.1 Apr 12th 2022
+
+- support non-standard certificates (like AWS) that do not use a subject common name
+
 ## 2.4.0 Apr 11th 2022
 
 - added `.to_dict()` method to `TrustStore` class

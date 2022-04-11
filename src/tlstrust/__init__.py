@@ -2,8 +2,7 @@ import sys
 import logging
 from datetime import datetime
 from OpenSSL.crypto import X509
-from cryptography import x509
-from .util import InvalidChainError, valid_context_type, get_certificate_from_store, match_certificate, get_leaf, build_chains, get_store_result_text
+from .util import InvalidChainError, get_cn_or_org, valid_context_type, get_certificate_from_store, match_certificate, get_leaf, build_chains, get_store_result_text
 from .context import *
 from .stores.android_2_2 import UNTRUSTED as ANDROID2_2_UNTRUSTED, PEM_FILES as ANDROID2_2_PEM_FILES
 from .stores.android_2_3 import UNTRUSTED as ANDROID2_3_UNTRUSTED, PEM_FILES as ANDROID2_3_PEM_FILES
@@ -24,7 +23,7 @@ from .stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI
 from .stores.mintsifry_rossii import UNTRUSTED as RUSSIA_UNTRUSTED, PEM_FILES as RUSSIA_PEM_FILES
 
 __module__ = 'tlstrust'
-__version__ = '2.4.0'
+__version__ = '2.4.1'
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
@@ -44,7 +43,7 @@ class TrustStore:
 
     def to_dict(self) -> dict:
         contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
-        subject_common_name = self.certificate.to_cryptography().subject.get_attributes_for_oid(x509.OID_COMMON_NAME)[0]._value # pylint: disable=protected-access
+        subject_common_name = get_cn_or_org(self.certificate)
         data = {
             'trust_stores': [],
             '_metadata': {

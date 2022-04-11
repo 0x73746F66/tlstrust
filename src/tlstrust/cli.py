@@ -12,9 +12,8 @@ from rich.logging import RichHandler
 from rich.table import Table
 from rich import box
 from OpenSSL.crypto import FILETYPE_PEM, load_certificate
-from cryptography import x509
 from tlstrust import __version__, TrustStore, trust_stores_from_chain
-from tlstrust.util import get_certificate_chain
+from tlstrust.util import get_certificate_chain, get_cn_or_org
 
 __module__ = 'tlstrust.cli'
 
@@ -52,7 +51,7 @@ def date_diff(comparer :datetime) -> str:
         return f"Expires in {interval.days} days"
 
 def output(store :TrustStore) -> Table:
-    subject_common_name = store.certificate.to_cryptography().subject.get_attributes_for_oid(x509.OID_COMMON_NAME)[0].value.strip()
+    subject_common_name = get_cn_or_org(store.certificate)
     title = f'{"Trusted ✓✓✓" if store.is_trusted else "Not Trusted"}\nRoot Certificate {subject_common_name}\n{date_diff(store.certificate.to_cryptography().not_valid_after)}'
     caption = f'SKI {store.key_identifier}'
     title_style = Style(bold=True, color=CLI_COLOR_OK if store.is_trusted else CLI_COLOR_NOK)
