@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.3.2 Apr 11th 2022
+## 2.3.1 Apr 11th 2022
 
 - added `.to_dict()` method to `TrustStore` class
 - support JSON output for CLI
