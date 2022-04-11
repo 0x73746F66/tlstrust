@@ -1,8 +1,10 @@
 import sys
 import logging
 import argparse
+import json
 from datetime import datetime
 from pathlib import Path
+from socket import gaierror
 import validators
 from rich.console import Console
 from rich.style import Style
@@ -67,6 +69,7 @@ def cli():
     parser.add_argument("targets", nargs="*", help='All unnamed arguments are hosts (and ports) targets to test. ~$ tlstrust apple.com:443 github.io localhost:3000')
     parser.add_argument('-C', '--client-pem', help='path to PEM encoded client certificate, url or file path accepted', dest='client_pem', default=None)
     parser.add_argument('--disable-sni', help='Do not negotiate SNI using INDA encoded host', dest='disable_sni', action="store_true")
+    parser.add_argument('-O', '--json-file', help='Store to file as JSON', dest='json_file', default=None)
     parser.add_argument('-v', '--errors-only', help='set logging level to ERROR (default CRITICAL)', dest='log_level_error', action="store_true")
     parser.add_argument('-vv', '--warning', help='set logging level to WARNING (default CRITICAL)', dest='log_level_warning', action="store_true")
     parser.add_argument('-vvv', '--info', help='set logging level to INFO (default CRITICAL)', dest='log_level_info', action="store_true")
@@ -119,12 +122,51 @@ def cli():
             raise AttributeError(f'host {host} is invalid')
         domains.append((host, int(port)))
 
+    results = []
     for domain, port in domains:
-        chain, peer_addr = get_certificate_chain(domain, int(port), use_sni=not args.disable_sni)
+        query = {
+            'host_name': domain,
+            'port_number': int(port),
+            'use_sni': not args.disable_sni,
+        }
+        try:
+            res = get_certificate_chain(domain, int(port), use_sni=not args.disable_sni)
+            if not res:
+                query['error'] = f'No supported TLS protocols {host}:{port}'
+                results.append({'_query': query})
+                console.print(query['error'])
+                continue
+            chain, peer_addr = res
+        except (TimeoutError, ConnectionRefusedError, gaierror) as ex:
+            query['error'] = f'{str(ex)} {host}:{port}'
+            results.append({'_query': query})
+            console.print(query['error'])
+            continue
+        query['peer_address'] = peer_addr
         console.print(f'{host}:{port} ({peer_addr})')
         for trust_store in trust_stores_from_chain(chain):
-            output(trust_store)
-    console.print(f'Evaluation duration seconds {(datetime.utcnow() - evaluation_start).total_seconds()}')
+            data = trust_store.to_dict()
+            data['_query'] = query
+            results.append(data)
+            if not args.json_file:
+                output(trust_store)
+
+    execution_duration_seconds = (datetime.utcnow() - evaluation_start).total_seconds()
+    if args.json_file:
+        json_data = {
+            'generator': f'{__module__} {__version__}',
+            'targets': [f"{domain}:{port}" for domain, port in domains],
+            'execution_date': datetime.utcnow().replace(microsecond=0).isoformat(),
+            'execution_duration_seconds': execution_duration_seconds,
+            'evaluations': results
+        }
+        json_path = Path(args.json_file)
+        if json_path.is_file():
+            json_path.unlink()
+        json_path.write_text(json.dumps(json_data, sort_keys=True, default=str), encoding='utf8')
+        console.print(f'Saved to: {json_path.absolute()}')
+    else:
+        console.print(f'Evaluation duration seconds {execution_duration_seconds}')
 
 if __name__ == "__main__":
     cli()

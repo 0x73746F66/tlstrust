@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="2.3.0",
+    version="2.3.1",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -133,15 +133,15 @@ assert trust_store.check_trust(BROWSER_TOR_BROWSER)
 Python:
 
 ```py
-from tlstrust.context import PYTHON_WINDOWS_SERVER, PYTHON_LINUX_SERVER, PYTHON_MACOS_SERVER, PYTHON_CERTIFI, PYTHON_URLLIB, PYTHON_REQUESTS, PYTHON_DJANGO
+from tlstrust.context import LANGUAGE_PYTHON_WINDOWS_SERVER, LANGUAGE_PYTHON_LINUX_SERVER, LANGUAGE_PYTHON_MACOS_SERVER, LANGUAGE_PYTHON_CERTIFI, LANGUAGE_PYTHON_URLLIB, LANGUAGE_PYTHON_REQUESTS, LANGUAGE_PYTHON_DJANGO
 
-assert trust_store.check_trust(PYTHON_WINDOWS_SERVER)
-assert trust_store.check_trust(PYTHON_LINUX_SERVER)
-assert trust_store.check_trust(PYTHON_MACOS_SERVER)
-assert trust_store.check_trust(PYTHON_CERTIFI)
-assert trust_store.check_trust(PYTHON_URLLIB)
-assert trust_store.check_trust(PYTHON_REQUESTS)
-assert trust_store.check_trust(PYTHON_DJANGO)
+assert trust_store.check_trust(LANGUAGE_PYTHON_WINDOWS_SERVER)
+assert trust_store.check_trust(LANGUAGE_PYTHON_LINUX_SERVER)
+assert trust_store.check_trust(LANGUAGE_PYTHON_MACOS_SERVER)
+assert trust_store.check_trust(LANGUAGE_PYTHON_CERTIFI)
+assert trust_store.check_trust(LANGUAGE_PYTHON_URLLIB)
+assert trust_store.check_trust(LANGUAGE_PYTHON_REQUESTS)
+assert trust_store.check_trust(LANGUAGE_PYTHON_DJANGO)
 ```
 
 ## [Change Log](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/z.change-log.md)

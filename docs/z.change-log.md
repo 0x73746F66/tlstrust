@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.3.1 Apr 11th 2022
+
+- added `.to_dict()` method to `TrustStore` class
+- support JSON output for CLI
+
 ## 2.3.0 Apr 9th 2022
 
 - support multiple chains and roots for each server leaf

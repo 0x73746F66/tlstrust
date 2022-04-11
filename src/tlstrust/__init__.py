@@ -1,9 +1,9 @@
 import sys
 import logging
-from binascii import hexlify
+from datetime import datetime
 from OpenSSL.crypto import X509
-from cryptography.x509.extensions import SubjectKeyIdentifier
-from .util import InvalidChainError, valid_context_type, get_certificate_from_store, match_certificate, get_leaf, build_chains
+from cryptography import x509
+from .util import InvalidChainError, valid_context_type, get_certificate_from_store, match_certificate, get_leaf, build_chains, get_store_result_text
 from .context import *
 from .stores.android_2_2 import UNTRUSTED as ANDROID2_2_UNTRUSTED, PEM_FILES as ANDROID2_2_PEM_FILES
 from .stores.android_2_3 import UNTRUSTED as ANDROID2_3_UNTRUSTED, PEM_FILES as ANDROID2_3_PEM_FILES
@@ -24,7 +24,7 @@ from .stores.certifi import UNTRUSTED as CERTIFI_UNTRUSTED, PEM_FILES as CERTIFI
 from .stores.mintsifry_rossii import UNTRUSTED as RUSSIA_UNTRUSTED, PEM_FILES as RUSSIA_PEM_FILES
 
 __module__ = 'tlstrust'
-__version__ = '2.3.0'
+__version__ = '2.3.1'
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
@@ -41,6 +41,36 @@ class TrustStore:
         for _, ctx in SOURCES.items():
             if self.exists(context_type=ctx):
                 break
+
+    def to_dict(self) -> dict:
+        contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
+        subject_common_name = self.certificate.to_cryptography().subject.get_attributes_for_oid(x509.OID_COMMON_NAME)[0]._value # pylint: disable=protected-access
+        data = {
+            'trust_stores': [],
+            '_metadata': {
+                "last_updated": datetime.utcnow().replace(microsecond=0).isoformat(),
+                "certificate_not_valid_after": self.certificate.to_cryptography().not_valid_after,
+                "certificate_issuer": subject_common_name,
+                "certificate_issuer_ski": self.key_identifier,
+            }
+        }
+        for name, is_trusted in self.all_results.items():
+            ctx = None
+            for _name, _ctx in contexts.items():
+                if name == _name:
+                    ctx = _ctx
+                    break
+            result = {}
+            result['name'] = name
+            result['is_trusted'] = is_trusted
+            try:
+                result['exists'] = isinstance(self.certificate, X509)
+                result['expired'] = self.expired_in_store(ctx)
+            except FileExistsError:
+                result['exists'] = False
+            result['description'] = get_store_result_text(**result)
+            data['trust_stores'].append(result)
+        return data
 
     @property
     def all_results(self) -> dict:

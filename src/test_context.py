@@ -82,10 +82,10 @@ def test_context_browsers():
 
 def test_context_python():
     ts = TrustStore(authority_key_identifier=good_ski)
-    assert isinstance(ts.check_trust(context.PYTHON_WINDOWS_SERVER), bool)
-    assert isinstance(ts.check_trust(context.PYTHON_LINUX_SERVER), bool)
-    assert isinstance(ts.check_trust(context.PYTHON_MACOS_SERVER), bool)
-    assert isinstance(ts.check_trust(context.PYTHON_CERTIFI), bool)
-    assert isinstance(ts.check_trust(context.PYTHON_URLLIB), bool)
-    assert isinstance(ts.check_trust(context.PYTHON_REQUESTS), bool)
-    assert isinstance(ts.check_trust(context.PYTHON_DJANGO), bool)
+    assert isinstance(ts.check_trust(context.LANGUAGE_PYTHON_WINDOWS_SERVER), bool)
+    assert isinstance(ts.check_trust(context.LANGUAGE_PYTHON_LINUX_SERVER), bool)
+    assert isinstance(ts.check_trust(context.LANGUAGE_PYTHON_MACOS_SERVER), bool)
+    assert isinstance(ts.check_trust(context.LANGUAGE_PYTHON_CERTIFI), bool)
+    assert isinstance(ts.check_trust(context.LANGUAGE_PYTHON_URLLIB), bool)
+    assert isinstance(ts.check_trust(context.LANGUAGE_PYTHON_REQUESTS), bool)
+    assert isinstance(ts.check_trust(context.LANGUAGE_PYTHON_DJANGO), bool)

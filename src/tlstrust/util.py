@@ -10,23 +10,23 @@ from cryptography import x509
 from cryptography.x509.base import Certificate
 from cryptography.x509.extensions import Extension, SubjectKeyIdentifier, AuthorityKeyIdentifier
 from .context import *
-from .stores.android_2_2 import PEM_FILES as ANDROID2_2_PEM_FILES
-from .stores.android_2_3 import PEM_FILES as ANDROID2_3_PEM_FILES
-from .stores.android_3 import PEM_FILES as ANDROID3_PEM_FILES
-from .stores.android_4_4 import PEM_FILES as ANDROID4_4_PEM_FILES
-from .stores.android_4 import PEM_FILES as ANDROID4_PEM_FILES
-from .stores.android_7 import PEM_FILES as ANDROID7_PEM_FILES
-from .stores.android_8 import PEM_FILES as ANDROID8_PEM_FILES
-from .stores.android_9 import PEM_FILES as ANDROID9_PEM_FILES
-from .stores.android_10 import PEM_FILES as ANDROID10_PEM_FILES
-from .stores.android_11 import PEM_FILES as ANDROID11_PEM_FILES
-from .stores.android_12 import PEM_FILES as ANDROID12_PEM_FILES
-from .stores.android_latest import PEM_FILES as ANDROID_PEM_FILES
-from .stores.ccadb import PEM_FILES as CCADB_PEM_FILES
-from .stores.java import PEM_FILES as JAVA_PEM_FILES
-from .stores.linux import PEM_FILES as LINUX_PEM_FILES
-from .stores.certifi import PEM_FILES as CERTIFI_PEM_FILES
-from .stores.mintsifry_rossii import PEM_FILES as RUSSIA_PEM_FILES
+from .stores.android_2_2 import PEM_FILES as ANDROID2_2_PEM_FILES, __description__ as android2_2_version
+from .stores.android_2_3 import PEM_FILES as ANDROID2_3_PEM_FILES, __description__ as android2_3_version
+from .stores.android_3 import PEM_FILES as ANDROID3_PEM_FILES, __description__ as android3_version
+from .stores.android_4_4 import PEM_FILES as ANDROID4_4_PEM_FILES, __description__ as android4_version
+from .stores.android_4 import PEM_FILES as ANDROID4_PEM_FILES, __description__ as android4_4_version
+from .stores.android_7 import PEM_FILES as ANDROID7_PEM_FILES, __description__ as android7_version
+from .stores.android_8 import PEM_FILES as ANDROID8_PEM_FILES, __description__ as android8_version
+from .stores.android_9 import PEM_FILES as ANDROID9_PEM_FILES, __description__ as android9_version
+from .stores.android_10 import PEM_FILES as ANDROID10_PEM_FILES, __description__ as android10_version
+from .stores.android_11 import PEM_FILES as ANDROID11_PEM_FILES, __description__ as android11_version
+from .stores.android_12 import PEM_FILES as ANDROID12_PEM_FILES, __description__ as android12_version
+from .stores.android_latest import PEM_FILES as ANDROID_PEM_FILES, __description__ as android_version
+from .stores.ccadb import PEM_FILES as CCADB_PEM_FILES, __version__ as ccadb_version
+from .stores.java import PEM_FILES as JAVA_PEM_FILES, __version__ as java_version
+from .stores.linux import PEM_FILES as LINUX_PEM_FILES, __version__ as linux_version
+from .stores.certifi import PEM_FILES as CERTIFI_PEM_FILES, __version__ as certifi_version
+from .stores.mintsifry_rossii import PEM_FILES as RUSSIA_PEM_FILES, __version__ as russia_version
 
 __module__ = 'tlstrust.util'
 
@@ -198,3 +198,61 @@ def build_chains(leaf: X509, certificates: list[X509]) -> dict:
         }
         index += 1
     return chains
+
+def get_store_result_text(name :str, **kwargs) -> dict:
+    DEFAULT_STATUS = 'No Root CA Certificate in the {short_name} Trust Store'
+    short_name = SHORT_LOOKUP[name]
+    trust_status = DEFAULT_STATUS.format(short_name=short_name)
+    VERSIONS = {
+        CCADB: ccadb_version,
+        JAVA_SRE: java_version,
+        ANDROID: android_version,
+        ANDROID_LATEST: android_version,
+        GOOGLE_TRUST_SERVICES: android_version,
+        ANDROID_FROYO: android2_2_version,
+        ANDROID_GINGERBREAD: android2_3_version,
+        ANDROID_HONEYCOMB: android3_version,
+        ANDROID_ICE_CREAM_SANDWICH: android4_version,
+        ANDROID_KITKAT: android4_4_version,
+        ANDROID_NOUGAT: android7_version,
+        ANDROID_OREO: android8_version,
+        ANDROID_PIE: android9_version,
+        ANDROID_Q: android10_version,
+        ANDROID_11: android11_version,
+        ANDROID_12: android12_version,
+        LINUX_ARCH: linux_version,
+        PYTHON_CERTIFI: certifi_version,
+        MINTSIFRY_ROSSII: russia_version,
+        PYTHON: certifi_version,
+        WINDOWS: ccadb_version,
+        APPLE: ccadb_version,
+        FIREFOX: ccadb_version,
+        TOR: ccadb_version,
+        CHROMIUM: ccadb_version,
+        CHROME: ccadb_version,
+        EDGE: ccadb_version,
+        BRAVE: ccadb_version,
+        OPERA: ccadb_version,
+        VIVALDI: ccadb_version,
+        SILK: ccadb_version,
+        SAMSUNG: ccadb_version,
+        YANDEX: russia_version,
+        SAFARI: ccadb_version,
+        PY_WINDOWS: ccadb_version,
+        PY_LINUX: ccadb_version,
+        PY_APPLE: ccadb_version,
+        PY_CERTIFI: certifi_version,
+        PY_URLLIB: certifi_version,
+        PY_REQUESTS: certifi_version,
+        PY_DJANGO: certifi_version,
+    }
+    if kwargs.get('exists'):
+        trust_status = f'Root CA Certificate present in {short_name} {VERSIONS[name]} Trust Store'
+        if name == CCADB:
+            trust_status += ' (Mozilla, Microsoft, and Apple)'
+        if name == PYTHON_CERTIFI:
+            trust_status += ' (Django, requests, urllib, and anything based from these)'
+        if kwargs.get('expired'):
+            trust_status += ' EXPIRED'
+
+    return trust_status
