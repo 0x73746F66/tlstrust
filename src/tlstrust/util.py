@@ -58,6 +58,14 @@ from .stores.android_12 import (
     PEM_FILES as ANDROID12_PEM_FILES,
     __description__ as android12_version,
 )
+from .stores.android_13 import (
+    PEM_FILES as ANDROID13_PEM_FILES,
+    __description__ as android13_version,
+)
+from .stores.android_14 import (
+    PEM_FILES as ANDROID14_PEM_FILES,
+    __description__ as android14_version,
+)
 from .stores.android_latest import (
     PEM_FILES as ANDROID_PEM_FILES,
     __description__ as android_version,
@@ -212,6 +220,14 @@ def get_certificate_from_store(aki, context_type: int) -> X509:
             certificate = load_certificate(
                 FILETYPE_PEM, ANDROID12_PEM_FILES[aki].encode()
             )
+        if context_type == PLATFORM_ANDROID13:
+            certificate = load_certificate(
+                FILETYPE_PEM, ANDROID13_PEM_FILES[aki].encode()
+            )
+        if context_type == PLATFORM_ANDROID14:
+            certificate = load_certificate(
+                FILETYPE_PEM, ANDROID14_PEM_FILES[aki].encode()
+            )
     except KeyError:
         pass
     if certificate is None or not match_certificate(aki, certificate):
@@ -342,9 +358,11 @@ def get_store_result_text(name: str, **kwargs) -> dict:
         ANDROID_NOUGAT: android7_version,
         ANDROID_OREO: android8_version,
         ANDROID_PIE: android9_version,
-        ANDROID_Q: android10_version,
-        ANDROID_11: android11_version,
-        ANDROID_12: android12_version,
+        ANDROID_QUINCE_TART: android10_version,
+        ANDROID_RED_VELVET_CAKE: android11_version,
+        ANDROID_SNOW_CONE: android12_version,
+        ANDROID_TIRAMISU: android13_version,
+        ANDROID_UPSIDE_DOWN_CAKE: android14_version,
         LINUX_ARCH: linux_version,
         PYTHON_CERTIFI: certifi_version,
         MINTSIFRY_ROSSII: russia_version,

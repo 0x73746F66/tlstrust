@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.4.2 Apr 26th 2022
+## 2.5.0 Apr 26th 2022
 
 - support android 13 and 14
 - added development hooks and code scans

@@ -82,7 +82,7 @@ from .stores.mintsifry_rossii import (
 )
 
 __module__ = "tlstrust"
-__version__ = "2.4.2"
+__version__ = "2.5.0"
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
