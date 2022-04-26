@@ -1,18 +1,20 @@
-from OpenSSL.crypto import FILETYPE_PEM
 from tlstrust import TrustStore
 from tlstrust import context
 
-good_ski = 'bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7'
+good_ski = "bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7"
+
 
 def test_setup():
     ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts, TrustStore)
     assert isinstance(ts.is_trusted, bool)
 
+
 def test_context_ccadb():
     ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.SOURCE_CCADB), bool)
     assert isinstance(ts.ccadb, bool)
+
 
 def test_context_android():
     ts = TrustStore(authority_key_identifier=good_ski)
@@ -42,20 +44,24 @@ def test_context_android():
     assert isinstance(ts.check_trust(context.PLATFORM_ANDROID12), bool)
     assert isinstance(ts.android12, bool)
 
+
 def test_context_linux():
     ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.SOURCE_LINUX), bool)
     assert isinstance(ts.linux, bool)
+
 
 def test_context_java():
     ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.SOURCE_JAVA), bool)
     assert isinstance(ts.java, bool)
 
+
 def test_context_russia():
     ts = TrustStore(authority_key_identifier=good_ski)
     assert isinstance(ts.check_trust(context.SOURCE_RUSSIA), bool)
     assert isinstance(ts.russia, bool)
+
 
 def test_context_platforms():
     ts = TrustStore(authority_key_identifier=good_ski)
@@ -64,6 +70,7 @@ def test_context_platforms():
     assert isinstance(ts.check_trust(context.PLATFORM_JAVA), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_WINDOWS), bool)
     assert isinstance(ts.check_trust(context.PLATFORM_RUSSIA), bool)
+
 
 def test_context_browsers():
     ts = TrustStore(authority_key_identifier=good_ski)
@@ -79,6 +86,7 @@ def test_context_browsers():
     assert isinstance(ts.check_trust(context.BROWSER_YANDEX_BROWSER), bool)
     assert isinstance(ts.check_trust(context.BROWSER_VIVALDI), bool)
     assert isinstance(ts.check_trust(context.BROWSER_TOR_BROWSER), bool)
+
 
 def test_context_python():
     ts = TrustStore(authority_key_identifier=good_ski)

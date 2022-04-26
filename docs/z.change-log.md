@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.4.2 Apr 26th 2022
+
+- support android 13 and 14
+- added development hooks and code scans
+
 ## 2.4.1 Apr 12th 2022
 
 - support non-standard certificates (like AWS) that do not use a subject common name

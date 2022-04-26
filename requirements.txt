@@ -1,0 +1,7 @@
+certifi
+cryptography==35.0.0
+asn1crypto==1.4.0
+pyOpenSSL==21.0.0
+rich==12.0.0
+validators==0.18.2
+idna==3.3

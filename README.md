@@ -80,9 +80,13 @@ For this reason `tlstrust` will derive it's result from evaluations of trust for
 Planned support of `/usr/share/ca-certificates-java/ca-certificates-java.jar` on the system where `tlstrust` is run.
 
 ## Debian Linux (Including derivatives like Ubuntu)
+
 ## Redhat Enterprise Linux (RHEL)
+
 ## Open SUSE Linux
+
 ## Alpine Linux (Common for container based images)
+
 ## Arch Linux
 
 These Linux distributions typically include a package named `update-ca-certificates` or similar and stored to `/etc/ssl/certs`, `/usr/share/ca-certificates`, and `/usr/local/share/ca-certificates`, or will require developers to install their own packages that supply a bundle of CA certificates that are used as the root trust store by most HTTP clients in software and programming languages.
@@ -116,12 +120,19 @@ Firefox; All evaluations of trust for Firefox will derive it's result using the 
 For this reason `tlstrust` will derive it's result from evaluations of trust for Chrome using the Common CA Certificate Database (CCADB).
 
 ## Google Chrome
+
 ## Microsoft Edge
+
 ## Brave
+
 ## Opera
+
 ## Vivaldi
+
 ## Amazon Silk
+
 ## Samsung Internet Browser
+
 ## Yandex Browser
 
 Chromium-based; All evaluations of trust for Firefox will derive it's result using the Common CA Certificate Database (CCADB)
@@ -152,20 +163,17 @@ Many Python packages (like `pyOpenSSL` that `tlstrust` uses) leverage a package 
 
 While `certifi` is commonly believed to make the Mozilla Root CA Trust Store available to python, which it does, but `certifi` is it's own Root CA Trust Store because they further curate the Certificates to explicitly not trust any weak Certificates - and unfortunately suffers from being out-of-sync with updates to the Mozilla Root CA Trust Store.
 
-
 ## Python package `urllib`
 
 Many Python popular packages (like `requests` where `certifi` originated) leverage a package called `urllib` for as common http client, and add a better developer experience on top.
 
 While `urllib` is commonly believed to do it's own Root CA Trust Store checking, it actually uses `certifi` so `tlstrust` will alias `context.PYTHON_URLLIB` to `context.PYTHON_CERTIFI` until such a time this changes.
 
-
 ## Python package `requests`
 
 The most popular package in python is `requests`.
 
 Under `requests` is `urllib` for making HTTP clients, which in turn uses `certifi` for its Root CA Trust Store checking, So `tlstrust` will alias `context.PYTHON_REQUESTS` to `context.PYTHON_URLLIB` until such a time this changes.
-
 
 ## Python framework `django`
 

@@ -1,4 +1,6 @@
 SHELL := /bin/bash
+-include .env
+export $(shell sed 's/=.*//' .env)
 .PHONY: help
 
 help: ## This help.
@@ -6,22 +8,23 @@ help: ## This help.
 
 .DEFAULT_GOAL := help
 
-setup: ## setup for development of this project
-	pip install --progress-bar off -U pip 2>/dev/null
-	pip install --progress-bar off -U setuptools wheel semgrep pylint pytest build twine coverage autopep8
-	pip install --progress-bar off -U --no-cache-dir -e .
+deps: ## install dependancies for development of this project
+	pip install -U pip
+	pip install -U -r requirements-dev.txt
+	pip install -e .
 
-install: build ## Install the package
-	pip install --progress-bar off -U --no-cache-dir --force-reinstall dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
+setup: deps ## setup for development of this project
+	pre-commit install --hook-type pre-push --hook-type pre-commit
+	@ [ -f .secrets.baseline ] || ( detect-secrets scan --exclude-files .examples/ --exclude-files src/tlstrust/stores/ > .secrets.baseline )
+	detect-secrets audit .secrets.baseline
+
+install: ## Install the package
+	pip install --force-reinstall dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
 
 check: ## check build
 	python3 setup.py check
 
-test: generate-files ## run unit tests with coverage
-	coverage run -m pytest --nf -s
-	coverage report -m
-
-test-only: ## run unit tests with coverage
+test: ## run unit tests with coverage
 	coverage run -m pytest --nf -s
 	coverage report -m
 

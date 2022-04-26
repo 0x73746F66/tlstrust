@@ -1,6 +1,6 @@
-__module__ = 'tlstrust.context'
+__module__ = "tlstrust.context"
 
-INVALID_CONTEXT = 'context_type provided is invalid {}'
+INVALID_CONTEXT = "context_type provided is invalid {}"
 SOURCE_CCADB = 0
 SOURCE_JAVA = 1
 SOURCE_ANDROID = 3
@@ -25,6 +25,8 @@ PLATFORM_ANDROID9 = 309
 PLATFORM_ANDROID10 = 310
 PLATFORM_ANDROID11 = 311
 PLATFORM_ANDROID12 = 312
+PLATFORM_ANDROID13 = 313
+PLATFORM_ANDROID14 = 314
 PLATFORM_RUSSIA = SOURCE_RUSSIA
 BROWSER_FIREFOX = SOURCE_CCADB
 BROWSER_TOR_BROWSER = SOURCE_CCADB
@@ -45,89 +47,93 @@ LANGUAGE_PYTHON_CERTIFI = SOURCE_CERTIFI
 LANGUAGE_PYTHON_URLLIB = LANGUAGE_PYTHON_CERTIFI
 LANGUAGE_PYTHON_REQUESTS = LANGUAGE_PYTHON_URLLIB
 LANGUAGE_PYTHON_DJANGO = LANGUAGE_PYTHON_URLLIB
-JAVA_SRE = 'Java(TM) SE Runtime Environment'
-CCADB = 'Common Certificate Authority Database (CCADB)'
-GOOGLE_TRUST_SERVICES = 'Google Trust Services'
-ANDROID = 'Android (open source)'
-ANDROID_LATEST = 'Android (latest Google build)'
-ANDROID_FROYO = 'Android 2.2 (Froyo) 2010'
-ANDROID_GINGERBREAD = 'Android 2.3 (Gingerbread) 2010'
-ANDROID_HONEYCOMB = 'Android 3 (Honeycomb) 2011'
-ANDROID_ICE_CREAM_SANDWICH = 'Android 4 (Ice Cream Sandwich) 2011'
-ANDROID_KITKAT = 'Android 4.4 (KitKat) 2013'
-ANDROID_NOUGAT = 'Android 7 (Nougat) 2016'
-ANDROID_OREO = 'Android 8 (Oreo) 2017'
-ANDROID_PIE = 'Android 9 (Pie) 2018'
-ANDROID_Q = 'Android 10 (Q) 2019'
-ANDROID_11 = 'Android 11 2020'
-ANDROID_12 = 'Android 12 2021'
-LINUX_ARCH = 'Linux (Arch)'
-MINTSIFRY_ROSSII = 'MinTsifry Rossii'
-PYTHON_CERTIFI = 'Certifi (Python module for Certificate Authority Certificates)'
-PYTHON = 'Python 3.10'
-WINDOWS = 'Microsoft Windows'
-APPLE = 'Apple devices'
-FIREFOX = 'Mozilla Firefox'
-TOR = 'Tor Web Browser'
-CHROMIUM = 'Chromium Browser'
-CHROME = 'Google Chrome'
-EDGE = 'Microsoft Edge'
-BRAVE = 'Brave Browser'
-OPERA = 'Opera Browser'
-VIVALDI = 'Vivaldi Browser'
-SILK = 'Amazon Silk'
-SAMSUNG = 'Samsung Internet'
-YANDEX = 'Yandex'
-SAFARI = 'Apple Safari'
-PY_WINDOWS = 'Python built-in https module on Windows'
-PY_LINUX = 'Python built-in https module on Linux'
-PY_APPLE = 'Python built-in https module on Apple'
-PY_CERTIFI = 'certifi (Python module)'
-PY_URLLIB = 'urllib (Python module)'
-PY_REQUESTS = 'requests (Python module)'
-PY_DJANGO = 'Django (Python module)'
+JAVA_SRE = "Java(TM) SE Runtime Environment"
+CCADB = "Common Certificate Authority Database (CCADB)"
+GOOGLE_TRUST_SERVICES = "Google Trust Services"
+ANDROID = "Android (open source)"
+ANDROID_LATEST = "Android (latest Google build)"
+ANDROID_FROYO = "Android 2.2 (Froyo) 2010"
+ANDROID_GINGERBREAD = "Android 2.3 (Gingerbread) 2010"
+ANDROID_HONEYCOMB = "Android 3 (Honeycomb) 2011"
+ANDROID_ICE_CREAM_SANDWICH = "Android 4 (Ice Cream Sandwich) 2011"
+ANDROID_KITKAT = "Android 4.4 (KitKat) 2013"
+ANDROID_NOUGAT = "Android 7 (Nougat) 2016"
+ANDROID_OREO = "Android 8 (Oreo) 2017"
+ANDROID_PIE = "Android 9 (Pie) 2018"
+ANDROID_QUINCE_TART = "Android 10 (Quince Tart) 2019"
+ANDROID_RED_VELVET_CAKE = "Android 11 (Red Velvet Cake) 2020"
+ANDROID_SNOW_CONE = "Android 12 (Snow Cone) 2021"
+ANDROID_TIRAMISU = "Android 13 (Tiramisu) 2022"
+ANDROID_UPSIDE_DOWN_CAKE = "Android 14 (Upside Down Cake) 2023"
+LINUX_ARCH = "Linux (Arch)"
+MINTSIFRY_ROSSII = "MinTsifry Rossii"
+PYTHON_CERTIFI = "Certifi (Python module for Certificate Authority Certificates)"
+PYTHON = "Python 3.10"
+WINDOWS = "Microsoft Windows"
+APPLE = "Apple devices"
+FIREFOX = "Mozilla Firefox"
+TOR = "Tor Web Browser"
+CHROMIUM = "Chromium Browser"
+CHROME = "Google Chrome"
+EDGE = "Microsoft Edge"
+BRAVE = "Brave Browser"
+OPERA = "Opera Browser"
+VIVALDI = "Vivaldi Browser"
+SILK = "Amazon Silk"
+SAMSUNG = "Samsung Internet"
+YANDEX = "Yandex"
+SAFARI = "Apple Safari"
+PY_WINDOWS = "Python built-in https module on Windows"
+PY_LINUX = "Python built-in https module on Linux"
+PY_APPLE = "Python built-in https module on Apple"
+PY_CERTIFI = "certifi (Python module)"
+PY_URLLIB = "urllib (Python module)"
+PY_REQUESTS = "requests (Python module)"
+PY_DJANGO = "Django (Python module)"
 SHORT_LOOKUP = {
-    JAVA_SRE: 'Java SE',
-    CCADB: 'CCADB',
-    GOOGLE_TRUST_SERVICES: 'Google',
-    ANDROID: 'Android FOSS',
-    ANDROID_LATEST: 'Android latest',
-    ANDROID_FROYO: 'Android 2.2',
-    ANDROID_GINGERBREAD: 'Android 2.3',
-    ANDROID_HONEYCOMB: 'Android 3',
-    ANDROID_ICE_CREAM_SANDWICH: 'Android 4',
-    ANDROID_KITKAT: 'Android 4.4',
-    ANDROID_NOUGAT: 'Android 7',
-    ANDROID_OREO: 'Android 8',
-    ANDROID_PIE: 'Android 9',
-    ANDROID_Q: 'Android 10',
-    ANDROID_11: 'Android 11',
-    ANDROID_12: 'Android 12',
-    LINUX_ARCH: 'Linux',
-    MINTSIFRY_ROSSII: 'Russian',
-    PYTHON_CERTIFI: 'Certifi',
-    PYTHON: 'Python',
-    WINDOWS: 'Windows',
-    APPLE: 'Apple',
-    FIREFOX: 'Firefox',
-    TOR: 'Tor',
-    CHROMIUM: 'Chromium',
-    CHROME: 'Chrome',
-    EDGE: 'Edge',
-    BRAVE: 'Brave',
-    OPERA: 'Opera',
-    VIVALDI: 'Vivaldi',
-    SILK: 'Silk',
-    SAMSUNG: 'Samsung',
-    YANDEX: 'Yandex',
-    SAFARI: 'Safari',
-    PY_WINDOWS: 'Python on Windows',
-    PY_LINUX: 'Python on Linux',
-    PY_APPLE: 'Python on Apple',
-    PY_CERTIFI: 'certifi',
-    PY_URLLIB: 'urllib',
-    PY_REQUESTS: 'requests',
-    PY_DJANGO: 'Django',
+    JAVA_SRE: "Java SE",
+    CCADB: "CCADB",
+    GOOGLE_TRUST_SERVICES: "Google",
+    ANDROID: "Android FOSS",
+    ANDROID_LATEST: "Android latest",
+    ANDROID_FROYO: "Android 2.2",
+    ANDROID_GINGERBREAD: "Android 2.3",
+    ANDROID_HONEYCOMB: "Android 3",
+    ANDROID_ICE_CREAM_SANDWICH: "Android 4",
+    ANDROID_KITKAT: "Android 4.4",
+    ANDROID_NOUGAT: "Android 7",
+    ANDROID_OREO: "Android 8",
+    ANDROID_PIE: "Android 9",
+    ANDROID_QUINCE_TART: "Android 10",
+    ANDROID_RED_VELVET_CAKE: "Android 11",
+    ANDROID_SNOW_CONE: "Android 12",
+    ANDROID_TIRAMISU: "Android 13",
+    ANDROID_UPSIDE_DOWN_CAKE: "Android 14",
+    LINUX_ARCH: "Linux",
+    MINTSIFRY_ROSSII: "Russian",
+    PYTHON_CERTIFI: "Certifi",
+    PYTHON: "Python",
+    WINDOWS: "Windows",
+    APPLE: "Apple",
+    FIREFOX: "Firefox",
+    TOR: "Tor",
+    CHROMIUM: "Chromium",
+    CHROME: "Chrome",
+    EDGE: "Edge",
+    BRAVE: "Brave",
+    OPERA: "Opera",
+    VIVALDI: "Vivaldi",
+    SILK: "Silk",
+    SAMSUNG: "Samsung",
+    YANDEX: "Yandex",
+    SAFARI: "Safari",
+    PY_WINDOWS: "Python on Windows",
+    PY_LINUX: "Python on Linux",
+    PY_APPLE: "Python on Apple",
+    PY_CERTIFI: "certifi",
+    PY_URLLIB: "urllib",
+    PY_REQUESTS: "requests",
+    PY_DJANGO: "Django",
 }
 STORES = {
     CCADB: SOURCE_CCADB,
@@ -141,9 +147,11 @@ STORES = {
     ANDROID_NOUGAT: PLATFORM_ANDROID7,
     ANDROID_OREO: PLATFORM_ANDROID8,
     ANDROID_PIE: PLATFORM_ANDROID9,
-    ANDROID_Q: PLATFORM_ANDROID10,
-    ANDROID_11: PLATFORM_ANDROID11,
-    ANDROID_12: PLATFORM_ANDROID12,
+    ANDROID_QUINCE_TART: PLATFORM_ANDROID10,
+    ANDROID_RED_VELVET_CAKE: PLATFORM_ANDROID11,
+    ANDROID_SNOW_CONE: PLATFORM_ANDROID12,
+    ANDROID_TIRAMISU: PLATFORM_ANDROID13,
+    ANDROID_UPSIDE_DOWN_CAKE: PLATFORM_ANDROID14,
     LINUX_ARCH: SOURCE_LINUX,
     LANGUAGE_PYTHON_CERTIFI: SOURCE_CERTIFI,
     MINTSIFRY_ROSSII: SOURCE_RUSSIA,
@@ -171,9 +179,11 @@ PLATFORMS = {
     ANDROID_NOUGAT: PLATFORM_ANDROID7,
     ANDROID_OREO: PLATFORM_ANDROID8,
     ANDROID_PIE: PLATFORM_ANDROID9,
-    ANDROID_Q: PLATFORM_ANDROID10,
-    ANDROID_11: PLATFORM_ANDROID11,
-    ANDROID_12: PLATFORM_ANDROID12,
+    ANDROID_QUINCE_TART: PLATFORM_ANDROID10,
+    ANDROID_RED_VELVET_CAKE: PLATFORM_ANDROID11,
+    ANDROID_SNOW_CONE: PLATFORM_ANDROID12,
+    ANDROID_TIRAMISU: PLATFORM_ANDROID13,
+    ANDROID_UPSIDE_DOWN_CAKE: PLATFORM_ANDROID14,
     MINTSIFRY_ROSSII: PLATFORM_RUSSIA,
 }
 BROWSERS = {

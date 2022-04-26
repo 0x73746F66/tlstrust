@@ -28,6 +28,7 @@ def get_ski(cer :Certificate) -> str:
         if isinstance(ext.value, extensions.SubjectKeyIdentifier):
             return hexlify(ext.value.digest).decode('utf-8')
 
+
 def fetch(url :str, directory :str):
     handle = Path(directory)
     if not handle.is_dir():
@@ -45,6 +46,7 @@ def fetch(url :str, directory :str):
         extract_files(url, directory)
         for file_path in handle.glob('*.pem'):
             yield file_path.read_bytes()
+
 
 def extract_files(url, directory):
     store_path = f'/tmp/{url.split("/")[-1]}'
@@ -70,6 +72,7 @@ def extract_files(url, directory):
     for key, pem in certs.items():
         pem_handle = Path(f'{directory}/{key}.pem')
         pem_handle.write_text(pem, encoding='utf8')
+
 
 def main():
     now = datetime.utcnow()
@@ -104,6 +107,7 @@ __description__ = 'The version is the date last generated from open source colle
 UNTRUSTED = {json.dumps(untrusted_ski, indent=4, ensure_ascii=False)}
 PEM_FILES = {json.dumps(lookup, sort_keys=True, indent=4, ensure_ascii=False)}
 ''', encoding='utf8')
+
 
 if __name__ == '__main__':
     main()

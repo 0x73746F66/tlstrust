@@ -1,0 +1,15 @@
+setuptools
+wheel
+semgrep
+bandit
+autopep8
+pylint
+pytest
+build
+twine
+coverage
+typed-ast
+black
+pre-commit
+detect-secrets
+pip-audit

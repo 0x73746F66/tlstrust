@@ -17,6 +17,7 @@ KEY_STORE = '/etc/ssl/certs/java/cacerts'
 def get_version():
     return subprocess.run(["java", "--version"], capture_output=True, check=False).stdout.decode().splitlines()[0]
 
+
 def extract_certs():
     for line in subprocess.run(["keytool", "-list", "-protected", "-keystore", KEY_STORE], capture_output=True, check=False).stdout.decode().splitlines():
         pieces = list(map(str.strip, line.split(',')))
@@ -24,10 +25,12 @@ def extract_certs():
             continue
         subprocess.run(["keytool", "-keystore", KEY_STORE, "-protected", "-exportcert", "-rfc", "-alias", pieces[0], "-file", f'{STORE_PATH}/{pieces[0]}.pem'], check=False)
 
+
 def get_ski(x509 :Certificate) -> str:
     for ext in x509.extensions:
         if isinstance(ext.value, extensions.SubjectKeyIdentifier):
             return hexlify(ext.value.digest).decode('utf-8')
+
 
 if __name__ == '__main__':
     handle = Path(STORE_PATH)
@@ -67,4 +70,4 @@ __description__ = 'Various servers will use different versions, an updated Debia
 
 UNTRUSTED = {json.dumps(untrusted_ski, indent=4, ensure_ascii=False)}
 PEM_FILES = {json.dumps(lookup, sort_keys=True, indent=4, ensure_ascii=False)}
-''')
+''', encoding='utf8')

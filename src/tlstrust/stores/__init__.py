@@ -18,7 +18,7 @@ from .android_12 import __version__ as android_12_ver
 from .android_latest import __version__ as android_latest_ver
 
 
-__module__ = 'tlstrust.stores'
+__module__ = "tlstrust.stores"
 VERSIONS = {
     context.SOURCE_CCADB: ccadb_ver,
     context.SOURCE_JAVA: java_ver,

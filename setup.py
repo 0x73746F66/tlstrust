@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="2.4.1",
+    version="2.4.2",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -161,11 +161,11 @@ assert trust_store.check_trust(LANGUAGE_PYTHON_DJANGO)
     ],
     include_package_data=True,
     install_requires=[
-        'certifi==2021.5.30',
+        'certifi',
         'cryptography==35.0.0',
         'asn1crypto==1.4.0',
         'pyOpenSSL==21.0.0',
-        'rich==11.0.0',
+        'rich==12.0.0',
         'validators==0.18.2',
         'idna==3.3'
     ],
