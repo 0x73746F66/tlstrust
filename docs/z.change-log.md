@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.5.3 Apr 30th 2022
+
+- bug fix for `util.get_store_result_text()`
+
 ## 2.5.2 Apr 30th 2022
 
 - Added Rustls trust store
