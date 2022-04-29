@@ -26,8 +26,8 @@ def get_ski(certificate :Certificate) -> str:
 if __name__ == "__main__":
     untrusted_ski = set()
     lookup = {}
-    with closing(requests.get(REMOTE_CSV, stream=True, allow_redirects=True)) as r:
-        buff = StringIO(r.text)
+    with closing(requests.get(REMOTE_CSV, stream=True, allow_redirects=True)) as raw:
+        buff = StringIO(raw.text)
     now = datetime.utcnow()
     for item in csv.DictReader(buff, delimiter=",", quotechar="\""):
         pem = item.get("PEM")

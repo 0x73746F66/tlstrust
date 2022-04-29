@@ -1,9 +1,17 @@
 # Change Log
 
-## 2.5.1 Apr 26th 2022
+## 2.5.2 Apr 30th 2022
+
+- Added Rustls trust store
+- Added language; Rust
+- Added contexts for Rust on platforms; Windows, Apple, Linux
+- Added contexts for crates; Rustls, Web PKI
+
+## 2.5.1 Apr 30th 2022
 
 - Added languages; Erlang, Ruby, Go, Node.js
-- Added certify trust store for; Erlang, Ruby, Go, Node.js
+- Added certify trust store contexts for; Erlang, Ruby, Go, Node.js
+- Added contexts for new languages on platforms; Windows, Apple, Linux
 
 ## 2.5.0 Apr 26th 2022
 
