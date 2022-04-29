@@ -80,9 +80,13 @@ from .stores.mintsifry_rossii import (
     UNTRUSTED as RUSSIA_UNTRUSTED,
     PEM_FILES as RUSSIA_PEM_FILES,
 )
+from .stores.rustls import (
+    UNTRUSTED as RUST_UNTRUSTED,
+    PEM_FILES as RUST_PEM_FILES,
+)
 
 __module__ = "tlstrust"
-__version__ = "2.5.3"
+__version__ = "2.5.4"
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
@@ -327,6 +331,13 @@ class TrustStore:
         )
 
     @property
+    def rustls(self) -> bool:
+        return (
+            self.key_identifier not in RUST_UNTRUSTED
+            and self.key_identifier in RUST_PEM_FILES.keys()
+        )
+
+    @property
     def is_trusted(self) -> bool:
         return all([self.ccadb, self.android, self.linux, self.certifi, self.java])
 
@@ -370,6 +381,14 @@ class TrustStore:
             return match_certificate(
                 self.key_identifier,
                 get_certificate_from_store(self.key_identifier, SOURCE_RUSSIA),
+            )
+        if (
+            context_type == SOURCE_RUSTLS
+            and self.key_identifier in RUST_PEM_FILES.keys()
+        ):
+            return match_certificate(
+                self.key_identifier,
+                get_certificate_from_store(self.key_identifier, SOURCE_RUSTLS),
             )
         if (
             context_type == SOURCE_CERTIFI
@@ -540,6 +559,8 @@ class TrustStore:
             return self.certifi
         if context_type == SOURCE_RUSSIA:
             return self.russia
+        if context_type == SOURCE_RUSTLS:
+            return self.rustls
 
         return self.is_trusted
 

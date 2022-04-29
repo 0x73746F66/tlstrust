@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.5.4 Apr 30th 2022
+
+- bug fix for checking if certificates exist in Rustls store
+
 ## 2.5.3 Apr 30th 2022
 
 - bug fix for `util.get_store_result_text()`
