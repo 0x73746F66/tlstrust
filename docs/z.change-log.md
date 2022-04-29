@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.5.1 Apr 26th 2022
+
+- Added languages; Erlang, Ruby, Go, Node.js
+- Added certify trust store for; Erlang, Ruby, Go, Node.js
+
 ## 2.5.0 Apr 26th 2022
 
 - support android 13 and 14

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="2.5.0",
+    version="2.5.1",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -11,7 +11,7 @@ setup(
 
 Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.
 
-![tlstrust cli](https://gitlab.com/trivialsec/tlstrust/-/raw/main/docs/images/tlstrust.jpg)
+![tlstrust cli](https://gitlab.com/trivialsec/tlstrust/-/raw/5052faa1d1a5fbf21dec6107622cffc58359762d/docs/images/tlstrust.jpg)
 
 ## [Documentation](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/0.index.md)
 

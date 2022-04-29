@@ -16,33 +16,33 @@ from cryptography.x509 import Certificate, extensions
 from tlstrust import context
 from tlstrust.context import PLATFORMS
 
-GOOGLESOURCE_BASE_URL = 'https://android.googlesource.com/platform/system/ca-certificates'
-CLOUDFLARE_BASE_URL = 'https://raw.githubusercontent.com/cloudflare/cfssl_trust/master/certdata/trusted_roots'
-BASE_PATH = '.data'
-BEGIN = '-----BEGIN CERTIFICATE-----'
-END = '-----END CERTIFICATE-----'
+GOOGLESOURCE_BASE_URL = "https://android.googlesource.com/platform/system/ca-certificates"
+CLOUDFLARE_BASE_URL = "https://raw.githubusercontent.com/cloudflare/cfssl_trust/master/certdata/trusted_roots"
+BASE_PATH = ".data"
+BEGIN = "-----BEGIN CERTIFICATE-----"
+END = "-----END CERTIFICATE-----"
 keyed_platforms = inv_map = {v: k for k, v in PLATFORMS.items()}
 REMOTES = [
-    {'file': 'android_latest', 'name': keyed_platforms[context.PLATFORM_ANDROID_LATEST], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz'},
-    {'file': 'android_14', 'name': keyed_platforms[context.PLATFORM_ANDROID13], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz'},
-    {'file': 'android_13', 'name': keyed_platforms[context.PLATFORM_ANDROID13], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz'},
-    {'file': 'android_12', 'name': keyed_platforms[context.PLATFORM_ANDROID12], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android12-release/files.tar.gz'},
-    {'file': 'android_11', 'name': keyed_platforms[context.PLATFORM_ANDROID11], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android11-release/files.tar.gz'},
-    {'file': 'android_10', 'name': keyed_platforms[context.PLATFORM_ANDROID10], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android10-release/files.tar.gz'},
-    {'file': 'android_9', 'name': keyed_platforms[context.PLATFORM_ANDROID9], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/pie-release/files.tar.gz'},
-    {'file': 'android_8', 'name': keyed_platforms[context.PLATFORM_ANDROID8], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/oreo-release/files.tar.gz'},
-    {'file': 'android_7', 'name': keyed_platforms[context.PLATFORM_ANDROID7], 'url': f'{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/nougat-release/files.tar.gz'},
-    {'file': 'android_4_4', 'name': keyed_platforms[context.PLATFORM_ANDROID4_4], 'url': f'{CLOUDFLARE_BASE_URL}/kitkat.pem'},
-    {'file': 'android_4', 'name': keyed_platforms[context.PLATFORM_ANDROID4], 'url': f'{CLOUDFLARE_BASE_URL}/ics.pem'},
-    {'file': 'android_3', 'name': keyed_platforms[context.PLATFORM_ANDROID3], 'url': f'{CLOUDFLARE_BASE_URL}/honeycomb.pem'},
-    {'file': 'android_2_3', 'name': keyed_platforms[context.PLATFORM_ANDROID2_3], 'url': f'{CLOUDFLARE_BASE_URL}/gingerbread.pem'},
-    {'file': 'android_2_2', 'name': keyed_platforms[context.PLATFORM_ANDROID2_2], 'url': f'{CLOUDFLARE_BASE_URL}/froyo.pem'},
+    {"file": "android_latest", "name": keyed_platforms[context.PLATFORM_ANDROID_LATEST], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz"},
+    {"file": "android_14", "name": keyed_platforms[context.PLATFORM_ANDROID13], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz"},
+    {"file": "android_13", "name": keyed_platforms[context.PLATFORM_ANDROID13], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz"},
+    {"file": "android_12", "name": keyed_platforms[context.PLATFORM_ANDROID12], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android12-release/files.tar.gz"},
+    {"file": "android_11", "name": keyed_platforms[context.PLATFORM_ANDROID11], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android11-release/files.tar.gz"},
+    {"file": "android_10", "name": keyed_platforms[context.PLATFORM_ANDROID10], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android10-release/files.tar.gz"},
+    {"file": "android_9", "name": keyed_platforms[context.PLATFORM_ANDROID9], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/pie-release/files.tar.gz"},
+    {"file": "android_8", "name": keyed_platforms[context.PLATFORM_ANDROID8], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/oreo-release/files.tar.gz"},
+    {"file": "android_7", "name": keyed_platforms[context.PLATFORM_ANDROID7], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/nougat-release/files.tar.gz"},
+    {"file": "android_4_4", "name": keyed_platforms[context.PLATFORM_ANDROID4_4], "url": f"{CLOUDFLARE_BASE_URL}/kitkat.pem"},
+    {"file": "android_4", "name": keyed_platforms[context.PLATFORM_ANDROID4], "url": f"{CLOUDFLARE_BASE_URL}/ics.pem"},
+    {"file": "android_3", "name": keyed_platforms[context.PLATFORM_ANDROID3], "url": f"{CLOUDFLARE_BASE_URL}/honeycomb.pem"},
+    {"file": "android_2_3", "name": keyed_platforms[context.PLATFORM_ANDROID2_3], "url": f"{CLOUDFLARE_BASE_URL}/gingerbread.pem"},
+    {"file": "android_2_2", "name": keyed_platforms[context.PLATFORM_ANDROID2_2], "url": f"{CLOUDFLARE_BASE_URL}/froyo.pem"},
 ]
 
 def get_ski(cert :Certificate) -> str:
     for ext in cert.extensions:
         if isinstance(ext.value, extensions.SubjectKeyIdentifier):
-            return hexlify(ext.value.digest).decode('utf-8')
+            return hexlify(ext.value.digest).decode("utf-8")
 
 
 session = Session()
@@ -54,20 +54,20 @@ def fetch(url :str, directory :str):
         print(f"directory {directory} doesn't exist")
         exit(1)
     print(url)
-    if url.endswith('.tar.gz'):
+    if url.endswith(".tar.gz"):
         with closing(session.get(url, stream=True, allow_redirects=True)) as buff:
             file = tarfile.open(fileobj=buff.raw, mode="r|gz")
             file.extractall(path=directory)
-        for file_path in handle.glob('*.[0-9]'):
+        for file_path in handle.glob("*.[0-9]"):
             yield file_path.read_bytes()
-    if url.endswith('.pem'):
+    if url.endswith(".pem"):
         extract_files(url, directory)
-        for file_path in handle.glob('*.pem'):
+        for file_path in handle.glob("*.pem"):
             yield file_path.read_bytes()
 
 
 def extract_files(url, directory):
-    store_path = f'/tmp/{url.split("/")[-1]}'
+    store_path = f"/tmp/{url.split('/')[-1]}"
     request.urlretrieve(url, store_path)
     handle = Path(store_path)
     if not handle.is_file():
@@ -75,10 +75,10 @@ def extract_files(url, directory):
         exit(1)
     certs = {}
     current_key = -1
-    pem_lines = ''
-    for line in handle.read_text(encoding='utf8').splitlines():
+    pem_lines = ""
+    for line in handle.read_text(encoding="utf8").splitlines():
         if line.startswith(BEGIN):
-            pem_lines = BEGIN + '\n'
+            pem_lines = BEGIN + "\n"
             current_key += 1
             continue
         if line.startswith(END):
@@ -86,10 +86,10 @@ def extract_files(url, directory):
             certs[current_key] = pem_lines
             continue
         if line:
-            pem_lines += line + '\n'
+            pem_lines += line + "\n"
     for key, pem in certs.items():
-        pem_handle = Path(f'{directory}/{key}.pem')
-        pem_handle.write_text(pem, encoding='utf8')
+        pem_handle = Path(f"{directory}/{key}.pem")
+        pem_handle.write_text(pem, encoding="utf8")
 
 
 def main():
@@ -97,8 +97,8 @@ def main():
     for conf in REMOTES:
         untrusted_ski = set()
         lookup = {}
-        directory = path.join(BASE_PATH, conf.get('file'))
-        for pem in fetch(url=conf.get('url'), directory=directory):
+        directory = path.join(BASE_PATH, conf.get("file"))
+        for pem in fetch(url=conf.get("url"), directory=directory):
             cert = load_certificate(FILETYPE_PEM, pem)
             try:
                 ca_ski = get_ski(cert.to_cryptography())
@@ -113,20 +113,20 @@ def main():
             if now < not_before or now > not_after:
                 untrusted_ski.add(ca_ski)
         untrusted_ski = sorted(list(filter(None, untrusted_ski)))
-        store_path = Path(f'src/tlstrust/stores/{conf.get("file")}.py')
+        store_path = Path(f"src/tlstrust/stores/{conf.get('file')}.py")
         store_path.write_text(f'''"""
 Do not modify by hand
 Generated by: bin/{path.basename(__file__)}
 """
 
-__module__ = 'tlstrust.stores.{conf.get("file")}'
-__version__ = '{conf.get("file")}'
-__description__ = '{conf.get("name")}'
+__module__ = "tlstrust.stores.{conf.get("file")}"
+__version__ = "{conf.get("file")}"
+__description__ = "{conf.get("name")}"
 
 UNTRUSTED = {json.dumps(untrusted_ski, indent=4, ensure_ascii=False)}
 PEM_FILES = {json.dumps(lookup, sort_keys=True, indent=4, ensure_ascii=False)}
-''', encoding='utf8')
+''', encoding="utf8")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
