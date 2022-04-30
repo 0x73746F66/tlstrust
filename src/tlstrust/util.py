@@ -298,7 +298,7 @@ def build_chains(leaf: X509, certificates: list[X509]) -> dict:
 
 
 def get_store_result_text(name: str, **kwargs) -> dict:
-    short_name = SHORT_LOOKUP[name]
+    short_name = SHORT_LOOKUP.get(name, name)
     trust_status = f"No Root CA Certificate in the {short_name} Trust Store"
     if kwargs.get("exists"):
         trust_status = (

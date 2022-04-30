@@ -19,7 +19,7 @@ setup: deps ## setup for development of this project
 	detect-secrets audit .secrets.baseline
 
 install: ## Install the package
-	pip install --force-reinstall dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
+	pip install dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
 
 check: ## check build
 	python3 setup.py check

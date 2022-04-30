@@ -90,16 +90,11 @@ def test_key_identifier_type():
         TrustStore(authority_key_identifier=False)
 
 
-def test_pem_format():
-    ts = TrustStore(authority_key_identifier=good_ski)
-    assert isinstance(ts.check_trust(), bool)
+def test_check_bad_context():
     ts = TrustStore(authority_key_identifier=bad_ski)
-    assert isinstance(ts.check_trust(), bool)
     with pytest.raises(TypeError):
         ts.check_trust("None")
-
-
-def test_check_bad_context():
+    assert isinstance(ts.check_trust(), bool)
     ts = TrustStore(authority_key_identifier=good_ski)
     with pytest.raises(AttributeError):
         ts.check_trust(99999)

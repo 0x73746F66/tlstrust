@@ -142,7 +142,10 @@ class TrustStore:
         results = {}
         contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
         for name, ctx in contexts.items():
-            results[name] = self.check_trust(ctx)
+            try:
+                results[name] = self.check_trust(ctx)
+            except FileExistsError:
+                results[name] = False
         return results
 
     @property
@@ -161,17 +164,25 @@ class TrustStore:
 
     @property
     def ccadb(self) -> bool:
-        return (
-            self.key_identifier not in CCADB_UNTRUSTED
-            and self.key_identifier in CCADB_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in CCADB_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_CCADB)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def java(self) -> bool:
-        return (
-            self.key_identifier not in JAVA_UNTRUSTED
-            and self.key_identifier in JAVA_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in JAVA_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_JAVA)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android(self) -> bool:
@@ -191,151 +202,212 @@ class TrustStore:
             + ANDROID13_UNTRUSTED
             + ANDROID14_UNTRUSTED
         )
-        files = (
-            ANDROID_PEM_FILES
-            | ANDROID2_2_PEM_FILES
-            | ANDROID2_3_PEM_FILES
-            | ANDROID3_PEM_FILES
-            | ANDROID4_PEM_FILES
-            | ANDROID4_4_PEM_FILES
-            | ANDROID7_PEM_FILES
-            | ANDROID8_PEM_FILES
-            | ANDROID9_PEM_FILES
-            | ANDROID10_PEM_FILES
-            | ANDROID11_PEM_FILES
-            | ANDROID12_PEM_FILES
-            | ANDROID13_PEM_FILES
-            | ANDROID14_PEM_FILES
-        )
-        return self.key_identifier not in untrusted and self.key_identifier in set(
-            files.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in untrusted
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_ANDROID)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android_latest(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID_UNTRUSTED
-            and self.key_identifier in ANDROID_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID_LATEST)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android14(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID14_UNTRUSTED
-            and self.key_identifier in ANDROID14_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID14_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID14)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android13(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID13_UNTRUSTED
-            and self.key_identifier in ANDROID13_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID13_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID13)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android12(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID12_UNTRUSTED
-            and self.key_identifier in ANDROID12_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID12_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID12)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android11(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID11_UNTRUSTED
-            and self.key_identifier in ANDROID11_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID11_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID11)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android10(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID10_UNTRUSTED
-            and self.key_identifier in ANDROID10_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID10_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID10)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android9(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID9_UNTRUSTED
-            and self.key_identifier in ANDROID9_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID9_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID9)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android8(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID8_UNTRUSTED
-            and self.key_identifier in ANDROID8_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID8_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID8)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android7(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID7_UNTRUSTED
-            and self.key_identifier in ANDROID7_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID7_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID7)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android4_4(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID4_4_UNTRUSTED
-            and self.key_identifier in ANDROID4_4_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID4_4_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID4_4)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android4(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID4_UNTRUSTED
-            and self.key_identifier in ANDROID4_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID4_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID4)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android3(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID3_UNTRUSTED
-            and self.key_identifier in ANDROID3_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID3_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID3)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android2_3(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID2_3_UNTRUSTED
-            and self.key_identifier in ANDROID2_3_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID2_3_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID2_3)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def android2_2(self) -> bool:
-        return (
-            self.key_identifier not in ANDROID2_2_UNTRUSTED
-            and self.key_identifier in ANDROID2_2_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in ANDROID2_2_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(PLATFORM_ANDROID2_2)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def linux(self) -> bool:
-        return (
-            self.key_identifier not in LINUX_UNTRUSTED
-            and self.key_identifier in LINUX_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in LINUX_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_LINUX)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def certifi(self) -> bool:
-        return (
-            self.key_identifier not in CERTIFI_UNTRUSTED
-            and self.key_identifier in CERTIFI_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in CERTIFI_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_CERTIFI)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def russia(self) -> bool:
-        return (
-            self.key_identifier not in RUSSIA_UNTRUSTED
-            and self.key_identifier in RUSSIA_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in RUSSIA_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_RUSSIA)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def rustls(self) -> bool:
-        return (
-            self.key_identifier not in RUST_UNTRUSTED
-            and self.key_identifier in RUST_PEM_FILES.keys()
-        )
+        try:
+            return (
+                self.key_identifier not in RUST_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_RUSTLS)
+            )
+        except FileExistsError:
+            return False
 
     @property
     def is_trusted(self) -> bool:

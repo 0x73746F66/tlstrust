@@ -1,7 +1,7 @@
 from tlstrust import TrustStore
 from tlstrust import context
 
-GOOD_SKI = "bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7"
+GOOD_SKI = "03de503556d14cbb66f0a3e21b1bc397b23dd155"
 
 
 def test_setup():

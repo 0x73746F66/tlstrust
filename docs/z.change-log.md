@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.5.5 Apr 30th 2022
+
+- bug fixes for Python certifi context
+- handle FileNotFound exceptions within property getters
+- gracefully handle shortnames in `util.get_store_result_text()`
+
 ## 2.5.4 Apr 30th 2022
 
 - bug fix for checking if certificates exist in Rustls store
