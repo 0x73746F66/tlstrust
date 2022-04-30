@@ -112,7 +112,7 @@ def test_trust_stores_from_chain():
 
 def test_result():
     ts = TrustStore(authority_key_identifier=good_ski)
-    assert isinstance(ts.all_results, dict)
+    assert isinstance(ts.to_dict(), dict)
     assert ts.ccadb
     assert ts.android
     assert ts.java

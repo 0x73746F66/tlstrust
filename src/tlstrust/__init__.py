@@ -86,7 +86,7 @@ from .stores.rustls import (
 )
 
 __module__ = "tlstrust"
-__version__ = "2.5.4"
+__version__ = "2.6.0"
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
@@ -108,7 +108,6 @@ class TrustStore:
                 break
 
     def to_dict(self) -> dict:
-        contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
         subject_common_name = get_cn_or_org(self.certificate)
         data = {
             "trust_stores": [],
@@ -119,15 +118,11 @@ class TrustStore:
                 "certificate_issuer_ski": self.key_identifier,
             },
         }
-        for name, is_trusted in self.all_results.items():
-            ctx = None
-            for _name, _ctx in contexts.items():
-                if name == _name:
-                    ctx = _ctx
-                    break
+        for name, ctx in ALL_DISTINCT.items():
             result = {}
+            result["short_name"] = SHORT_LOOKUP.get(name, name)
             result["name"] = name
-            result["is_trusted"] = is_trusted
+            result["is_trusted"] = self.check_trust(ctx)
             try:
                 result["exists"] = isinstance(self.certificate, X509)
                 result["expired"] = self.expired_in_store(ctx)
@@ -140,8 +135,7 @@ class TrustStore:
     @property
     def all_results(self) -> dict:
         results = {}
-        contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
-        for name, ctx in contexts.items():
+        for name, ctx in ALL_DISTINCT.items():
             try:
                 results[name] = self.check_trust(ctx)
             except FileExistsError:

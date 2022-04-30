@@ -20,22 +20,24 @@ tlstrust --help
 produces:
 
 ```
-usage: tlstrust [-h] [-C CLIENT_PEM] [--disable-sni] [-v] [-vv] [-vvv] [-vvvv] [--version] [targets ...]
+usage: tlstrust [-h] [-C CLIENT_PEM] [--disable-sni] [-O JSON_FILE] [-v] [-vv] [-vvv] [-vvvv] [--version] [targets ...]
 
 positional arguments:
-  targets               All unnamed arguments are hosts (and ports) targets to test. ~$ tlstrust apple.com:443 github.io
-                        localhost:3000
+targets               All unnamed arguments are hosts (and ports) targets to test. ~$ tlstrust apple.com:443 github.io
+localhost:3000
 
 options:
-  -h, --help            show this help message and exit
-  -C CLIENT_PEM, --client-pem CLIENT_PEM
-                        path to PEM encoded client certificate, url or file path accepted
-  --disable-sni         Do not negotiate SNI using INDA encoded host
-  -v, --errors-only     set logging level to ERROR (default CRITICAL)
-  -vv, --warning        set logging level to WARNING (default CRITICAL)
-  -vvv, --info          set logging level to INFO (default CRITICAL)
-  -vvvv, --debug        set logging level to DEBUG (default CRITICAL)
-  --version
+-h, --help            show this help message and exit
+-C CLIENT_PEM, --client-pem CLIENT_PEM
+path to PEM encoded client certificate, url or file path accepted
+--disable-sni         Do not negotiate SNI using INDA encoded host
+-O JSON_FILE, --json-file JSON_FILE
+Store to file as JSON
+-v, --errors-only     set logging level to ERROR (default CRITICAL)
+-vv, --warning        set logging level to WARNING (default CRITICAL)
+-vvv, --info          set logging level to INFO (default CRITICAL)
+-vvvv, --debug        set logging level to DEBUG (default CRITICAL)
+--version
 ```
 
 In your app you can:

@@ -46,8 +46,7 @@ class InvalidChainError(ValueError):
 
 
 def valid_context_type(context_type: int) -> bool:
-    contexts = {**SOURCES, **PLATFORMS, **BROWSERS, **LANGUAGES}
-    return context_type is None or context_type in [contexts[x] for x in contexts]
+    return context_type is None or context_type in [ctx for _, ctx in STORES.items()]
 
 
 def get_key_identifier_hex(cert: Certificate, extension: Extension, key: str) -> str:

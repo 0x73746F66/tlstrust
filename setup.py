@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tlstrust",
-    version="2.5.5",
+    version="2.6.0",
     author='Christopher Langton',
     author_email='chris@langton.cloud',
     description="Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores.",
@@ -24,22 +24,24 @@ tlstrust --help
 produces:
 
 ```
-usage: tlstrust [-h] [-C CLIENT_PEM] [--disable-sni] [-v] [-vv] [-vvv] [-vvvv] [--version] [targets ...]
+usage: tlstrust [-h] [-C CLIENT_PEM] [--disable-sni] [-O JSON_FILE] [-v] [-vv] [-vvv] [-vvvv] [--version] [targets ...]
 
 positional arguments:
-  targets               All unnamed arguments are hosts (and ports) targets to test. ~$ tlstrust apple.com:443 github.io
-                        localhost:3000
+targets               All unnamed arguments are hosts (and ports) targets to test. ~$ tlstrust apple.com:443 github.io
+localhost:3000
 
 options:
-  -h, --help            show this help message and exit
-  -C CLIENT_PEM, --client-pem CLIENT_PEM
-                        path to PEM encoded client certificate, url or file path accepted
-  --disable-sni         Do not negotiate SNI using INDA encoded host
-  -v, --errors-only     set logging level to ERROR (default CRITICAL)
-  -vv, --warning        set logging level to WARNING (default CRITICAL)
-  -vvv, --info          set logging level to INFO (default CRITICAL)
-  -vvvv, --debug        set logging level to DEBUG (default CRITICAL)
-  --version
+-h, --help            show this help message and exit
+-C CLIENT_PEM, --client-pem CLIENT_PEM
+path to PEM encoded client certificate, url or file path accepted
+--disable-sni         Do not negotiate SNI using INDA encoded host
+-O JSON_FILE, --json-file JSON_FILE
+Store to file as JSON
+-v, --errors-only     set logging level to ERROR (default CRITICAL)
+-vv, --warning        set logging level to WARNING (default CRITICAL)
+-vvv, --info          set logging level to INFO (default CRITICAL)
+-vvvv, --debug        set logging level to DEBUG (default CRITICAL)
+--version
 ```
 
 In your app you can:
@@ -112,20 +114,20 @@ from tlstrust.context import PLATFORM_ANDROID12
 # Browser Trust Stores
 
 ```py
-from tlstrust.context import BROWSER_AMAZON_SILK, BROWSER_SAMSUNG_INTERNET_BROWSER, BROWSER_GOOGLE_CHROME, BROWSER_CHROMIUM, BROWSER_FIREFOX, BROWSER_BRAVE, BROWSER_SAFARI, BROWSER_MICROSOFT_EDGE, BROWSER_YANDEX_BROWSER, BROWSER_OPERA, BROWSER_VIVALDI, BROWSER_TOR_BROWSER
+from tlstrust import context
 
-assert trust_store.check_trust(BROWSER_AMAZON_SILK)
-assert trust_store.check_trust(BROWSER_SAMSUNG_INTERNET_BROWSER)
-assert trust_store.check_trust(BROWSER_GOOGLE_CHROME)
-assert trust_store.check_trust(BROWSER_CHROMIUM)
-assert trust_store.check_trust(BROWSER_FIREFOX)
-assert trust_store.check_trust(BROWSER_BRAVE)
-assert trust_store.check_trust(BROWSER_SAFARI)
-assert trust_store.check_trust(BROWSER_MICROSOFT_EDGE)
-assert trust_store.check_trust(BROWSER_YANDEX_BROWSER)
-assert trust_store.check_trust(BROWSER_OPERA)
-assert trust_store.check_trust(BROWSER_VIVALDI)
-assert trust_store.check_trust(BROWSER_TOR_BROWSER)
+assert trust_store.check_trust(context.BROWSER_AMAZON_SILK)
+assert trust_store.check_trust(context.BROWSER_SAMSUNG_INTERNET_BROWSER)
+assert trust_store.check_trust(context.BROWSER_GOOGLE_CHROME)
+assert trust_store.check_trust(context.BROWSER_CHROMIUM)
+assert trust_store.check_trust(context.BROWSER_FIREFOX)
+assert trust_store.check_trust(context.BROWSER_BRAVE)
+assert trust_store.check_trust(context.BROWSER_SAFARI)
+assert trust_store.check_trust(context.BROWSER_MICROSOFT_EDGE)
+assert trust_store.check_trust(context.BROWSER_YANDEX_BROWSER)
+assert trust_store.check_trust(context.BROWSER_OPERA)
+assert trust_store.check_trust(context.BROWSER_VIVALDI)
+assert trust_store.check_trust(context.BROWSER_TOR_BROWSER)
 ```
 
 # Programming Language Trust (Microservice architecture and APIs)
@@ -133,15 +135,70 @@ assert trust_store.check_trust(BROWSER_TOR_BROWSER)
 Python:
 
 ```py
-from tlstrust.context import LANGUAGE_PYTHON_WINDOWS_SERVER, LANGUAGE_PYTHON_LINUX_SERVER, LANGUAGE_PYTHON_MACOS_SERVER, LANGUAGE_PYTHON_CERTIFI, LANGUAGE_PYTHON_URLLIB, LANGUAGE_PYTHON_REQUESTS, LANGUAGE_PYTHON_DJANGO
+from tlstrust import context
 
-assert trust_store.check_trust(LANGUAGE_PYTHON_WINDOWS_SERVER)
-assert trust_store.check_trust(LANGUAGE_PYTHON_LINUX_SERVER)
-assert trust_store.check_trust(LANGUAGE_PYTHON_MACOS_SERVER)
-assert trust_store.check_trust(LANGUAGE_PYTHON_CERTIFI)
-assert trust_store.check_trust(LANGUAGE_PYTHON_URLLIB)
-assert trust_store.check_trust(LANGUAGE_PYTHON_REQUESTS)
-assert trust_store.check_trust(LANGUAGE_PYTHON_DJANGO)
+assert trust_store.check_trust(context.LANGUAGE_PYTHON_WINDOWS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_PYTHON_LINUX_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_PYTHON_MACOS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_PYTHON_CERTIFI)
+assert trust_store.check_trust(context.LANGUAGE_PYTHON_URLLIB)
+assert trust_store.check_trust(context.LANGUAGE_PYTHON_REQUESTS)
+assert trust_store.check_trust(context.LANGUAGE_PYTHON_DJANGO)
+
+Go:
+
+```py
+from tlstrust import context
+
+assert trust_store.check_trust(context.LANGUAGE_GO_WINDOWS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_GO_LINUX_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_GO_MACOS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_GO_CERTIFI)
+```
+
+Node.js:
+
+```py
+from tlstrust import context
+
+assert trust_store.check_trust(context.LANGUAGE_NODE_WINDOWS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_NODE_LINUX_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_NODE_MACOS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_NODE_CERTIFI)
+```
+
+Ruby:
+
+```py
+from tlstrust import context
+
+assert trust_store.check_trust(context.LANGUAGE_RUBY_WINDOWS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_RUBY_LINUX_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_RUBY_MACOS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_RUBY_CERTIFI)
+```
+
+Erlang:
+
+```py
+from tlstrust import context
+
+assert trust_store.check_trust(context.LANGUAGE_ERLANG_WINDOWS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_ERLANG_LINUX_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_ERLANG_MACOS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_ERLANG_CERTIFI)
+```
+
+Rust:
+
+```py
+from tlstrust import context
+
+assert trust_store.check_trust(context.LANGUAGE_RUST_WINDOWS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_RUST_LINUX_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_RUST_MACOS_SERVER)
+assert trust_store.check_trust(context.LANGUAGE_RUST_RUSTLS)
+assert trust_store.check_trust(context.LANGUAGE_RUST_WEBPKI)
 ```
 
 ## [Change Log](https://gitlab.com/trivialsec/tlstrust/-/blob/main/docs/z.change-log.md)

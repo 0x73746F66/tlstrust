@@ -1,31 +1,16 @@
 # Change Log
 
-## 2.5.5 Apr 30th 2022
-
-- bug fixes for Python certifi context
-- handle FileNotFound exceptions within property getters
-- gracefully handle shortnames in `util.get_store_result_text()`
-
-## 2.5.4 Apr 30th 2022
-
-- bug fix for checking if certificates exist in Rustls store
-
-## 2.5.3 Apr 30th 2022
-
-- bug fix for `util.get_store_result_text()`
-
-## 2.5.2 Apr 30th 2022
+## 2.6.0 May 1st 2022
 
 - Added Rustls trust store
-- Added language; Rust
-- Added contexts for Rust on platforms; Windows, Apple, Linux
-- Added contexts for crates; Rustls, Web PKI
-
-## 2.5.1 Apr 30th 2022
-
-- Added languages; Erlang, Ruby, Go, Node.js
-- Added certify trust store contexts for; Erlang, Ruby, Go, Node.js
+- Added language; Rust, Erlang, Ruby, Go, Node.js
 - Added contexts for new languages on platforms; Windows, Apple, Linux
+- Added contexts for crates; Rustls, Web PKI
+- Added certify trust store contexts for; Erlang, Ruby, Go, Node.js
+- Added descriptions for Go, Node, Ruby, Rust, Erlang contexts
+- handle FileNotFound exceptions within property getters
+- gracefully handle shortnames in `util.get_store_result_text()`
+- bug fix for `util.get_store_result_text()`
 
 ## 2.5.0 Apr 26th 2022
 
