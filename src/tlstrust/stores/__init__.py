@@ -5,6 +5,7 @@ from .java import __version__ as java_version
 from .certifi import __version__ as certifi_version
 from .mintsifry_rossii import __version__ as russia_version
 from .rustls import __version__ as rust_version
+from .curl import __version__ as curl_version
 from .android_2_2 import __version__ as android2_2_version
 from .android_2_3 import __version__ as android2_3_version
 from .android_3 import __version__ as android3_version
@@ -46,6 +47,7 @@ VERSIONS = {
     context.PYTHON_CERTIFI: certifi_version,
     context.MINTSIFRY_ROSSII: russia_version,
     context.RUSTLS: rust_version,
+    context.CURL: curl_version,
     context.PYTHON: certifi_version,
     context.WINDOWS: ccadb_version,
     context.APPLE: ccadb_version,
@@ -89,4 +91,7 @@ VERSIONS = {
     context.RUBY_LINUX: ccadb_version,
     context.RUBY_APPLE: ccadb_version,
     context.RUBY_CERTIFI: certifi_version,
+    context.CURL_WINDOWS: curl_version,
+    context.CURL_LINUX: curl_version,
+    context.CURL_APPLE: curl_version,
 }

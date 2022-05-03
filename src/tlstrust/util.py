@@ -35,6 +35,7 @@ from .stores.linux import PEM_FILES as LINUX_PEM_FILES
 from .stores.certifi import PEM_FILES as CERTIFI_PEM_FILES
 from .stores.mintsifry_rossii import PEM_FILES as RUSSIA_PEM_FILES
 from .stores.rustls import PEM_FILES as RUST_PEM_FILES
+from .stores.curl import PEM_FILES as CURL_PEM_FILES
 
 __module__ = "tlstrust.util"
 
@@ -127,6 +128,8 @@ def get_certificate_from_store(aki, context_type: int) -> X509:
             certificate = load_certificate(FILETYPE_PEM, RUSSIA_PEM_FILES[aki].encode())
         if context_type == SOURCE_RUSTLS:
             certificate = load_certificate(FILETYPE_PEM, RUST_PEM_FILES[aki].encode())
+        if context_type == SOURCE_CURL:
+            certificate = load_certificate(FILETYPE_PEM, CURL_PEM_FILES[aki].encode())
         if context_type == SOURCE_CERTIFI:
             certificate = load_certificate(
                 FILETYPE_PEM, CERTIFI_PEM_FILES[aki].encode()

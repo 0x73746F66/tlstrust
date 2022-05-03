@@ -6,6 +6,7 @@ SOURCE_JAVA = 1
 SOURCE_ANDROID = 3
 SOURCE_LINUX = 4
 SOURCE_RUSTLS = 5
+SOURCE_CURL = 6
 SOURCE_CERTIFI = 101
 SOURCE_RUSSIA = 201
 PLATFORM_LINUX = SOURCE_LINUX
@@ -68,6 +69,7 @@ LANGUAGE_RUST_LINUX_SERVER = SOURCE_LINUX
 LANGUAGE_RUST_MACOS_SERVER = PLATFORM_APPLE
 LANGUAGE_RUST_RUSTLS = SOURCE_RUSTLS
 LANGUAGE_RUST_WEBPKI = SOURCE_RUSTLS
+LANGUAGE_CURL = SOURCE_CURL
 JAVA_SRE = "Java(TM) SE Runtime Environment"
 CCADB = "Common Certificate Authority Database (CCADB)"
 RUSTLS = "Rustls (curated CCADB)"
@@ -87,6 +89,7 @@ ANDROID_RED_VELVET_CAKE = "Android 11 (Red Velvet Cake) 2020"
 ANDROID_SNOW_CONE = "Android 12 (Snow Cone) 2021"
 ANDROID_TIRAMISU = "Android 13 (Tiramisu) 2022"
 ANDROID_UPSIDE_DOWN_CAKE = "Android 14 (Upside Down Cake) 2023"
+CURL = "libcurl"
 LINUX_ARCH = "Linux (Arch)"
 MINTSIFRY_ROSSII = "MinTsifry Rossii"
 PYTHON_CERTIFI = "Certifi (Python module for Certificate Authority Certificates)"
@@ -133,11 +136,15 @@ RUST_LINUX = "Rust using Rustls crate on Linux"
 RUST_APPLE = "Rust using Rustls crate on Apple"
 RUST_RUSTLS = "Rustls (Rust crate) using webpki-roots"
 RUST_WEBPKI = "webpki (Rust crate)"
+CURL_WINDOWS = "libcurl on Windows"
+CURL_LINUX = "libcurl on Linux"
+CURL_APPLE = "libcurl on Apple"
 
 SHORT_LOOKUP = {
     JAVA_SRE: "Java SE",
     CCADB: "CCADB",
     RUSTLS: "Rust",
+    CURL: "libcurl",
     GOOGLE_TRUST_SERVICES: "Google",
     ANDROID: "Android FOSS",
     ANDROID_LATEST: "Android latest",
@@ -199,6 +206,9 @@ SHORT_LOOKUP = {
     RUST_APPLE: "Rust on Apple",
     RUST_RUSTLS: "Rustls crate",
     RUST_WEBPKI: "Web PKI crate",
+    CURL_WINDOWS: "libcurl on Windows",
+    CURL_LINUX: "libcurl on Linux",
+    CURL_APPLE: "libcurl on Apple",
 }
 SOURCES = {
     CCADB: SOURCE_CCADB,
@@ -208,6 +218,7 @@ SOURCES = {
     LINUX_ARCH: SOURCE_LINUX,
     PY_CERTIFI: SOURCE_CERTIFI,
     MINTSIFRY_ROSSII: SOURCE_RUSSIA,
+    CURL: SOURCE_CURL,
 }
 STORES = {
     JAVA_SRE: SOURCE_JAVA,
@@ -230,6 +241,7 @@ STORES = {
     LINUX_ARCH: SOURCE_LINUX,
     PY_CERTIFI: SOURCE_CERTIFI,
     MINTSIFRY_ROSSII: SOURCE_RUSSIA,
+    CURL: SOURCE_CURL,
 }
 PLATFORMS = {
     JAVA_SRE: PLATFORM_JAVA,
@@ -295,5 +307,8 @@ LANGUAGES = {
     RUST_APPLE: LANGUAGE_RUST_MACOS_SERVER,
     RUST_RUSTLS: LANGUAGE_RUST_RUSTLS,
     RUST_WEBPKI: LANGUAGE_RUST_WEBPKI,
+    CURL_WINDOWS: LANGUAGE_CURL,
+    CURL_LINUX: LANGUAGE_CURL,
+    CURL_APPLE: LANGUAGE_CURL,
 }
 ALL_DISTINCT = {**STORES, **PLATFORMS, **LANGUAGES, **BROWSERS, **SOURCES}

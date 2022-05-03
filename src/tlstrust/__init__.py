@@ -84,9 +84,13 @@ from .stores.rustls import (
     UNTRUSTED as RUST_UNTRUSTED,
     PEM_FILES as RUST_PEM_FILES,
 )
+from .stores.curl import (
+    UNTRUSTED as CURL_UNTRUSTED,
+    PEM_FILES as CURL_PEM_FILES,
+)
 
 __module__ = "tlstrust"
-__version__ = "2.6.0"
+__version__ = "2.6.1"
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 
@@ -404,6 +408,17 @@ class TrustStore:
             return False
 
     @property
+    def curl(self) -> bool:
+        try:
+            return (
+                self.key_identifier not in CURL_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_CURL)
+            )
+        except FileExistsError:
+            return False
+
+    @property
     def is_trusted(self) -> bool:
         return all([self.ccadb, self.android, self.linux, self.certifi, self.java])
 
@@ -455,6 +470,11 @@ class TrustStore:
             return match_certificate(
                 self.key_identifier,
                 get_certificate_from_store(self.key_identifier, SOURCE_RUSTLS),
+            )
+        if context_type == SOURCE_CURL and self.key_identifier in CURL_PEM_FILES.keys():
+            return match_certificate(
+                self.key_identifier,
+                get_certificate_from_store(self.key_identifier, SOURCE_CURL),
             )
         if (
             context_type == SOURCE_CERTIFI
@@ -627,6 +647,8 @@ class TrustStore:
             return self.russia
         if context_type == SOURCE_RUSTLS:
             return self.rustls
+        if context_type == SOURCE_CURL:
+            return self.curl
 
         return self.is_trusted
 
