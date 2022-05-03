@@ -25,27 +25,27 @@ def test_properties():
 
 
 def test_cert_exists():
-    def _test(ts: TrustStore):
-        assert ts.exists(context_type=context.SOURCE_ANDROID)
-        assert ts.exists(context_type=context.SOURCE_CERTIFI)
-        assert ts.exists(context_type=context.SOURCE_JAVA)
-        assert ts.exists(context_type=context.SOURCE_CCADB)
-        assert ts.exists(context_type=context.SOURCE_LINUX)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID12)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID11)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID10)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID9)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID8)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID7)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID4_4)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID4)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID3)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID2_3)
-        assert ts.exists(context_type=context.PLATFORM_ANDROID2_2)
-        assert ts.exists(context_type=context.SOURCE_RUSSIA) is False
-
     ts = TrustStore(authority_key_identifier=good_ski)
-    _test(ts)
+    assert ts.exists(context_type=context.SOURCE_ANDROID)
+    assert ts.exists(context_type=context.SOURCE_CERTIFI)
+    assert ts.exists(context_type=context.SOURCE_JAVA)
+    assert ts.exists(context_type=context.SOURCE_CCADB)
+    assert ts.exists(context_type=context.SOURCE_CURL)
+    assert ts.exists(context_type=context.SOURCE_RUSTLS)
+    assert ts.exists(context_type=context.SOURCE_DART)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID12)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID11)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID10)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID9)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID8)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID7)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID4_4)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID4)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID3)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID2_3)
+    assert ts.exists(context_type=context.PLATFORM_ANDROID2_2)
+    assert ts.exists(context_type=context.SOURCE_RUSSIA) is False
+
     ts = TrustStore(authority_key_identifier=rus_ski)
     assert ts.exists(context_type=context.SOURCE_RUSSIA)
     with pytest.raises(AttributeError):
@@ -60,6 +60,7 @@ def test_expired_in_store():
         assert isinstance(
             ts.expired_in_store(context_type=context.SOURCE_CERTIFI), bool
         )
+        assert isinstance(ts.expired_in_store(context_type=context.SOURCE_DART), bool)
 
     ts = TrustStore(authority_key_identifier=bad_ski)
     with pytest.raises(AttributeError):
@@ -69,9 +70,11 @@ def test_expired_in_store():
     with pytest.raises(FileExistsError):
         ts.expired_in_store(context_type=context.SOURCE_JAVA)
     with pytest.raises(FileExistsError):
-        ts.expired_in_store(context_type=context.SOURCE_LINUX)
+        ts.expired_in_store(context_type=context.SOURCE_CURL)
     with pytest.raises(FileExistsError):
         ts.expired_in_store(context_type=context.SOURCE_RUSSIA)
+    with pytest.raises(FileExistsError):
+        ts.expired_in_store(context_type=context.SOURCE_RUSTLS)
     _test(ts)
 
 
@@ -116,13 +119,17 @@ def test_result():
     assert ts.ccadb
     assert ts.android
     assert ts.java
-    assert ts.linux
+    assert ts.curl
     assert ts.certifi
+    assert ts.dart
     assert ts.russia is False
+    assert ts.rustls
     ts = TrustStore(authority_key_identifier=bad_ski)
     assert ts.ccadb is False
     assert ts.android is False
     assert ts.java is False
-    assert ts.linux is False
+    assert ts.curl is False
     assert ts.certifi is False
+    assert ts.dart is False
     assert ts.russia is False
+    assert ts.rustls is False

@@ -71,7 +71,6 @@ from .stores.android_latest import (
 )
 from .stores.ccadb import UNTRUSTED as CCADB_UNTRUSTED, PEM_FILES as CCADB_PEM_FILES
 from .stores.java import UNTRUSTED as JAVA_UNTRUSTED, PEM_FILES as JAVA_PEM_FILES
-from .stores.linux import UNTRUSTED as LINUX_UNTRUSTED, PEM_FILES as LINUX_PEM_FILES
 from .stores.certifi import (
     UNTRUSTED as CERTIFI_UNTRUSTED,
     PEM_FILES as CERTIFI_PEM_FILES,
@@ -87,6 +86,10 @@ from .stores.rustls import (
 from .stores.curl import (
     UNTRUSTED as CURL_UNTRUSTED,
     PEM_FILES as CURL_PEM_FILES,
+)
+from .stores.dart import (
+    UNTRUSTED as DART_UNTRUSTED,
+    PEM_FILES as DART_PEM_FILES,
 )
 
 __module__ = "tlstrust"
@@ -364,17 +367,6 @@ class TrustStore:
             return False
 
     @property
-    def linux(self) -> bool:
-        try:
-            return (
-                self.key_identifier not in LINUX_UNTRUSTED
-                and isinstance(self.certificate, X509)
-                and not self.expired_in_store(SOURCE_LINUX)
-            )
-        except FileExistsError:
-            return False
-
-    @property
     def certifi(self) -> bool:
         try:
             return (
@@ -419,8 +411,30 @@ class TrustStore:
             return False
 
     @property
+    def dart(self) -> bool:
+        try:
+            return (
+                self.key_identifier not in DART_UNTRUSTED
+                and isinstance(self.certificate, X509)
+                and not self.expired_in_store(SOURCE_DART)
+            )
+        except FileExistsError:
+            return False
+
+    @property
     def is_trusted(self) -> bool:
-        return all([self.ccadb, self.android, self.linux, self.certifi, self.java])
+        return all(
+            [
+                self.ccadb,
+                self.android,
+                self.curl,
+                self.dart,
+                self.certifi,
+                self.java,
+                self.russia,
+                self.rustls,
+            ]
+        )
 
     def exists(self, context_type: int) -> bool:
         if not valid_context_type(context_type):
@@ -448,14 +462,6 @@ class TrustStore:
                 get_certificate_from_store(self.key_identifier, SOURCE_ANDROID),
             )
         if (
-            context_type == SOURCE_LINUX
-            and self.key_identifier in LINUX_PEM_FILES.keys()
-        ):
-            return match_certificate(
-                self.key_identifier,
-                get_certificate_from_store(self.key_identifier, SOURCE_LINUX),
-            )
-        if (
             context_type == SOURCE_RUSSIA
             and self.key_identifier in RUSSIA_PEM_FILES.keys()
         ):
@@ -475,6 +481,11 @@ class TrustStore:
             return match_certificate(
                 self.key_identifier,
                 get_certificate_from_store(self.key_identifier, SOURCE_CURL),
+            )
+        if context_type == SOURCE_DART and self.key_identifier in DART_PEM_FILES.keys():
+            return match_certificate(
+                self.key_identifier,
+                get_certificate_from_store(self.key_identifier, SOURCE_DART),
             )
         if (
             context_type == SOURCE_CERTIFI
@@ -639,8 +650,6 @@ class TrustStore:
             return self.android2_3
         if context_type == PLATFORM_ANDROID2_2:
             return self.android2_2
-        if context_type == SOURCE_LINUX:
-            return self.linux
         if context_type == SOURCE_CERTIFI:
             return self.certifi
         if context_type == SOURCE_RUSSIA:
@@ -649,6 +658,8 @@ class TrustStore:
             return self.rustls
         if context_type == SOURCE_CURL:
             return self.curl
+        if context_type == SOURCE_DART:
+            return self.dart
 
         return self.is_trusted
 

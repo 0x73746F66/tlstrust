@@ -31,11 +31,11 @@ from .stores.android_14 import PEM_FILES as ANDROID14_PEM_FILES
 from .stores.android_latest import PEM_FILES as ANDROID_PEM_FILES
 from .stores.ccadb import PEM_FILES as CCADB_PEM_FILES
 from .stores.java import PEM_FILES as JAVA_PEM_FILES
-from .stores.linux import PEM_FILES as LINUX_PEM_FILES
 from .stores.certifi import PEM_FILES as CERTIFI_PEM_FILES
 from .stores.mintsifry_rossii import PEM_FILES as RUSSIA_PEM_FILES
 from .stores.rustls import PEM_FILES as RUST_PEM_FILES
 from .stores.curl import PEM_FILES as CURL_PEM_FILES
+from .stores.dart import PEM_FILES as DART_PEM_FILES
 
 __module__ = "tlstrust.util"
 
@@ -122,14 +122,14 @@ def get_certificate_from_store(aki, context_type: int) -> X509:
             )
         if context_type == SOURCE_JAVA:
             certificate = load_certificate(FILETYPE_PEM, JAVA_PEM_FILES[aki].encode())
-        if context_type == SOURCE_LINUX:
-            certificate = load_certificate(FILETYPE_PEM, LINUX_PEM_FILES[aki].encode())
         if context_type == SOURCE_RUSSIA:
             certificate = load_certificate(FILETYPE_PEM, RUSSIA_PEM_FILES[aki].encode())
         if context_type == SOURCE_RUSTLS:
             certificate = load_certificate(FILETYPE_PEM, RUST_PEM_FILES[aki].encode())
         if context_type == SOURCE_CURL:
             certificate = load_certificate(FILETYPE_PEM, CURL_PEM_FILES[aki].encode())
+        if context_type == SOURCE_DART:
+            certificate = load_certificate(FILETYPE_PEM, DART_PEM_FILES[aki].encode())
         if context_type == SOURCE_CERTIFI:
             certificate = load_certificate(
                 FILETYPE_PEM, CERTIFI_PEM_FILES[aki].encode()

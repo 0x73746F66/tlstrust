@@ -1,11 +1,11 @@
 from tlstrust import context
 from .ccadb import __version__ as ccadb_version
-from .linux import __version__ as linux_version
 from .java import __version__ as java_version
 from .certifi import __version__ as certifi_version
 from .mintsifry_rossii import __version__ as russia_version
 from .rustls import __version__ as rust_version
 from .curl import __version__ as curl_version
+from .dart import __version__ as dart_version
 from .android_2_2 import __version__ as android2_2_version
 from .android_2_3 import __version__ as android2_3_version
 from .android_3 import __version__ as android3_version
@@ -43,11 +43,27 @@ VERSIONS = {
     context.ANDROID_SNOW_CONE: android12_version,
     context.ANDROID_TIRAMISU: android13_version,
     context.ANDROID_UPSIDE_DOWN_CAKE: android14_version,
-    context.LINUX_ARCH: linux_version,
+    context.LINUX_ARCH: ccadb_version,
+    context.LINUX_FEDORA: ccadb_version,
+    context.LINUX_DEBIAN: ccadb_version,
+    context.LINUX_UBUNTU: ccadb_version,
+    context.LINUX_ALPINE: ccadb_version,
+    context.LINUX_CENTOS: ccadb_version,
+    context.LINUX_RHEL: ccadb_version,
+    context.LINUX_OPENBSD: ccadb_version,
+    context.LINUX_FREEBSD: ccadb_version,
     context.PYTHON_CERTIFI: certifi_version,
     context.MINTSIFRY_ROSSII: russia_version,
     context.RUSTLS: rust_version,
     context.CURL: curl_version,
+    context.DART: dart_version,
+    context.ELIXIR_WINDOWS: curl_version,
+    context.ELIXIR_LINUX: curl_version,
+    context.ELIXIR_APPLE: curl_version,
+    context.ELIXIR_MINT: curl_version,
+    context.ELIXIR_PHOENIX_WINDOWS: curl_version,
+    context.ELIXIR_PHOENIX_LINUX: curl_version,
+    context.ELIXIR_PHOENIX_MACOS: curl_version,
     context.PYTHON: certifi_version,
     context.WINDOWS: ccadb_version,
     context.APPLE: ccadb_version,
@@ -63,6 +79,7 @@ VERSIONS = {
     context.SAMSUNG: ccadb_version,
     context.YANDEX: russia_version,
     context.SAFARI: ccadb_version,
+    context.ROKU: ccadb_version,
     context.PY_WINDOWS: ccadb_version,
     context.PY_LINUX: ccadb_version,
     context.PY_APPLE: ccadb_version,

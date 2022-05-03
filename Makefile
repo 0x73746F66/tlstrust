@@ -29,13 +29,15 @@ test: ## run unit tests with coverage
 	coverage report -m
 
 generate-files: ## generates trust store files
-	mkdir -p .data/java .data/linux
+	mkdir -p .data/java
 	bin/parse_android
 	bin/parse_ccadb
 	bin/parse_certifi
+	bin/parse_dart
 	bin/parse_java
-	bin/parse_linux
+	bin/parse_curl
 	bin/parse_russian
+	bin/parse_rustls
 
 build: check ## build wheel file
 	rm -f dist/*
