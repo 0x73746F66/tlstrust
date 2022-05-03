@@ -1,5 +1,18 @@
 # Change Log
 
+## 2.6.1 May 4th 2022
+
+- Removed Arch Linux trust store, it uses Fedora which uses CCADB
+- Added Linux Distribution contexts; Arch, Fedora, Debian, Ubuntu, Alpine, Centos, RHEL
+- Added OpenBSD and FreeBSD contexts
+- Added Roku context
+- Added libcurl trust store
+- Added contexts for libcurl on platforms; Windows, Apple, Linux
+- Added Dart Native trust store
+- Added language; Dart, Elixir
+- Added contexts for Elixir on platforms; Windows, Apple, Linux
+- Added Elixir packages; Phoenix, Mint
+
 ## 2.6.0 May 1st 2022
 
 - Added Rustls trust store
