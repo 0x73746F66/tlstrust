@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.6.3 May 4th 2022
+
+- Fixed BSD's names in context constants
+
 ## 2.6.1 May 4th 2022
 
 - Removed Arch Linux trust store, it uses Fedora which uses CCADB
