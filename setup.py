@@ -44,6 +44,25 @@ Store to file as JSON
 --version
 ```
 
+# Trust Stores
+
+Only the following are distinct Root CA Certificate bundles, also refered to as Trust Stores:
+
+1. Common Certificate Authority Database (CCADB)
+2. Java(TM) SE Runtime Environment
+3. Google Trust Services
+4. Rustls (curated CCADB)
+5. libcurl (curated CCADB)
+6. Dart Native (curated CCADB)
+7. Certifi (curated CCADB)
+8. MinTsifry Rossii
+
+Others may exist so please inform us of any we don't already track.
+
+There are many contexts that rely on one of the above, including Microsoft, Apple, Linux, and Mozilla that all rely on CCADB directly.
+
+# Python module usage
+
 In your app you can:
 
 ```py
