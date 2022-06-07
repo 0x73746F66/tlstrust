@@ -1,11 +1,13 @@
+import os
 import ssl
+import tempfile
 from socket import socket, AF_INET, SOCK_STREAM
 from binascii import hexlify
 import idna
 import validators
 from certifi import where
-from OpenSSL import SSL
-from OpenSSL.crypto import X509, FILETYPE_PEM, load_certificate
+from OpenSSL import SSL, _util
+from OpenSSL.crypto import X509, FILETYPE_PEM, load_certificate, dump_certificate
 from cryptography import x509
 from cryptography.x509.base import Certificate
 from cryptography.x509.extensions import (
@@ -13,6 +15,7 @@ from cryptography.x509.extensions import (
     SubjectKeyIdentifier,
     AuthorityKeyIdentifier,
 )
+from retry.api import retry
 from .context import *  # noqa: F403
 from .stores import VERSIONS
 from .stores.android_2_2 import PEM_FILES as ANDROID2_2_PEM_FILES
@@ -66,47 +69,68 @@ def match_certificate(aki, root_ca: X509) -> bool:
 
 def get_certificate_chain(
     host: str, port: int, use_sni: bool = True, client_cert: X509 = None
-) -> tuple[list[X509], str]:
+) -> tuple[X509, list[X509], str]:
     if not isinstance(port, int):
         raise TypeError(f"provided an invalid type {type(port)} for port, expected int")
     if validators.domain(host) is not True:
         raise ValueError(f"provided an invalid domain {host}")
-
     for method in [
-        "TLSv1_METHOD",
-        "TLSv1_1_METHOD",
-        "TLSv1_2_METHOD",
-        "SSLv23_METHOD",
+        SSL.SSLv23_METHOD,
+        SSL.TLSv1_2_METHOD,
+        SSL.TLSv1_1_METHOD,
+        SSL.TLSv1_METHOD,
     ]:
-        ctx = SSL.Context(method=getattr(SSL, method))
+        ctx = SSL.Context(method=method)
         ctx.load_verify_locations(cafile=where())
-        if isinstance(client_cert, X509):
-            ctx.use_certificate(client_cert)
         ctx.verify_mode = SSL.VERIFY_NONE
-        ctx.check_hostname = False
+        ctx.set_options(
+            _util.lib.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION
+            | _util.lib.SSL_OP_LEGACY_SERVER_CONNECT
+        )
+        tmp = None
+        if isinstance(client_cert, X509):
+            tmp = tempfile.NamedTemporaryFile(delete=False)
+            tmp.write(dump_certificate(FILETYPE_PEM, client_cert))
+            tmp.close()
+            ctx.use_certificate_file(certfile=tmp.name, filetype=FILETYPE_PEM)
         sock = socket(AF_INET, SOCK_STREAM)
-        sock.settimeout(2)
-        conn = SSL.Connection(ctx, sock)
-        if all([ssl.HAS_SNI, use_sni]):
+        sock.settimeout(3)
+        conn = SSL.Connection(context=ctx, socket=sock)
+        if all([use_sni, ssl.HAS_SNI]):
             conn.set_tlsext_host_name(idna.encode(host))
         certificate_chain = []
-        skip = False
+        peer_address = None
         try:
             conn.connect((host, port))
             conn.set_connect_state()
             conn.setblocking(1)
-            conn.do_handshake()
+            do_handshake(conn)
             peer_address, _ = conn.getpeername()
+            leaf = conn.get_peer_certificate()
+            certificate_chain.append(leaf)
             for (_, cert) in enumerate(conn.get_peer_cert_chain()):
                 certificate_chain.append(cert)
             conn.shutdown()
-        except SSL.Error:
-            skip = True
+        except SSL.Error as err:
+            if all(
+                x not in str(err)
+                for x in [
+                    "no protocols available",
+                    "alert protocol",
+                    "shutdown while in init",
+                    "sslv3 alert handshake failure",
+                    "invalid status response",
+                ]
+            ):
+                print(err)
+        except Exception as ex:
+            print(ex)
         finally:
             conn.close()
-        if skip:
-            continue
-        return certificate_chain, peer_address
+            if tmp:
+                os.unlink(tmp.name)
+        if certificate_chain and peer_address and leaf:
+            return leaf, certificate_chain, peer_address
 
 
 def get_certificate_from_store(aki, context_type: int) -> X509:
@@ -208,23 +232,6 @@ def get_cn_or_org(certificate: X509) -> str:
     return name
 
 
-def get_leaf(certificates: list[X509]) -> X509:
-    new_chain = []
-    akis_paris = []
-    for cert in certificates:
-        common_name = get_cn_or_org(cert)
-        aki = get_key_identifier_hex(
-            cert.to_cryptography(),
-            extension=AuthorityKeyIdentifier,
-            key="key_identifier",
-        )
-        akis_paris.append((aki, cert))
-        if common_name[0:1] == "*" or validators.domain(common_name):
-            new_chain.append(cert)
-    if len(new_chain) == 1:
-        return new_chain[0]
-
-
 def build_chains(leaf: X509, certificates: list[X509]) -> dict:
     roots: list[X509] = []
     chains = {}
@@ -314,3 +321,11 @@ def get_store_result_text(name: str, **kwargs) -> dict:
             trust_status += " EXPIRED"
 
     return trust_status
+
+
+@retry(SSL.WantReadError, tries=3, delay=0.5)
+def do_handshake(conn):
+    try:
+        conn.do_handshake()
+    except SSL.SysCallError:
+        pass

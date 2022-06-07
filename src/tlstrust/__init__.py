@@ -2,13 +2,13 @@ import sys
 import logging
 from datetime import datetime
 from OpenSSL.crypto import X509
+from cryptography.hazmat.primitives.hashes import SHA1
 from .util import (
     InvalidChainError,
     get_cn_or_org,
     valid_context_type,
     get_certificate_from_store,
     match_certificate,
-    get_leaf,
     build_chains,
     get_store_result_text,
 )
@@ -123,6 +123,9 @@ class TrustStore:
                 "certificate_not_valid_after": self.certificate.to_cryptography().not_valid_after,
                 "certificate_issuer": subject_common_name,
                 "certificate_issuer_ski": self.key_identifier,
+                "certificate_sha1_fingerprint": self.certificate.to_cryptography().fingerprint(
+                    SHA1()
+                ),
             },
         }
         for name, ctx in ALL_DISTINCT.items():
@@ -137,6 +140,7 @@ class TrustStore:
                 result["exists"] = False
             result["description"] = get_store_result_text(**result)
             data["trust_stores"].append(result)
+
         return data
 
     @property
@@ -423,7 +427,7 @@ class TrustStore:
 
     @property
     def is_trusted(self) -> bool:
-        return all(
+        return any(
             [
                 self.ccadb,
                 self.android,
@@ -664,8 +668,7 @@ class TrustStore:
         return self.is_trusted
 
 
-def trust_stores_from_chain(certificates: list[X509]) -> list[TrustStore]:
-    leaf = get_leaf(certificates)
+def trust_stores_from_chain(leaf, certificates: list[X509]) -> list[TrustStore]:
     if not isinstance(leaf, X509):
         raise InvalidChainError(
             "certificate chain is empty or missing a server leaf certificate"

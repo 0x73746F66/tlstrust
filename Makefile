@@ -9,9 +9,9 @@ help: ## This help.
 .DEFAULT_GOAL := help
 
 deps: ## install dependancies for development of this project
-	pip install -U pip
-	pip install -U -r requirements-dev.txt
-	pip install -e .
+	python -m pip install -U pip
+	python -m pip install -U -r requirements-dev.txt
+	python -m pip install --force-reinstall --no-cache-dir -e .
 
 setup: deps ## setup for development of this project
 	pre-commit install --hook-type pre-push --hook-type pre-commit
@@ -19,7 +19,7 @@ setup: deps ## setup for development of this project
 	detect-secrets audit .secrets.baseline
 
 install: ## Install the package
-	pip install dist/tlstrust-$(shell cat ./setup.py | grep 'version=' | sed 's/[version=", ]//g')-py2.py3-none-any.whl
+	python -m pip install dist/tlstrust-$(shell cat ./setup.py | grep '__version__' | sed 's/[_version=", ]//g' | head -n1)-py2.py3-none-any.whl
 
 check: ## check build
 	python3 setup.py check
@@ -33,9 +33,9 @@ generate-files: ## generates trust store files
 	bin/parse_android
 	bin/parse_ccadb
 	bin/parse_certifi
+	bin/parse_curl
 	bin/parse_dart
 	bin/parse_java
-	bin/parse_curl
 	bin/parse_russian
 	bin/parse_rustls
 

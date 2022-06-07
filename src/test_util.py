@@ -39,7 +39,8 @@ def test_match_certificate():
 
 def test_get_certificate_chain():
     cert = util.get_certificate_from_store(good_ski, context_type=context.SOURCE_CCADB)
-    chain, peer = util.get_certificate_chain(host, 443, client_cert=cert)
+    leaf, chain, peer = util.get_certificate_chain(host, 443, client_cert=cert)
+    assert isinstance(leaf, X509)
     assert isinstance(chain, list)
     assert isinstance(peer, str)
     with pytest.raises(TypeError):
@@ -48,12 +49,6 @@ def test_get_certificate_chain():
         util.get_certificate_chain(None, 443)
 
 
-def test_get_leaf():
-    chain, _ = util.get_certificate_chain(host, 443)
-    assert isinstance(util.get_leaf(chain), X509)
-
-
 def test_build_chains():
-    chain, _ = util.get_certificate_chain(host, 443)
-    leaf = util.get_leaf(chain)
+    leaf, chain, _ = util.get_certificate_chain(host, 443)
     assert isinstance(util.build_chains(leaf, chain), dict)

@@ -13,9 +13,9 @@ from rich.logging import RichHandler
 from rich.table import Table
 from rich import box
 from OpenSSL.crypto import FILETYPE_PEM, load_certificate
-from tlstrust import __version__, TrustStore, trust_stores_from_chain
-from tlstrust.util import get_certificate_chain, get_cn_or_org
-from tlstrust.context import ALL_DISTINCT
+from .. import __version__, TrustStore, trust_stores_from_chain
+from ..util import get_certificate_chain, get_cn_or_org
+from ..context import ALL_DISTINCT
 
 __module__ = "tlstrust.cli"
 
@@ -72,6 +72,7 @@ def output(store: TrustStore) -> Table:
     table.add_column("Result", justify="left", no_wrap=True)
     for name, ctx in ALL_DISTINCT.items():
         table.add_row(name, styled_boolean(store.check_trust(ctx)))
+
     console.print(table)
     console.print()
 
@@ -198,7 +199,7 @@ def cli():
                 results.append({"_query": query})
                 console.print(query["error"])
                 continue
-            chain, peer_addr = res
+            leaf, chain, peer_addr = res
         except (TimeoutError, ConnectionRefusedError, gaierror) as ex:
             query["error"] = f"{str(ex)} {host}:{port}"
             results.append({"_query": query})
@@ -206,7 +207,7 @@ def cli():
             continue
         query["peer_address"] = peer_addr
         console.print(f"{host}:{port} ({peer_addr})")
-        for trust_store in trust_stores_from_chain(chain):
+        for trust_store in trust_stores_from_chain(leaf, chain):
             data = trust_store.to_dict()
             data["_query"] = query
             results.append(data)

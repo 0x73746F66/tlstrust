@@ -1,5 +1,13 @@
 # Change Log
 
+## 2.6.4 June 8th 2022
+
+- added `certificate_sha1_fingerprint` metadata for JSON output
+- `TrustStore.is_trusted` property now returns `True` when any root is trusted (use `all_results` to deep dive)
+- drop `util.get_leaf()` to simplify leaf and chain CLI-only functions
+- Better CLI network request utility
+- update dependancies
+
 ## 2.6.3 May 4th 2022
 
 - Fixed BSD's names in context constants

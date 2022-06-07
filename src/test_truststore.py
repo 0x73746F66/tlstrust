@@ -107,10 +107,8 @@ def test_check_bad_context():
 
 
 def test_trust_stores_from_chain():
-    chain, _ = util.get_certificate_chain(host, 443)
-    assert isinstance(trust_stores_from_chain(chain), list)
-    with pytest.raises(util.InvalidChainError):
-        trust_stores_from_chain(chain[1:])
+    leaf, chain, _ = util.get_certificate_chain(host, 443)
+    assert isinstance(trust_stores_from_chain(leaf, chain), list)
 
 
 def test_result():
