@@ -1,10 +1,29 @@
+from io import StringIO
 import distutils.text_file
 from pathlib import Path
 from setuptools import setup, find_packages
 
 __version__ = "2.6.4"
 
-install_requires = distutils.text_file.TextFile(filename=str(Path(__file__).with_name('requirements.txt'))).readlines()
+try:
+    install_requires = distutils.text_file.TextFile(filename=str(Path(__file__).with_name('requirements.txt'))).readlines()
+except FileNotFoundError:
+    install_requires = distutils.text_file.TextFile(file=StringIO("""
+asn1crypto==1.4.0
+certifi==2022.5.18.1
+cffi==1.15.0
+commonmark==0.9.1
+cryptography==37.0.2
+decorator==5.1.1
+idna==3.3
+pycparser==2.21
+Pygments==2.12.0
+pyOpenSSL==22.0.0
+rich==12.4.4
+six==1.16.0
+validators==0.20.0
+py==1.11.0
+retry==0.9.2""")).readlines()
 setup(
     name="tlstrust",
     version=__version__,
