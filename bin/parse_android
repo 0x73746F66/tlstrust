@@ -24,8 +24,8 @@ END = "-----END CERTIFICATE-----"
 keyed_platforms = inv_map = {v: k for k, v in PLATFORMS.items()}
 REMOTES = [
     {"file": "android_latest", "name": keyed_platforms[context.PLATFORM_ANDROID_LATEST], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz"},
-    {"file": "android_14", "name": keyed_platforms[context.PLATFORM_ANDROID13], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz"},
-    {"file": "android_13", "name": keyed_platforms[context.PLATFORM_ANDROID13], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz"},
+    {"file": "android_14", "name": keyed_platforms[context.PLATFORM_ANDROID14], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/master/files.tar.gz"},
+    {"file": "android_13", "name": keyed_platforms[context.PLATFORM_ANDROID13], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android13-release/files.tar.gz"},
     {"file": "android_12", "name": keyed_platforms[context.PLATFORM_ANDROID12], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android12-release/files.tar.gz"},
     {"file": "android_11", "name": keyed_platforms[context.PLATFORM_ANDROID11], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android11-release/files.tar.gz"},
     {"file": "android_10", "name": keyed_platforms[context.PLATFORM_ANDROID10], "url": f"{GOOGLESOURCE_BASE_URL}/+archive/refs/heads/android10-release/files.tar.gz"},

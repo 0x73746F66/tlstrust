@@ -3,7 +3,7 @@ import distutils.text_file
 from pathlib import Path
 from setuptools import setup, find_packages
 
-__version__ = "2.6.4"
+__version__ = "2.6.5"
 
 try:
     install_requires = distutils.text_file.TextFile(filename=str(Path(__file__).with_name('requirements.txt'))).readlines()
