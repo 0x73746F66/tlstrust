@@ -8,6 +8,11 @@ help: ## This help.
 
 .DEFAULT_GOAL := help
 
+ifndef CLI_VERSION
+CLI_VERSION=$(shell cat ./src/tlstrust/cli/__main__.py | grep '__version__' | head -n1 | python -c "import sys; exec(sys.stdin.read()); print(__version__)")
+endif
+
+
 deps: ## install dependancies for development of this project
 	python -m pip install -U pip
 	python -m pip install -U -r requirements-dev.txt
@@ -19,10 +24,10 @@ setup: deps ## setup for development of this project
 	detect-secrets audit .secrets.baseline
 
 install: ## Install the package
-	python -m pip install dist/tlstrust-$(shell cat ./setup.py | grep '__version__' | sed 's/[_version=", ]//g' | head -n1)-py2.py3-none-any.whl
+	python -m pip install dist/tlstrust-$(CLI_VERSION)-py2.py3-none-any.whl
 
-check: ## check build
-	python3 setup.py check
+reinstall: ## Force install the package
+	python -m pip install --force-reinstall -U dist/tlstrust-$(CLI_VERSION)-py3-none-any.whl
 
 test: ## run unit tests with coverage
 	coverage run -m pytest --nf -s
@@ -39,14 +44,20 @@ generate-files: ## generates trust store files
 	bin/parse_russian
 	bin/parse_rustls
 
-build: check ## build wheel file
+build: ## build wheel file
 	rm -f dist/*
-	python3 -m build -nx
+	python -m build -nxsw
 
-publish: build ## upload to pypi.org
-	git tag -f $(shell cat ./setup.py | grep '__version__' | sed 's/[_version=", ]//g' | head -n1)
-	git push -u origin --tags
-	python3 -m twine upload dist/*
+pypi: ## upload to pypi.org
+	git tag -f $(CLI_VERSION)
+	git push -u origin --tags -f
+	python -m twine upload dist/*
+
+tag: ## tag release and push
+	git tag -f $(CLI_VERSION)
+	git push -u origin --tags -f
+
+publish: pypi tag ## upload to pypi.org and push git tags
 
 test-local: ## Prettier test outputs
 	pylint --exit-zero -f colorized --persistent=y -r y --jobs=0 src/**/*.py

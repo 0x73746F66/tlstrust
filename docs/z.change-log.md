@@ -1,5 +1,19 @@
 # Change Log
 
+## 2.7.0 Jan 15th 2023
+
+- Migrated to `pyproject.toml`
+- updates to certs in stores
+
+## 2.6.7 Jan 6th 2023
+
+- updated dependencies for downstream compatibility; using the new pip resolver
+
+## 2.6.6 Jan 6th 2023
+
+- Updated Java `keytool` and usage
+- A lot of updates to certs in stores
+
 ## 2.6.5 Dec 16th 2022
 
 - Fixed android14 store

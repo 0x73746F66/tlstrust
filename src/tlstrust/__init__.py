@@ -93,7 +93,6 @@ from .stores.dart import (
 )
 
 __module__ = "tlstrust"
-__version__ = "2.6.6"
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 

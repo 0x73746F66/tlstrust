@@ -1,0 +1,2059 @@
+{
+    "evaluations": [
+        {
+            "_metadata": {
+                "certificate_issuer": "Amazon Root CA 1",
+                "certificate_issuer_ski": "8418cc8534ecbc0c94942e08599cc7b2104e0a08",
+                "certificate_not_valid_after": "2038-01-17 00:00:00",
+                "certificate_sha1_fingerprint": "b'\\x8d\\xa7\\xf9e\\xec^\\xfc7\\x91\\x0f\\x1cnY\\xfd\\xc1\\xccjn\\xde\\x16'",
+                "last_updated": "2023-01-15T01:27:03"
+            },
+            "_query": {
+                "host_name": "www.trivialsec.com",
+                "peer_address": "18.65.3.122",
+                "port_number": 443,
+                "use_sni": true
+            },
+            "trust_stores": [
+                {
+                    "description": "Root CA Certificate present in Java SE openjdk 19.0.1 2022-10-18 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Java(TM) SE Runtime Environment",
+                    "short_name": "Java SE"
+                },
+                {
+                    "description": "Root CA Certificate present in CCADB 2023.01.15 Trust Store (Mozilla, Microsoft, and Apple)",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Common Certificate Authority Database (CCADB)",
+                    "short_name": "CCADB"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rustls (curated CCADB)",
+                    "short_name": "Rust"
+                },
+                {
+                    "description": "Root CA Certificate present in Google android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Google Trust Services",
+                    "short_name": "Google"
+                },
+                {
+                    "description": "No Root CA Certificate in the Android 2.2 Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Android 2.2 (Froyo) 2010",
+                    "short_name": "Android 2.2"
+                },
+                {
+                    "description": "No Root CA Certificate in the Android 2.3 Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Android 2.3 (Gingerbread) 2010",
+                    "short_name": "Android 2.3"
+                },
+                {
+                    "description": "No Root CA Certificate in the Android 3 Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Android 3 (Honeycomb) 2011",
+                    "short_name": "Android 3"
+                },
+                {
+                    "description": "No Root CA Certificate in the Android 4 Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Android 4 (Ice Cream Sandwich) 2011",
+                    "short_name": "Android 4"
+                },
+                {
+                    "description": "No Root CA Certificate in the Android 4.4 Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Android 4.4 (KitKat) 2013",
+                    "short_name": "Android 4.4"
+                },
+                {
+                    "description": "No Root CA Certificate in the Android 7 Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Android 7 (Nougat) 2016",
+                    "short_name": "Android 7"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 8 android_8 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 8 (Oreo) 2017",
+                    "short_name": "Android 8"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 9 android_9 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 9 (Pie) 2018",
+                    "short_name": "Android 9"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 10 android_10 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 10 (Quince Tart) 2019",
+                    "short_name": "Android 10"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 11 android_11 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 11 (Red Velvet Cake) 2020",
+                    "short_name": "Android 11"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 12 android_12 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 12 (Snow Cone) 2021",
+                    "short_name": "Android 12"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 13 android_13 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 13 (Tiramisu) 2022",
+                    "short_name": "Android 13"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 14 android_14 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 14 (Upside Down Cake) 2023",
+                    "short_name": "Android 14"
+                },
+                {
+                    "description": "Root CA Certificate present in certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Python module)",
+                    "short_name": "certifi"
+                },
+                {
+                    "description": "No Root CA Certificate in the Russian Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "MinTsifry Rossii",
+                    "short_name": "Russian"
+                },
+                {
+                    "description": "No Root CA Certificate in the libcurl Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "libcurl",
+                    "short_name": "libcurl"
+                },
+                {
+                    "description": "Root CA Certificate present in Dart 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Dart Native",
+                    "short_name": "Dart"
+                },
+                {
+                    "description": "Root CA Certificate present in Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Microsoft Windows",
+                    "short_name": "Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Apple devices",
+                    "short_name": "Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Arch Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Arch)",
+                    "short_name": "Arch Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Fedora 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Fedora)",
+                    "short_name": "Fedora"
+                },
+                {
+                    "description": "Root CA Certificate present in Debian 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Debian)",
+                    "short_name": "Debian"
+                },
+                {
+                    "description": "Root CA Certificate present in Ubuntu 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Ubuntu)",
+                    "short_name": "Ubuntu"
+                },
+                {
+                    "description": "Root CA Certificate present in Alpine 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Apline)",
+                    "short_name": "Alpine"
+                },
+                {
+                    "description": "Root CA Certificate present in Centos 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Centos)",
+                    "short_name": "Centos"
+                },
+                {
+                    "description": "Root CA Certificate present in RHEL 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (RHEL)",
+                    "short_name": "RHEL"
+                },
+                {
+                    "description": "Root CA Certificate present in OpenBSD 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "OpenBSD",
+                    "short_name": "OpenBSD"
+                },
+                {
+                    "description": "Root CA Certificate present in FreeBSD 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "FreeBSD",
+                    "short_name": "FreeBSD"
+                },
+                {
+                    "description": "Root CA Certificate present in Android FOSS android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android (open source)",
+                    "short_name": "Android FOSS"
+                },
+                {
+                    "description": "Root CA Certificate present in Android latest android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android (latest Google build)",
+                    "short_name": "Android latest"
+                },
+                {
+                    "description": "Root CA Certificate present in Roku 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Roku",
+                    "short_name": "Roku"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Windows",
+                    "short_name": "Python on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Linux",
+                    "short_name": "Python on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Apple",
+                    "short_name": "Python on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in urllib certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "urllib (Python module)",
+                    "short_name": "urllib"
+                },
+                {
+                    "description": "Root CA Certificate present in requests certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "requests (Python module)",
+                    "short_name": "requests"
+                },
+                {
+                    "description": "Root CA Certificate present in Django certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Django (Python module)",
+                    "short_name": "Django"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Windows",
+                    "short_name": "Go on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Linux",
+                    "short_name": "Go on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Apple",
+                    "short_name": "Go on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in gocertifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "gocertifi (Go module)",
+                    "short_name": "gocertifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Windows",
+                    "short_name": "Erlang on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Linux",
+                    "short_name": "Erlang on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Apple",
+                    "short_name": "Erlang on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in erlang-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Erlang library)",
+                    "short_name": "erlang-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Windows",
+                    "short_name": "Ruby on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Linux",
+                    "short_name": "Ruby on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Apple",
+                    "short_name": "Ruby on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in ruby-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Ruby gem)",
+                    "short_name": "ruby-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Windows",
+                    "short_name": "Node.js on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Linux",
+                    "short_name": "Node.js on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Apple",
+                    "short_name": "Node.js on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in node-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Node.js package)",
+                    "short_name": "node-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Windows",
+                    "short_name": "Rust on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Linux",
+                    "short_name": "Rust on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Apple",
+                    "short_name": "Rust on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Rustls crate 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rustls (Rust crate) using webpki-roots",
+                    "short_name": "Rustls crate"
+                },
+                {
+                    "description": "Root CA Certificate present in Web PKI crate 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "webpki (Rust crate)",
+                    "short_name": "Web PKI crate"
+                },
+                {
+                    "description": "No Root CA Certificate in the libcurl on Windows Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "libcurl on Windows",
+                    "short_name": "libcurl on Windows"
+                },
+                {
+                    "description": "No Root CA Certificate in the libcurl on Linux Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "libcurl on Linux",
+                    "short_name": "libcurl on Linux"
+                },
+                {
+                    "description": "No Root CA Certificate in the libcurl on Apple Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "libcurl on Apple",
+                    "short_name": "libcurl on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Windows",
+                    "short_name": "Elixir on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Linux",
+                    "short_name": "Elixir on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Apple",
+                    "short_name": "Elixir on Apple"
+                },
+                {
+                    "description": "No Root CA Certificate in the elixir-mint Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Mint (elixir package)",
+                    "short_name": "elixir-mint"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Windows",
+                    "short_name": "Elixir Phoenix on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Linux",
+                    "short_name": "Elixir Phoenix on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Apple",
+                    "short_name": "Elixir Phoenix on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Firefox 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Mozilla Firefox",
+                    "short_name": "Firefox"
+                },
+                {
+                    "description": "Root CA Certificate present in Tor 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Tor Web Browser",
+                    "short_name": "Tor"
+                },
+                {
+                    "description": "Root CA Certificate present in Chromium 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Chromium Browser",
+                    "short_name": "Chromium"
+                },
+                {
+                    "description": "Root CA Certificate present in Chrome 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Google Chrome",
+                    "short_name": "Chrome"
+                },
+                {
+                    "description": "Root CA Certificate present in Edge 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Microsoft Edge",
+                    "short_name": "Edge"
+                },
+                {
+                    "description": "Root CA Certificate present in Brave 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Brave Browser",
+                    "short_name": "Brave"
+                },
+                {
+                    "description": "Root CA Certificate present in Opera 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Opera Browser",
+                    "short_name": "Opera"
+                },
+                {
+                    "description": "Root CA Certificate present in Vivaldi 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Vivaldi Browser",
+                    "short_name": "Vivaldi"
+                },
+                {
+                    "description": "Root CA Certificate present in Silk 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Amazon Silk",
+                    "short_name": "Silk"
+                },
+                {
+                    "description": "Root CA Certificate present in Samsung 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Samsung Internet",
+                    "short_name": "Samsung"
+                },
+                {
+                    "description": "No Root CA Certificate in the Yandex Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Yandex",
+                    "short_name": "Yandex"
+                },
+                {
+                    "description": "Root CA Certificate present in Safari 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Apple Safari",
+                    "short_name": "Safari"
+                }
+            ]
+        },
+        {
+            "_metadata": {
+                "certificate_issuer": "Starfield Services Root Certificate Authority - G2",
+                "certificate_issuer_ski": "9c5f00dfaa01d7302b3888a2b86d4a9cf2119183",
+                "certificate_not_valid_after": "2037-12-31 23:59:59",
+                "certificate_sha1_fingerprint": "b'\\x92Z\\x8f\\x8d,m\\x04\\xe0f_Yj\\xff\"\\xd8c\\xe8%o?'",
+                "last_updated": "2023-01-15T01:27:03"
+            },
+            "_query": {
+                "host_name": "www.trivialsec.com",
+                "peer_address": "18.65.3.122",
+                "port_number": 443,
+                "use_sni": true
+            },
+            "trust_stores": [
+                {
+                    "description": "Root CA Certificate present in Java SE openjdk 19.0.1 2022-10-18 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Java(TM) SE Runtime Environment",
+                    "short_name": "Java SE"
+                },
+                {
+                    "description": "Root CA Certificate present in CCADB 2023.01.15 Trust Store (Mozilla, Microsoft, and Apple)",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Common Certificate Authority Database (CCADB)",
+                    "short_name": "CCADB"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rustls (curated CCADB)",
+                    "short_name": "Rust"
+                },
+                {
+                    "description": "Root CA Certificate present in Google android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Google Trust Services",
+                    "short_name": "Google"
+                },
+                {
+                    "description": "No Root CA Certificate in the Android 2.2 Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Android 2.2 (Froyo) 2010",
+                    "short_name": "Android 2.2"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 2.3 android_2_3 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 2.3 (Gingerbread) 2010",
+                    "short_name": "Android 2.3"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 3 android_3 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 3 (Honeycomb) 2011",
+                    "short_name": "Android 3"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 4 android_4 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 4 (Ice Cream Sandwich) 2011",
+                    "short_name": "Android 4"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 4.4 android_4_4 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 4.4 (KitKat) 2013",
+                    "short_name": "Android 4.4"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 7 android_7 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 7 (Nougat) 2016",
+                    "short_name": "Android 7"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 8 android_8 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 8 (Oreo) 2017",
+                    "short_name": "Android 8"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 9 android_9 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 9 (Pie) 2018",
+                    "short_name": "Android 9"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 10 android_10 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 10 (Quince Tart) 2019",
+                    "short_name": "Android 10"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 11 android_11 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 11 (Red Velvet Cake) 2020",
+                    "short_name": "Android 11"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 12 android_12 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 12 (Snow Cone) 2021",
+                    "short_name": "Android 12"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 13 android_13 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 13 (Tiramisu) 2022",
+                    "short_name": "Android 13"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 14 android_14 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 14 (Upside Down Cake) 2023",
+                    "short_name": "Android 14"
+                },
+                {
+                    "description": "Root CA Certificate present in certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Python module)",
+                    "short_name": "certifi"
+                },
+                {
+                    "description": "No Root CA Certificate in the Russian Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "MinTsifry Rossii",
+                    "short_name": "Russian"
+                },
+                {
+                    "description": "Root CA Certificate present in libcurl 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "libcurl",
+                    "short_name": "libcurl"
+                },
+                {
+                    "description": "Root CA Certificate present in Dart 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Dart Native",
+                    "short_name": "Dart"
+                },
+                {
+                    "description": "Root CA Certificate present in Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Microsoft Windows",
+                    "short_name": "Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Apple devices",
+                    "short_name": "Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Arch Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Arch)",
+                    "short_name": "Arch Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Fedora 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Fedora)",
+                    "short_name": "Fedora"
+                },
+                {
+                    "description": "Root CA Certificate present in Debian 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Debian)",
+                    "short_name": "Debian"
+                },
+                {
+                    "description": "Root CA Certificate present in Ubuntu 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Ubuntu)",
+                    "short_name": "Ubuntu"
+                },
+                {
+                    "description": "Root CA Certificate present in Alpine 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Apline)",
+                    "short_name": "Alpine"
+                },
+                {
+                    "description": "Root CA Certificate present in Centos 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Centos)",
+                    "short_name": "Centos"
+                },
+                {
+                    "description": "Root CA Certificate present in RHEL 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (RHEL)",
+                    "short_name": "RHEL"
+                },
+                {
+                    "description": "Root CA Certificate present in OpenBSD 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "OpenBSD",
+                    "short_name": "OpenBSD"
+                },
+                {
+                    "description": "Root CA Certificate present in FreeBSD 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "FreeBSD",
+                    "short_name": "FreeBSD"
+                },
+                {
+                    "description": "Root CA Certificate present in Android FOSS android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android (open source)",
+                    "short_name": "Android FOSS"
+                },
+                {
+                    "description": "Root CA Certificate present in Android latest android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android (latest Google build)",
+                    "short_name": "Android latest"
+                },
+                {
+                    "description": "Root CA Certificate present in Roku 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Roku",
+                    "short_name": "Roku"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Windows",
+                    "short_name": "Python on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Linux",
+                    "short_name": "Python on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Apple",
+                    "short_name": "Python on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in urllib certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "urllib (Python module)",
+                    "short_name": "urllib"
+                },
+                {
+                    "description": "Root CA Certificate present in requests certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "requests (Python module)",
+                    "short_name": "requests"
+                },
+                {
+                    "description": "Root CA Certificate present in Django certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Django (Python module)",
+                    "short_name": "Django"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Windows",
+                    "short_name": "Go on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Linux",
+                    "short_name": "Go on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Apple",
+                    "short_name": "Go on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in gocertifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "gocertifi (Go module)",
+                    "short_name": "gocertifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Windows",
+                    "short_name": "Erlang on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Linux",
+                    "short_name": "Erlang on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Apple",
+                    "short_name": "Erlang on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in erlang-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Erlang library)",
+                    "short_name": "erlang-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Windows",
+                    "short_name": "Ruby on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Linux",
+                    "short_name": "Ruby on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Apple",
+                    "short_name": "Ruby on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in ruby-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Ruby gem)",
+                    "short_name": "ruby-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Windows",
+                    "short_name": "Node.js on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Linux",
+                    "short_name": "Node.js on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Apple",
+                    "short_name": "Node.js on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in node-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Node.js package)",
+                    "short_name": "node-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Windows",
+                    "short_name": "Rust on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Linux",
+                    "short_name": "Rust on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Apple",
+                    "short_name": "Rust on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Rustls crate 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rustls (Rust crate) using webpki-roots",
+                    "short_name": "Rustls crate"
+                },
+                {
+                    "description": "Root CA Certificate present in Web PKI crate 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "webpki (Rust crate)",
+                    "short_name": "Web PKI crate"
+                },
+                {
+                    "description": "Root CA Certificate present in libcurl on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "libcurl on Windows",
+                    "short_name": "libcurl on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in libcurl on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "libcurl on Linux",
+                    "short_name": "libcurl on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in libcurl on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "libcurl on Apple",
+                    "short_name": "libcurl on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Windows",
+                    "short_name": "Elixir on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Linux",
+                    "short_name": "Elixir on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Apple",
+                    "short_name": "Elixir on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in elixir-mint 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Mint (elixir package)",
+                    "short_name": "elixir-mint"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Windows",
+                    "short_name": "Elixir Phoenix on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Linux",
+                    "short_name": "Elixir Phoenix on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Apple",
+                    "short_name": "Elixir Phoenix on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Firefox 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Mozilla Firefox",
+                    "short_name": "Firefox"
+                },
+                {
+                    "description": "Root CA Certificate present in Tor 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Tor Web Browser",
+                    "short_name": "Tor"
+                },
+                {
+                    "description": "Root CA Certificate present in Chromium 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Chromium Browser",
+                    "short_name": "Chromium"
+                },
+                {
+                    "description": "Root CA Certificate present in Chrome 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Google Chrome",
+                    "short_name": "Chrome"
+                },
+                {
+                    "description": "Root CA Certificate present in Edge 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Microsoft Edge",
+                    "short_name": "Edge"
+                },
+                {
+                    "description": "Root CA Certificate present in Brave 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Brave Browser",
+                    "short_name": "Brave"
+                },
+                {
+                    "description": "Root CA Certificate present in Opera 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Opera Browser",
+                    "short_name": "Opera"
+                },
+                {
+                    "description": "Root CA Certificate present in Vivaldi 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Vivaldi Browser",
+                    "short_name": "Vivaldi"
+                },
+                {
+                    "description": "Root CA Certificate present in Silk 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Amazon Silk",
+                    "short_name": "Silk"
+                },
+                {
+                    "description": "Root CA Certificate present in Samsung 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Samsung Internet",
+                    "short_name": "Samsung"
+                },
+                {
+                    "description": "No Root CA Certificate in the Yandex Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Yandex",
+                    "short_name": "Yandex"
+                },
+                {
+                    "description": "Root CA Certificate present in Safari 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Apple Safari",
+                    "short_name": "Safari"
+                }
+            ]
+        },
+        {
+            "_metadata": {
+                "certificate_issuer": "Starfield Technologies, Inc.",
+                "certificate_issuer_ski": "bf5fb7d1cedd1f86f45b55acdcd710c20ea988e7",
+                "certificate_not_valid_after": "2034-06-29 17:39:16",
+                "certificate_sha1_fingerprint": "b'\\xad~\\x1c(\\xb0d\\xef\\x8f`\\x03@ \\x14\\xc3\\xd0\\xe37\\x0e\\xb5\\x8a'",
+                "last_updated": "2023-01-15T01:27:03"
+            },
+            "_query": {
+                "host_name": "www.trivialsec.com",
+                "peer_address": "18.65.3.122",
+                "port_number": 443,
+                "use_sni": true
+            },
+            "trust_stores": [
+                {
+                    "description": "Root CA Certificate present in Java SE openjdk 19.0.1 2022-10-18 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Java(TM) SE Runtime Environment",
+                    "short_name": "Java SE"
+                },
+                {
+                    "description": "Root CA Certificate present in CCADB 2023.01.15 Trust Store (Mozilla, Microsoft, and Apple)",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Common Certificate Authority Database (CCADB)",
+                    "short_name": "CCADB"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rustls (curated CCADB)",
+                    "short_name": "Rust"
+                },
+                {
+                    "description": "Root CA Certificate present in Google android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Google Trust Services",
+                    "short_name": "Google"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 2.2 android_2_2 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 2.2 (Froyo) 2010",
+                    "short_name": "Android 2.2"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 2.3 android_2_3 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 2.3 (Gingerbread) 2010",
+                    "short_name": "Android 2.3"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 3 android_3 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 3 (Honeycomb) 2011",
+                    "short_name": "Android 3"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 4 android_4 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 4 (Ice Cream Sandwich) 2011",
+                    "short_name": "Android 4"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 4.4 android_4_4 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 4.4 (KitKat) 2013",
+                    "short_name": "Android 4.4"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 7 android_7 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 7 (Nougat) 2016",
+                    "short_name": "Android 7"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 8 android_8 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 8 (Oreo) 2017",
+                    "short_name": "Android 8"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 9 android_9 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 9 (Pie) 2018",
+                    "short_name": "Android 9"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 10 android_10 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 10 (Quince Tart) 2019",
+                    "short_name": "Android 10"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 11 android_11 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 11 (Red Velvet Cake) 2020",
+                    "short_name": "Android 11"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 12 android_12 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 12 (Snow Cone) 2021",
+                    "short_name": "Android 12"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 13 android_13 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 13 (Tiramisu) 2022",
+                    "short_name": "Android 13"
+                },
+                {
+                    "description": "Root CA Certificate present in Android 14 android_14 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android 14 (Upside Down Cake) 2023",
+                    "short_name": "Android 14"
+                },
+                {
+                    "description": "Root CA Certificate present in certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Python module)",
+                    "short_name": "certifi"
+                },
+                {
+                    "description": "No Root CA Certificate in the Russian Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "MinTsifry Rossii",
+                    "short_name": "Russian"
+                },
+                {
+                    "description": "Root CA Certificate present in libcurl 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "libcurl",
+                    "short_name": "libcurl"
+                },
+                {
+                    "description": "Root CA Certificate present in Dart 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Dart Native",
+                    "short_name": "Dart"
+                },
+                {
+                    "description": "Root CA Certificate present in Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Microsoft Windows",
+                    "short_name": "Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Apple devices",
+                    "short_name": "Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Arch Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Arch)",
+                    "short_name": "Arch Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Fedora 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Fedora)",
+                    "short_name": "Fedora"
+                },
+                {
+                    "description": "Root CA Certificate present in Debian 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Debian)",
+                    "short_name": "Debian"
+                },
+                {
+                    "description": "Root CA Certificate present in Ubuntu 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Ubuntu)",
+                    "short_name": "Ubuntu"
+                },
+                {
+                    "description": "Root CA Certificate present in Alpine 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Apline)",
+                    "short_name": "Alpine"
+                },
+                {
+                    "description": "Root CA Certificate present in Centos 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (Centos)",
+                    "short_name": "Centos"
+                },
+                {
+                    "description": "Root CA Certificate present in RHEL 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Linux (RHEL)",
+                    "short_name": "RHEL"
+                },
+                {
+                    "description": "Root CA Certificate present in OpenBSD 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "OpenBSD",
+                    "short_name": "OpenBSD"
+                },
+                {
+                    "description": "Root CA Certificate present in FreeBSD 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "FreeBSD",
+                    "short_name": "FreeBSD"
+                },
+                {
+                    "description": "Root CA Certificate present in Android FOSS android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android (open source)",
+                    "short_name": "Android FOSS"
+                },
+                {
+                    "description": "Root CA Certificate present in Android latest android_latest Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Android (latest Google build)",
+                    "short_name": "Android latest"
+                },
+                {
+                    "description": "Root CA Certificate present in Roku 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Roku",
+                    "short_name": "Roku"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Windows",
+                    "short_name": "Python on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Linux",
+                    "short_name": "Python on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Python on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Python built-in https module on Apple",
+                    "short_name": "Python on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in urllib certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "urllib (Python module)",
+                    "short_name": "urllib"
+                },
+                {
+                    "description": "Root CA Certificate present in requests certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "requests (Python module)",
+                    "short_name": "requests"
+                },
+                {
+                    "description": "Root CA Certificate present in Django certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Django (Python module)",
+                    "short_name": "Django"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Windows",
+                    "short_name": "Go on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Linux",
+                    "short_name": "Go on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Go on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Go built-in https module on Apple",
+                    "short_name": "Go on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in gocertifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "gocertifi (Go module)",
+                    "short_name": "gocertifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Windows",
+                    "short_name": "Erlang on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Linux",
+                    "short_name": "Erlang on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Erlang on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Erlang built-in https module on Apple",
+                    "short_name": "Erlang on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in erlang-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Erlang library)",
+                    "short_name": "erlang-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Windows",
+                    "short_name": "Ruby on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Linux",
+                    "short_name": "Ruby on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Ruby on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Ruby built-in https module on Apple",
+                    "short_name": "Ruby on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in ruby-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Ruby gem)",
+                    "short_name": "ruby-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Windows",
+                    "short_name": "Node.js on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Linux",
+                    "short_name": "Node.js on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Node.js on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Node.js built-in https module on Apple",
+                    "short_name": "Node.js on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in node-certifi certifi==2022.12.07 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "certifi (Node.js package)",
+                    "short_name": "node-certifi"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Windows",
+                    "short_name": "Rust on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Linux",
+                    "short_name": "Rust on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Rust on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rust using Rustls crate on Apple",
+                    "short_name": "Rust on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Rustls crate 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Rustls (Rust crate) using webpki-roots",
+                    "short_name": "Rustls crate"
+                },
+                {
+                    "description": "Root CA Certificate present in Web PKI crate 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "webpki (Rust crate)",
+                    "short_name": "Web PKI crate"
+                },
+                {
+                    "description": "Root CA Certificate present in libcurl on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "libcurl on Windows",
+                    "short_name": "libcurl on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in libcurl on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "libcurl on Linux",
+                    "short_name": "libcurl on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in libcurl on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "libcurl on Apple",
+                    "short_name": "libcurl on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Windows",
+                    "short_name": "Elixir on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Linux",
+                    "short_name": "Elixir on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Elixir on Apple",
+                    "short_name": "Elixir on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in elixir-mint 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Mint (elixir package)",
+                    "short_name": "elixir-mint"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Windows 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Windows",
+                    "short_name": "Elixir Phoenix on Windows"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Linux 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Linux",
+                    "short_name": "Elixir Phoenix on Linux"
+                },
+                {
+                    "description": "Root CA Certificate present in Elixir Phoenix on Apple 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Phoenix (elixir package) on Apple",
+                    "short_name": "Elixir Phoenix on Apple"
+                },
+                {
+                    "description": "Root CA Certificate present in Firefox 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Mozilla Firefox",
+                    "short_name": "Firefox"
+                },
+                {
+                    "description": "Root CA Certificate present in Tor 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Tor Web Browser",
+                    "short_name": "Tor"
+                },
+                {
+                    "description": "Root CA Certificate present in Chromium 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Chromium Browser",
+                    "short_name": "Chromium"
+                },
+                {
+                    "description": "Root CA Certificate present in Chrome 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Google Chrome",
+                    "short_name": "Chrome"
+                },
+                {
+                    "description": "Root CA Certificate present in Edge 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Microsoft Edge",
+                    "short_name": "Edge"
+                },
+                {
+                    "description": "Root CA Certificate present in Brave 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Brave Browser",
+                    "short_name": "Brave"
+                },
+                {
+                    "description": "Root CA Certificate present in Opera 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Opera Browser",
+                    "short_name": "Opera"
+                },
+                {
+                    "description": "Root CA Certificate present in Vivaldi 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Vivaldi Browser",
+                    "short_name": "Vivaldi"
+                },
+                {
+                    "description": "Root CA Certificate present in Silk 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Amazon Silk",
+                    "short_name": "Silk"
+                },
+                {
+                    "description": "Root CA Certificate present in Samsung 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Samsung Internet",
+                    "short_name": "Samsung"
+                },
+                {
+                    "description": "No Root CA Certificate in the Yandex Trust Store",
+                    "exists": false,
+                    "is_trusted": false,
+                    "name": "Yandex",
+                    "short_name": "Yandex"
+                },
+                {
+                    "description": "Root CA Certificate present in Safari 2023.01.15 Trust Store",
+                    "exists": true,
+                    "expired": false,
+                    "is_trusted": true,
+                    "name": "Apple Safari",
+                    "short_name": "Safari"
+                }
+            ]
+        }
+    ],
+    "execution_date": "2023-01-15T01:27:03",
+    "execution_duration_seconds": 1.16584,
+    "generator": "tlstrust.cli 2.7.0",
+    "targets": [
+        "www.trivialsec.com:443"
+    ]
+}

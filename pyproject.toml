@@ -1,7 +1,65 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel",
-    "twine"
-]
+requires = ["setuptools>=61.0", "wheel", "twine"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "tlstrust"
+description = "Utilities that assist with trust relationship checking of X.509 Certificates for various end-user devices with disparate root trust stores."
+authors = [
+    {name = "Christopher Langton", email = "chris@trivialsec.com"},
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+]
+dependencies = [
+    "asn1crypto >= 1.4.0",
+    "certifi >= 2022.5.18.1",
+    "cryptography >= 37.0.2",
+    "decorator",
+    "idna >= 3.3",
+    "pycparser >= 2.21",
+    "Pygments >= 2.12.0",
+    "pyOpenSSL >= 22.0.0",
+    "rich >= 12.4.4",
+    "validators",
+    "retry",
+]
+dynamic = ["version", "readme"]
+
+[project.urls]
+"Homepage" = "https://www.trivialsec.com"
+"Source" = "https://gitlab.com/trivialsec/tlstrust"
+"Bug Tracker" = "https://gitlab.com/trivialsec/tlstrust/-/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "tlstrust.cli.__main__.__version__"}
+readme = {file = ["README.rst"]}
+
+[project.scripts]
+tlstrust = "tlstrust.cli.__main__:main"
+
+[project.license]
+file = "LICENSE"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "--cov --cov-report html --cov-report term-missing --cov-fail-under 95"
+
+[tool.pylint]
+max-line-length = 88
+disable = [
+    "C0114", # (missing-module-docstring)
+    "C0115", # (missing-class-docstring)
+    "C0116", # (missing-function-docstring)
+    "R0903", # (too-few-public-methods)
+    "R0913", # (too-many-arguments)
+    "W0105", # (pointless-string-statement)
+]

@@ -13,11 +13,12 @@ from rich.logging import RichHandler
 from rich.table import Table
 from rich import box
 from OpenSSL.crypto import FILETYPE_PEM, load_certificate
-from .. import __version__, TrustStore, trust_stores_from_chain
+from .. import TrustStore, trust_stores_from_chain
 from ..util import get_certificate_chain, get_cn_or_org
 from ..context import ALL_DISTINCT
 
 __module__ = "tlstrust.cli"
+__version__ = "2.7.0"
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 logger = logging.getLogger(__name__)
@@ -77,7 +78,7 @@ def output(store: TrustStore) -> Table:
     console.print()
 
 
-def cli():
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "targets",
@@ -235,4 +236,4 @@ def cli():
 
 
 if __name__ == "__main__":
-    cli()
+    main()
