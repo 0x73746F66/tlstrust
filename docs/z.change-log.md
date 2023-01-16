@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.7.1 Jan 16th 2023
+
+- Fixed readme image
+
 ## 2.7.0 Jan 15th 2023
 
 - Migrated to `pyproject.toml`

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Generated from: https://github.com/rustls/webpki-roots
+Generated from: https://curl.se/ca/cacert.pem
 """
 from os.path import basename
 from contextlib import closing

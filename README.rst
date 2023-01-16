@@ -358,4 +358,4 @@ checking, So ``tlstrust`` will alias ``context.PYTHON_DJANGO`` to
    :target: https://pypi.com/project/tlstrust
 .. |PyPI license| image:: https://img.shields.io/pypi/l/tlstrust.svg
    :target: https://pypi.python.org/pypi/tlstrust/
-.. |apple.com| image:: docs/images/tlstrust.jpg
+.. |apple.com| image:: https://gitlab.com/trivialsec/tlstrust/-/raw/main/docs/images/tlstrust.jpg
