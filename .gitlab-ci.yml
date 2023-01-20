@@ -9,7 +9,7 @@ stages:
 
 test:sast:
   tags:
-    - linode
+    - jager
   stage: tests
   script:
     - make semgrep-sast-ci
@@ -24,7 +24,7 @@ test:sast:
 
 test:lint:
   tags:
-    - linode
+    - jager
   stage: tests
   script:
     - make pylint-ci
@@ -39,7 +39,7 @@ test:lint:
 
 test:wheel:
   tags:
-    - linode
+    - jager
   stage: tests
   script:
     - make check
@@ -50,7 +50,7 @@ test:wheel:
 
 build:wheel:
   tags:
-    - linode
+    - jager
   stage: build
   script:
     - make build
@@ -61,7 +61,7 @@ build:wheel:
 
 publish:pypi:
   tags:
-    - linode
+    - jager
   stage: deploy
   script:
     - make publish
