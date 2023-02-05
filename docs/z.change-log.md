@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.7.2 Feb 5th 2023
+
+- updates to certs in stores
+
 ## 2.7.1 Jan 16th 2023
 
 - Fixed readme image

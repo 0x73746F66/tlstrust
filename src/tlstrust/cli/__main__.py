@@ -18,7 +18,7 @@ from ..util import get_certificate_chain, get_cn_or_org
 from ..context import ALL_DISTINCT
 
 __module__ = "tlstrust.cli"
-__version__ = "2.7.1"
+__version__ = "2.7.2"
 
 assert sys.version_info >= (3, 9), "Requires Python 3.9 or newer"
 logger = logging.getLogger(__name__)
