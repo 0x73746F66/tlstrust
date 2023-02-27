@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.7.3 Feb 27th 2023
+
+- default python version is now 3.9 (also tested for 3.10 and 3.11)
+- updates to certs in stores
+
 ## 2.7.2 Feb 5th 2023
 
 - updates to certs in stores
